@@ -1,0 +1,18 @@
+[package]
+
+name = "glm"
+version = "0.1.0"
+authors = [
+    "Che Kenan <chekenan@gmail.com>"
+]
+
+description = "GLSL mathematics for Rust."
+keywords = ["glm", "math", "opengl", "glsl"]
+license = "MIT"
+repository = "https://github.com/dche/glm-rs/"
+
+[dependencies]
+rand = "*"
+
+[dev-dependencies]
+quickcheck = "*"
