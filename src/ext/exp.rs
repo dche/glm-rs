@@ -44,8 +44,6 @@ pub fn pow3<N: BaseNum, T: GenNum<N>>(x: T) -> T {
 }
 
 /// Raise a number to an integer power.
-///
-/// Using this function is generally faster than using `pow`.
 #[inline(always)]
 pub fn powi<F: BaseFloat, T: GenFloat<F>>(x: T, y: i32) -> T {
     x.map(|f| -> F {

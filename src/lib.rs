@@ -68,7 +68,7 @@
 //! - Also because of lacking of function name overloading, following built-in
 //!   functions are added,
 //!
-//!   `mod_s`, `max_s`, `min_s`, `clamp_s`, `mix_s`, `mix_bool`, `step_s`,
+//!   `atan2`, `mod_s`, `max_s`, `min_s`, `clamp_s`, `mix_s`, `mix_bool`, `step_s`,
 //!   and `smoothstep_s`.
 //!
 //!   The suffix `_s` stands for *scalar*, which means this is a variant of
