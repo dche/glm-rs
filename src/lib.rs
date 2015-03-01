@@ -119,6 +119,8 @@ pub use num::{
     int, uint, float, double
 };
 
+pub use tpe::GenNum;
+
 pub use vec::tpe::{
     GenVec, GenNumVec, GenFloatVec, GenBVec,
 };
