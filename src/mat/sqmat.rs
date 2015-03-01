@@ -167,7 +167,7 @@ impl<T: BaseFloat> GenSquareMat<T, Vector4<T>> for Matrix4<T> {
         } else {
             let inv_det = det.recip();
             let tr = self.transpose();
-            let cf = |&: i, j| -> T {
+            let cf = |i, j| -> T {
                 let mat = match i {
                     0 => Matrix3::new(
                         tr.c1.truncate(j),
