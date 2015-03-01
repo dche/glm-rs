@@ -23,6 +23,7 @@
 
 use std::cmp;
 use std::num::{ Int, Float, SignedInt, NumCast, cast };
+use std::{ f32, f64 };
 use std::ops::{ Add, Sub, Mul, Div, Rem, Neg };
 use rand::Rand;
 
@@ -143,12 +144,12 @@ pub trait BaseInt: Int + BaseNum {}
 ///
 /// # Note
 ///
-/// Comparing float numbers are tricky. This trait is mainly for convenience.
+/// Comparing float numbers is tricky. This trait is mainly for convenience.
 /// See [this article](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/)
 /// for the details of comparing float numbers.
 pub trait ApproxEq {
 
-    type BaseType: Float;
+    type BaseType: BaseFloat;
 
     /// Returns `true` if the difference between `x` and `y` is less than
     /// `max_diff`.
@@ -185,7 +186,7 @@ pub trait ApproxEq {
     /// assert_eq!(1f32.is_approx_eq(&sum), true);
     /// ```
     fn is_approx_eq(&self, rhs: &Self) -> bool {
-        self.is_close_to(rhs, <Self::BaseType as Float>::epsilon())
+        self.is_close_to(rhs, <Self::BaseType as BaseFloat>::epsilon())
     }
 }
 
@@ -232,7 +233,9 @@ macro_rules! assert_close_to(
 
 
 /// Trait for primitive float number type.
-pub trait BaseFloat: Float + BaseNum + Signed + ApproxEq<BaseType = Self> {}
+pub trait BaseFloat: Float + BaseNum + Signed + ApproxEq<BaseType = Self> {
+    fn epsilon() -> Self;
+}
 
 macro_rules! impl_basenum(
     ($({ $t: ident, $y: expr, $l: expr }), +) => {
@@ -323,7 +326,11 @@ macro_rules! impl_flt(
                 Float::max(self, other)
             }
         }
-        impl BaseFloat for $t {}
+        impl BaseFloat for $t {
+            fn epsilon() -> $t {
+                $t::EPSILON
+            }
+        }
     }
 );
 
