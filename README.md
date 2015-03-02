@@ -1,6 +1,8 @@
 
 # GLSL Mathematics for Rust.
 
+[![Build Status](https://travis-ci.org/dche/glm-rs.png?branch=master)](https://travis-ci.org/dche/glm-rs)
+
 Another Rust mathematics library for graphics applications.
 
 Inspired by the great **[GLM](glm.g-truc.net)** library for C++, `glm-rs`
