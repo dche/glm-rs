@@ -96,14 +96,12 @@ impl_IntIntRel_for_uint! {
 #[inline]
 #[allow(non_snake_case)]
 pub fn uaddCarry<T: GenUType>(x: T, y: T) -> (T, T) {
-    let sum = x + y;
-    let carry = x.zip(y, |i, j| -> u32 {
+    x.map2(y, |i, j| -> (u32, u32) {
         match i.checked_add(j) {
-            Some(_) => 0,
-            _       => 1,
+            Some(s) => (s, 0),
+            None    => (i - (0xFFFFFFFF - j + 1), 1),
         }
-    });
-    (sum, carry)
+    })
 }
 
 /// Subtracts the 32-bit unsigned integer `y` from `x`, returning the
@@ -126,21 +124,13 @@ pub fn uaddCarry<T: GenUType>(x: T, y: T) -> (T, T) {
 #[inline]
 #[allow(non_snake_case)]
 pub fn usubBorrow<T: GenUType>(x: T, y: T) -> (T, T) {
-    let diff = x.zip(y, |i, j| -> u32 {
+    x.map2(y, |i, j| -> (u32, u32) {
         if i >= j {
-            i - j
+            (i - j, 0)
         } else {
-            0xFFFFFFFF - j + i
+            (0xFFFFFFFF - j + i, 1)
         }
-    });
-    let borrow = x.zip(y, |i, j| -> u32 {
-        if i >= j {
-            0
-        } else {
-            1
-        }
-    });
-    (diff, borrow)
+    })
 }
 
 /// Multiplies 32-bit unsigned integers `x` and `y`, producing a 64-bit
