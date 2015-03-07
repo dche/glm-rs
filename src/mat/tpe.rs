@@ -29,8 +29,7 @@ use std::ops::{ Add, Sub, Neg, Mul, Div, Rem, Index, IndexMut };
 pub trait GenMat
 <
 T: BaseFloat,
-C: GenFloatVec<T>,
-R: GenFloatVec<T>
+C: GenFloatVec<T>
 >
 : Sized
 + Zero
@@ -44,8 +43,11 @@ R: GenFloatVec<T>
 + IndexMut<usize>
 + ApproxEq<BaseType = T>
 {
+    /// Type of row vectors.
+    type R: GenFloatVec<T>;
 
-    type Transpose: GenMat<T, R, C>;
+    /// Type of transpose matrix.
+    type Transpose: GenMat<T, Self::R, R = C>;
 
     /// Returns the transpose matrix.
     ///
@@ -80,7 +82,7 @@ pub trait GenSquareMat
 T: BaseFloat,
 C: GenFloatVec<T>,
 >
-: GenMat<T, C, C, Transpose = Self>
+: GenMat<T, C, R = C, Transpose = Self>
 + One
 {
     /// Returns the determinant of a square matrix.

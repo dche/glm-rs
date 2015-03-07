@@ -428,7 +428,8 @@ macro_rules! impl_matrix {
                     $(self.$field.is_zero()) && +
                 }
             }
-            impl<T: BaseFloat> GenMat<T, $ct<T>, $rt<T>> for $t<T> {
+            impl<T: BaseFloat> GenMat<T, $ct<T>> for $t<T> {
+                type R = $rt<T>;
                 type Transpose = $tr<T>;
                 #[inline]
                 fn transpose(&self) -> $tr<T> {

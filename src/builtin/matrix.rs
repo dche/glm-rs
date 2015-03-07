@@ -50,8 +50,7 @@ use vec::tpe::{ GenVec, GenFloatVec };
 pub fn matrixCompMult<
 T: BaseFloat,
 C: GenFloatVec<T>,
-R: GenFloatVec<T>,
-M: GenMat<T, C, R>
+M: GenMat<T, C>
 >(x: &M, y: &M) -> M {
     x.mul_c(y)
 }
@@ -78,7 +77,7 @@ pub fn outerProduct<
 T: BaseFloat,
 C: GenFloatVec<T>,
 R: GenFloatVec<T>,
-M: GenMat<T, C, R>
+M: GenMat<T, C, R = R>
 >(c: C, r: R) -> M {
     let mut z = <M as Zero>::zero();
     let dim = <R as GenVec<T>>::dim();
@@ -95,8 +94,7 @@ M: GenMat<T, C, R>
 pub fn transpose<
 T: BaseFloat,
 C: GenFloatVec<T>,
-R: GenFloatVec<T>,
-M: GenMat<T, C, R>
+M: GenMat<T, C>
 >(m: &M) -> M::Transpose {
     m.transpose()
 }
