@@ -105,6 +105,7 @@ macro_rules! def_genvec(
         impl<T: Primitive> Rand for $t<T> {
             #[inline]
             fn rand<R: Rng>(rng: &mut R) -> $t<T> {
+                // XXX: should generate vectors at unit sphere/circle.
                 $t {$($field: rng.gen()),+}
             }
         }
@@ -381,7 +382,58 @@ def_genvec! { Vector2, 2, x, y }
 def_genvec! { Vector3, 3, x, y, z }
 def_genvec! { Vector4, 4, x, y, z, w }
 
+impl<T: Primitive> Vector2<T> {
+    /// Extends _self_ to a `Vector3` by appending `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use glm::*;
+    ///
+    /// let v2 = vec2(1., 2.);
+    /// let v3 = vec3(1., 2., 3.);
+    /// assert_eq!(v2.extend(3.), v3);
+    /// ```
+    #[inline]
+    pub fn extend(&self, z: T) -> Vector3<T> {
+        Vector3 { x: self.x, y: self.y, z: z }
+    }
+}
+
 impl<T: Primitive> Vector3<T> {
+    /// Extends _self_ to a `Vector4` by appending `w`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use glm::*;
+    ///
+    /// let v3 = vec3(1., 2., 3.);
+    /// let v4 = vec4(1., 2., 3., 4.);
+    /// assert_eq!(v3.extend(4.), v4);
+    /// ```
+    #[inline]
+    pub fn extend(&self, w: T) -> Vector4<T> {
+        Vector4 { x: self.x, y: self.y, z: self.z, w: w }
+    }
+
+    /// Truncates _self_ to a `Vector2` by remove the `i`<sub>th</sub> element.
+    ///
+    /// Parameter `i` is `0` based index.
+    ///
+    /// # Panic
+    ///
+    /// It is a panic if i is larger than `2`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use glm::*;
+    ///
+    /// let v3 = vec3(1., 2., 3.);
+    /// let v2 = vec2(1., 3.);
+    /// assert_eq!(v3.truncate(1), v2);
+    /// ```
     #[inline]
     pub fn truncate(&self, i: usize) -> Vector2<T> {
         match i {
@@ -394,6 +446,13 @@ impl<T: Primitive> Vector3<T> {
 }
 
 impl<T: Primitive> Vector4<T> {
+    /// Truncates _self_ to a `Vector3` by remove the `i`<sub>th</sub> element.
+    ///
+    /// Parameter `i` is `0` based index.
+    ///
+    /// # Panic
+    ///
+    /// It is a panic if i is larger than `3`.
     #[inline]
     pub fn truncate(&self, i: usize) -> Vector3<T> {
         match i {

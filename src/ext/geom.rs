@@ -116,7 +116,8 @@ pub fn is_perpendicular<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> bool {
 ///
 /// # Note
 ///
-/// `x` and `y` need be normalized to get meaningful result.
+/// - `x` and `y` need be normalized to get meaningful result.
+/// - If either `x` or `y` is zero, the angle is undefined, and `0` is returned.
 ///
 /// # Example
 ///

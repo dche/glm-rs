@@ -544,6 +544,32 @@ def_alias! {
     { DMat4,   Matrix4,   f64 }
 }
 
+impl<T: BaseFloat> Matrix2<T> {
+    /// Extends _self_ to a `Matrix2x3` by appending the column vector `z`.
+    ///
+    /// # Example
+    ///
+    /// ```rust
+    /// use glm::*;
+    ///
+    /// let m2 = mat2(1., 2., 3., 4.);
+    /// let m2x3 = mat2x3(1., 2., 3., 4., 0., 0.);
+    /// assert_eq!(m2.extend(vec2(0., 0.)), m2x3);
+    /// ```
+    #[inline]
+    pub fn extend(&self, z: Vector2<T>) -> Matrix2x3<T> {
+        Matrix2x3::new(self[0], self[1], z)
+    }
+}
+
+impl<T: BaseFloat> Matrix3<T> {
+    /// Extends _self_ to a `Matrix3x4` by appending the column vector `w`.
+    #[inline]
+    pub fn extend(&self, w: Vector3<T>) -> Matrix3x4<T> {
+        Matrix3x4::new(self[0], self[1], self[2], w)
+    }
+}
+
 #[cfg(test)]
 mod test {
 
