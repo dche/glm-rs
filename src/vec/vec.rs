@@ -32,8 +32,7 @@ use std::ops::{
     Index, IndexMut,
 };
 use rand::{ Rand, Rng };
-#[cfg(test)]
-use quickcheck::*;
+use quickcheck::{ Arbitrary, Gen };
 
 // copied from `cgmath-rs/src/vector.rs`.
 macro_rules! fold(
@@ -105,14 +104,13 @@ macro_rules! def_genvec(
         impl<T: Primitive> Rand for $t<T> {
             #[inline]
             fn rand<R: Rng>(rng: &mut R) -> $t<T> {
-                // XXX: should generate vectors at unit sphere/circle.
                 $t {$($field: rng.gen()),+}
             }
         }
-        #[cfg(test)]
         impl<T: Primitive + Arbitrary> Arbitrary for $t<T> {
             fn arbitrary<G: Gen>(g: &mut G) -> $t<T> {
-                $t {$($field: <T as Arbitrary>::arbitrary(g)),+}
+                // do not use `g.size()`.
+                g.gen()
             }
         }
         impl Eq for $t<bool> {}
