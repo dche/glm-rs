@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::{ BaseFloat, Zero };
-use vec::tpe::GenFloatVec;
+use vec::traits::GenFloatVec;
 use builtin as bif;
 
 /// Returns the squre of the length of vector `x`.

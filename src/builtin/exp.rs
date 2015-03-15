@@ -23,7 +23,7 @@
 // The GLSL Specification, ch 8.2, Exponential Functions.
 
 use num::BaseFloat;
-use tpe::GenFloat;
+use traits::GenFloat;
 use std::num::Float;
 
 /// Returns `x` raised to the `y` power, i.e., *x<sup>y</sup>*.

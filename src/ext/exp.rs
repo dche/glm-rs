@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::{ BaseNum, BaseFloat };
-use tpe::{ GenNum, GenFloat };
+use traits::{ GenNum, GenFloat };
 use std::num::Float;
 
 /// Returns the cubic root.

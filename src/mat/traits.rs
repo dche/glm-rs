@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::{ BaseFloat, One, Zero, ApproxEq };
-use vec::tpe::GenFloatVec;
+use vec::traits::GenFloatVec;
 use std::ops::{ Add, Sub, Neg, Mul, Div, Rem, Index, IndexMut };
 
 /// Generic Matrix type.

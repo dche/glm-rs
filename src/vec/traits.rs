@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::{ BaseNum, BaseFloat, Primitive };
-use tpe::{ GenBType, GenFloat, GenNum };
+use traits::{ GenBType, GenFloat, GenNum };
 use std::ops::{ Index, IndexMut };
 
 /// Generic vector type.

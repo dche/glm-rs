@@ -24,7 +24,7 @@
 // The GLSL Specification, ch 8.8, Integer Functions.
 
 use num::{ BaseInt, Zero };
-use tpe::{ GenNum, GenInt, GenIType, GenUType };
+use traits::{ GenNum, GenInt, GenIType, GenUType };
 use vec::vec::{ UVec2, UVec3, UVec4, IVec2, IVec3, IVec4 };
 use std::mem;
 use std::num::{ Int, cast };

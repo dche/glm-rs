@@ -24,8 +24,8 @@
 // The GLSL Specification, ch 8.3, Common Functions.
 
 use num::*;
-use tpe::*;
-use vec::tpe::{ GenVec, GenFloatVec, GenNumVec };
+use traits::*;
+use vec::traits::{ GenVec, GenFloatVec, GenNumVec };
 use vec::vec::{ Vector2, Vector3, Vector4 };
 use std::mem;
 use std::num::{ cast, Float};

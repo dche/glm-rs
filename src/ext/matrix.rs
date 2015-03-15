@@ -22,8 +22,8 @@
 // THE SOFTWARE.
 
 use num::{ BaseFloat, Zero, ApproxEq };
-use vec::tpe::{ GenVec, GenFloatVec };
-use mat::tpe::GenSquareMat;
+use vec::traits::{ GenVec, GenFloatVec };
+use mat::traits::GenSquareMat;
 
 /// Returns the trace of a square matrix `m`.
 ///

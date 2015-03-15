@@ -27,7 +27,7 @@
 // - `ftransform` is not implemented.
 
 use num::{ BaseFloat, One, Zero };
-use vec::tpe::GenFloatVec;
+use vec::traits::GenFloatVec;
 use vec::vec::Vector3;
 use std::num::Float;
 

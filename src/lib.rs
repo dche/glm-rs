@@ -119,9 +119,9 @@ pub use num::{
     int, uint, float, double
 };
 
-pub use tpe::GenNum;
+pub use traits::GenNum;
 
-pub use vec::tpe::{
+pub use vec::traits::{
     GenVec, GenNumVec, GenFloatVec, GenBVec,
 };
 
@@ -138,7 +138,7 @@ pub use vec::vec::{
 //     Swizzle2, Swizzle3, Swizzle4,
 // };
 
-pub use mat::tpe::{ GenMat, GenSquareMat };
+pub use mat::traits::{ GenMat, GenSquareMat };
 
 pub use mat::mat::{
     Matrix2, Matrix3, Matrix4,
@@ -158,13 +158,13 @@ pub use mat::ctor::{
 
 #[macro_use]
 mod num;
-mod tpe;
+mod traits;
 mod vec {
-    pub mod tpe;
+    pub mod traits;
     pub mod vec;
 }
 mod mat {
-    pub mod tpe;
+    pub mod traits;
     pub mod mat;
     pub mod ctor;
     pub mod sqmat;

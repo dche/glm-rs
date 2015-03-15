@@ -23,7 +23,7 @@
 
 use num::{ BaseFloat, One, Zero };
 use vec::vec::{ Vector2, Vector3, Vector4 };
-use super::tpe::{ GenMat, GenSquareMat };
+use super::traits::{ GenMat, GenSquareMat };
 use super::mat::*;
 use std::num::Float;
 
@@ -213,7 +213,7 @@ impl<T: BaseFloat> GenSquareMat<T, Vector4<T>> for Matrix4<T> {
 mod test {
 
     use num::*;
-    use mat::tpe::GenSquareMat;
+    use mat::traits::GenSquareMat;
     use mat::mat::*;
     use mat::ctor::*;
 

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::BaseFloat;
-use tpe::GenFloat;
+use traits::GenFloat;
 use std::num::Float;
 
 /// Simultaneously computes the sine and cosine of `x`, returns

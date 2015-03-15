@@ -22,8 +22,8 @@
 // THE SOFTWARE.
 
 use num::*;
-use tpe::*;
-use super::tpe::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
+use traits::*;
+use super::traits::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
 use std::cmp::Eq;
 use std::mem;
 use std::num::Float;

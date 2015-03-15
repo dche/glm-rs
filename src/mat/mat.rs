@@ -23,7 +23,7 @@
 
 use num::{ BaseFloat, Zero, ApproxEq };
 use vec::vec::{ Vector2, Vector3, Vector4 };
-use super::tpe::GenMat;
+use super::traits::GenMat;
 use std::mem;
 use std::ops::{ Add, Mul, Sub, Neg, Div, Rem, Index, IndexMut };
 use rand::{ Rand, Rng };
