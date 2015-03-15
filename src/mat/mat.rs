@@ -587,7 +587,7 @@ mod test {
     }
 
     #[test]
-    #[should_fail]
+    #[should_panic]
     fn test_index_bound_check() {
         let m2 = mat2(1., 2., 3., 4.);
         m2[2];
