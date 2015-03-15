@@ -21,12 +21,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseFloat, Zero, ApproxEq };
+use basenum::{ BaseFloat, ApproxEq };
 use vec::vec::{ Vector2, Vector3, Vector4 };
-use super::tpe::GenMat;
+use super::traits::GenMat;
 use std::mem;
 use std::ops::{ Add, Mul, Sub, Neg, Div, Rem, Index, IndexMut };
 use rand::{ Rand, Rng };
+use num::Zero;
 #[cfg(test)]
 use quickcheck::*;
 
@@ -587,7 +588,7 @@ mod test {
     }
 
     #[test]
-    #[should_fail]
+    #[should_panic]
     fn test_index_bound_check() {
         let m2 = mat2(1., 2., 3., 4.);
         m2[2];

@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use num::BaseFloat;
-use tpe::GenFloat;
+use traits::GenFloat;
 use std::f32::consts as c32;
 use std::f64::consts as c64;
 

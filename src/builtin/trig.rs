@@ -23,8 +23,8 @@
 
 // The GLSL Specification, ch 8.1, Angle and Trigonometry Functions.
 
-use num::BaseFloat;
-use tpe::GenFloat;
+use basenum::BaseFloat;
+use traits::GenFloat;
 use std::num::Float;
 
 /// Converts `degrees` to radians, i.e., `π/180 * degrees`.

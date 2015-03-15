@@ -23,13 +23,14 @@
 
 // The GLSL Specification, ch 8.3, Common Functions.
 
-use num::*;
-use tpe::*;
-use vec::tpe::{ GenVec, GenFloatVec, GenNumVec };
+use basenum::*;
+use traits::*;
+use vec::traits::{ GenVec, GenFloatVec, GenNumVec };
 use vec::vec::{ Vector2, Vector3, Vector4 };
 use std::mem;
 use std::num::{ cast, Float};
 use std::ops::Rem;
+use num::{ One, Zero };
 
 pub trait FloatIntRel<E: BaseFloat, I: BaseInt, GI: GenInt<I>>: GenFloat<E> {
     // float -> int

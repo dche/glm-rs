@@ -23,8 +23,8 @@
 
 // The GLSL Specification, ch 8.7, Vector Relational Functions
 
-use num::Primitive;
-use vec::tpe::{ GenVec, GenBVec };
+use basenum::Primitive;
+use vec::traits::{ GenVec, GenBVec };
 use vec::vec::{ Vector2, Vector3, Vector4 };
 use std::cmp::{ PartialEq, PartialOrd };
 

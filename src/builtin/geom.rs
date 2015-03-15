@@ -26,10 +26,11 @@
 // NOTE:
 // - `ftransform` is not implemented.
 
-use num::{ BaseFloat, One, Zero };
-use vec::tpe::GenFloatVec;
+use basenum::BaseFloat;
+use vec::traits::GenFloatVec;
 use vec::vec::Vector3;
 use std::num::Float;
+use num::{ One, Zero };
 
 /// Returns the dot product of `x` and `y`, i.e.,
 /// `x[0] * y[0] + x[1] * y[1] + ...`.

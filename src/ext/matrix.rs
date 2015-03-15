@@ -21,20 +21,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseFloat, Zero, ApproxEq };
-use vec::tpe::{ GenVec, GenFloatVec };
-use mat::tpe::GenSquareMat;
+use basenum::{ BaseFloat, ApproxEq };
+use vec::traits::{ GenVec, GenFloatVec };
+use mat::traits::GenSquareMat;
+use num::Zero;
 
 /// Returns the trace of a square matrix `m`.
 ///
 /// # Example
 ///
 /// ```
-/// use glm::{ One, Mat3, mat2 };
+/// use glm::mat2;
 /// use glm::ext::trace;
 ///
-/// let m3 = <Mat3 as One>::one();
-/// assert_eq!(trace(&m3), 3.);
 /// let m2 = mat2(1., 3., 2., 4.);
 /// assert_eq!(trace(&m2), 5.);
 /// ```

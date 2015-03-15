@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::*;
-use tpe::*;
-use super::tpe::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
+use basenum::*;
+use traits::*;
+use super::traits::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
 use std::cmp::Eq;
 use std::mem;
 use std::num::Float;
@@ -32,6 +32,7 @@ use std::ops::{
     Index, IndexMut,
 };
 use rand::{ Rand, Rng };
+use num::{ One, Zero };
 #[cfg(test)]
 use quickcheck::*;
 
@@ -510,8 +511,8 @@ def_alias! {
 #[cfg(test)]
 mod test {
 
-    use num::One;
     use super::*;
+    use num::One;
     use quickcheck::*;
 
     #[test]

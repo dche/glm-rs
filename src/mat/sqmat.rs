@@ -21,11 +21,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseFloat, One, Zero };
+use basenum::BaseFloat;
 use vec::vec::{ Vector2, Vector3, Vector4 };
-use super::tpe::{ GenMat, GenSquareMat };
+use super::traits::{ GenMat, GenSquareMat };
 use super::mat::*;
 use std::num::Float;
+use num::{ One, Zero };
 
 impl<T: BaseFloat> One for Matrix2<T> {
     #[inline]
@@ -212,10 +213,11 @@ impl<T: BaseFloat> GenSquareMat<T, Vector4<T>> for Matrix4<T> {
 #[cfg(test)]
 mod test {
 
-    use num::*;
-    use mat::tpe::GenSquareMat;
+    use basenum::*;
+    use mat::traits::GenSquareMat;
     use mat::mat::*;
     use mat::ctor::*;
+    use num::{ One, Zero };
 
     #[test]
     fn test_determinant() {

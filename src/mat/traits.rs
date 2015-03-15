@@ -21,9 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseFloat, One, Zero, ApproxEq };
-use vec::tpe::GenFloatVec;
+use basenum::{ BaseFloat, ApproxEq };
+use vec::traits::GenFloatVec;
 use std::ops::{ Add, Sub, Neg, Mul, Div, Rem, Index, IndexMut };
+use num::{ One, Zero };
 
 /// Generic Matrix type.
 pub trait GenMat

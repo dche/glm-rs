@@ -21,9 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseFloat, Zero };
-use vec::tpe::GenFloatVec;
+use basenum::BaseFloat;
+use vec::traits::GenFloatVec;
 use builtin as bif;
+use num::Zero;
 
 /// Returns the squre of the length of vector `x`.
 ///
