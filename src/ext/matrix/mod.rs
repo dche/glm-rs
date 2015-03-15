@@ -26,6 +26,10 @@ use vec::traits::{ GenVec, GenFloatVec };
 use mat::traits::GenSquareMat;
 use num::Zero;
 
+pub use self::transform::*;
+
+mod transform;
+
 /// Returns the trace of a square matrix `m`.
 ///
 /// # Example
