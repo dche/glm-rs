@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::BaseFloat;
+use basenum::BaseFloat;
 use traits::GenFloat;
 use std::num::Float;
 

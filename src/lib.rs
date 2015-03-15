@@ -59,7 +59,7 @@
 //!
 //!   ~~~ignore
 //!   let v2 = vec2(1., 2.);
-//!    // compile error: this function takes 3 parameters but 2 parameters were supplied [E0061]
+//!   // compile error: this function takes 3 parameters but 2 parameters were supplied [E0061]
 //!   let v3 = vec3(v2, 3.);
 //!   ~~~
 //!   This will be fixed in future version by introducing functions like
@@ -108,14 +108,15 @@
 //!
 
 extern crate rand;
+extern crate num;
 #[cfg(test)]
 extern crate quickcheck;
 
 pub use builtin::*;
 
-pub use num::{
-    Primitive, BaseNum,
-    One, Zero, Signed, ApproxEq, is_approx_eq, is_close_to,
+pub use basenum::{
+    Primitive, BaseNum, Signed,
+    ApproxEq, is_approx_eq, is_close_to,
     int, uint, float, double
 };
 
@@ -157,7 +158,7 @@ pub use mat::ctor::{
 };
 
 #[macro_use]
-mod num;
+mod basenum;
 mod traits;
 mod vec {
     pub mod traits;

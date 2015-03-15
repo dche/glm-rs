@@ -21,10 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseNum, BaseInt, BaseFloat, ApproxEq, One, Zero, Signed };
+use basenum::{ BaseNum, BaseInt, BaseFloat, ApproxEq, Signed };
 use std::num::Float;
 use std::ops::{ Add, Mul, Sub, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr };
 use rand::Rand;
+use num::{ One, Zero };
 
 // TODO: use associated types instead.
 

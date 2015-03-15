@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::{ BaseNum, BaseFloat, Primitive };
+use basenum::{ BaseNum, BaseFloat, Primitive };
 use traits::{ GenBType, GenFloat, GenNum };
 use std::ops::{ Index, IndexMut };
 

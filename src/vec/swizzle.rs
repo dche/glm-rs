@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use num::Primitive;
+use basenum::Primitive;
 use super::vec::{ Vector2, Vector3, Vector4 };
 
 macro_rules! def_swizzle2 {
@@ -149,7 +149,7 @@ mod test {
     #[test]
     fn test_swizzle3() {
         let v = vec3(0., 1., 2.);
-        
+
     }
 
     #[test]

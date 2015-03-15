@@ -23,7 +23,7 @@
 
 // The GLSL Specification, ch 8.1, Angle and Trigonometry Functions.
 
-use num::BaseFloat;
+use basenum::BaseFloat;
 use traits::GenFloat;
 use std::num::Float;
 

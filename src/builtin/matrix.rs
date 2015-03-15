@@ -23,9 +23,10 @@
 
 // The GLSL Specification, ch 8.6, Matrix Functions.
 
-use num::{ BaseFloat, Zero };
+use basenum::BaseFloat;
 use mat::traits::{ GenMat, GenSquareMat };
 use vec::traits::{ GenVec, GenFloatVec };
+use num::Zero;
 
 /// Multiply matrix `x` by matrix `y` component-wise, i.e., `result[i][j]` is
 /// the scalar product of `x[i][j]` and `y[i][j]`.

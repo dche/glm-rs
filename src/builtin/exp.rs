@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 // The GLSL Specification, ch 8.2, Exponential Functions.
 
-use num::BaseFloat;
+use basenum::BaseFloat;
 use traits::GenFloat;
 use std::num::Float;
 

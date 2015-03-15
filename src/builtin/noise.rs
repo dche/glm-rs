@@ -35,12 +35,12 @@
 
 #![allow(non_snake_case)]
 
-use num::{ One, Zero };
 use traits::GenType;
 use vec::vec::{ Vec2, Vec3, Vec4, vec2, vec3, vec4 };
 use super::common::*;
 use super::geom::dot;
 use super::vecrel::lessThan;
+use num::{ One, Zero };
 
 #[allow(non_snake_case)]
 pub fn grad4(j: f32, ip: Vec4) -> Vec4 {

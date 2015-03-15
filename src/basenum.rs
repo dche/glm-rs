@@ -24,8 +24,9 @@
 use std::cmp;
 use std::num::{ Int, Float, SignedInt, NumCast, cast };
 use std::{ f32, f64 };
-use std::ops::{ Add, Sub, Mul, Div, Rem, Neg };
+use std::ops::{ Sub, Div, Rem, Neg };
 use rand::Rand;
+use num::{ One, Zero };
 
 /// Marker trait for primitive types.
 ///
@@ -40,46 +41,6 @@ pub trait Primitive
 // TODO: must have our own `NumCast` to convert between numbers and `bool`.
 
 impl Primitive for bool {}
-
-/// Additive group.
-pub trait Zero: Add<Self, Output = Self> {
-
-    /// Additive identity.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// let ling = <glm::IVec3 as glm::Zero>::zero();
-    /// let v3 = glm::ivec3(1, 2, 3);
-    /// assert_eq!(v3 + ling, v3);
-    /// ```
-    fn zero() -> Self;
-
-    /// Returns `true` if the receiver equals to `zero()`.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use glm::Zero;  // bring the method to the scope.
-    /// assert!(<f32 as glm::Zero>::zero().is_zero());
-    /// ```
-    fn is_zero(&self) -> bool;
-}
-
-/// Multiplicative group.
-pub trait One: Mul<Self, Output = Self> {
-
-    /// The multiplication identity.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// let yi = <glm::DVec3 as glm::One>::one();
-    /// let dv = glm::dvec3(0., 3.14, 6.28);
-    /// assert_eq!(dv * yi, dv);
-    /// ```
-    fn one() -> Self;
-}
 
 /// Trait for primitive number type.
 pub trait BaseNum
@@ -237,31 +198,6 @@ pub trait BaseFloat: Float + BaseNum + Signed + ApproxEq<BaseType = Self> {
     fn epsilon() -> Self;
 }
 
-macro_rules! impl_basenum(
-    ($({ $t: ident, $y: expr, $l: expr }), +) => {
-        $(
-            impl Primitive for $t {}
-            impl One for $t {
-                #[inline(always)]
-                fn one() -> $t { $y }
-            }
-            impl Zero for $t {
-                #[inline(always)]
-                fn zero() -> $t { $l }
-                #[inline(always)]
-                fn is_zero(&self) -> bool { *self == $l }
-            }
-        )+
-    }
-);
-
-impl_basenum! {
-    { i32, 1i32, 0i32 },
-    { u32, 1u32, 0u32 },
-    { f32, 1f32, 0f32 },
-    { f64, 1f64, 0f64 }
-}
-
 impl Signed for i32 {
     #[inline(always)]
     fn abs(&self) -> i32 {
@@ -276,6 +212,7 @@ impl Signed for i32 {
 macro_rules! impl_int(
     ($($t: ty), +) => {
         $(
+            impl Primitive for $t {}
             impl BaseNum for $t {
                 #[inline(always)]
                 fn min(self, other: $t) -> $t {
@@ -294,6 +231,7 @@ impl_int! { i32, u32 }
 
 macro_rules! impl_flt(
     ($t: ident) => {
+        impl Primitive for $t {}
         impl Signed for $t {
             #[inline(always)]
             fn abs(&self) -> $t {
