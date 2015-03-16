@@ -8,14 +8,16 @@ use vec::vec::Vector3;
 ///
 /// # Example
 ///
-/// ```ignore
+/// ```rust
 /// # extern crate num;
 /// # extern crate glm;
+/// # fn main() {
 /// use glm::*;
 /// use glm::ext::*;
 ///
-/// let matrix = glm::ext::translate(&num::one(), vec3(1., 2., 3.));
+/// let matrix = translate(&num::one(), vec3(1., 2., 3.));
 /// assert_eq!(matrix[3], vec4(1., 2., 3., 1.));
+/// # }
 /// ```
 #[inline]
 pub fn translate<P>(
