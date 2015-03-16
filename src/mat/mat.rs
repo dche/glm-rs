@@ -29,7 +29,7 @@ use std::ops::{ Add, Mul, Sub, Neg, Div, Rem, Index, IndexMut };
 use rand::{ Rand, Rng };
 use num::Zero;
 #[cfg(test)]
-use quickcheck::*;
+use quickcheck::{ Arbitrary, Gen };
 
 macro_rules! mul_v_unrolled {
     ($m: ident, $v: ident, Vector2, Vector2) => {

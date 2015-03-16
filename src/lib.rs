@@ -109,7 +109,6 @@
 
 extern crate rand;
 extern crate num;
-#[cfg(test)]
 extern crate quickcheck;
 
 pub use builtin::*;
