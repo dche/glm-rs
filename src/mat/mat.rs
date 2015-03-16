@@ -27,6 +27,7 @@ use super::tpe::GenMat;
 use std::mem;
 use std::ops::{ Add, Mul, Sub, Neg, Div, Rem, Index, IndexMut };
 use rand::{ Rand, Rng };
+#[cfg(test)]
 use quickcheck::{ Arbitrary, Gen };
 
 macro_rules! mul_v_unrolled {
@@ -319,6 +320,7 @@ macro_rules! impl_matrix {
                     $t {$($field: rng.gen()),+}
                 }
             }
+            #[cfg(test)]
             impl<T: BaseFloat + Arbitrary> Arbitrary for $t<T> {
                 #[inline]
                 fn arbitrary<G: Gen>(g: &mut G) -> $t<T> {
