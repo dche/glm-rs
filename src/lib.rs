@@ -45,6 +45,7 @@
 //! - There is no vector swizzle operators. For example, you can't do this,
 //!
 //!   ~~~ignore
+//!   # use glm::*;
 //!   let mut my_vec2 = my_vec4.wz;
 //!   // and,
 //!   my_vec2.yx = my_vec4.xx;
@@ -81,6 +82,21 @@
 //!   This is rather inconvenient, and the plan is introducing functions like
 //!   `to_vec2`, `to_dmat3x4` in future version.
 //! - No implicit conversion.
+//! - Explicit type conversion function `bool` is renamed to `boolean`.
+//! - Many explicit type conversion functions for vector types are introduced.
+//!   In GLSL spec, these fucntions have the same name as vector type
+//!   constructors, which is not allowed in Rust. The naming rule is to get a
+//!   vector type conversion fucntion, adds a `to_` before the constructor
+//!   function. For example,
+//!
+//!   ~~~
+//!   # use glm::*;
+//!   let v = to_vec2(1_f32);
+//!   assert_eq!(v, vec2(1., 1.));
+//!   ~~~
+//! - Lots of convertion functions are still missing (e.g., from matrices to
+//!   vectors). These functions are syntax sugar actually, and will be fixed
+//!   along with the constructor issue in future version.
 //! - GLSL uses out parameter for returning multiple results of functions. In
 //!   Rust, we can do this by returning a tuple. Following functions'
 //!   signatures are changed because of this,
@@ -98,7 +114,8 @@
 //!   `cross`) are passed by reference, instead of by value as in the GLSL spec.
 //!   For example,
 //!
-//!   ~~~ignore
+//!   ~~~
+//!   # use glm::*;
 //!   let m = mat2(1., 2., 3., 4.);
 //!   // instead of `inverse(m)`,
 //!   let inv = inverse(&m);
@@ -115,8 +132,7 @@ pub use builtin::*;
 
 pub use basenum::{
     Primitive, BaseNum, Signed,
-    ApproxEq, is_approx_eq, is_close_to,
-    int, uint, float, double
+    ApproxEq, is_approx_eq, is_close_to
 };
 
 pub use traits::GenNum;
@@ -156,6 +172,15 @@ pub use mat::ctor::{
     dmat2x3, dmat3x2, dmat2x4, dmat4x2, dmat3x4, dmat4x3,
 };
 
+pub use cast::{
+    int, uint, float, double, boolean,
+    to_ivec2, to_ivec3, to_ivec4,
+    to_uvec2, to_uvec3, to_uvec4,
+    to_vec2, to_vec3, to_vec4,
+    to_dvec2, to_dvec3, to_dvec4,
+    to_bvec2, to_bvec3, to_bvec4
+};
+
 #[macro_use]
 mod basenum;
 mod traits;
@@ -169,6 +194,7 @@ mod mat {
     pub mod ctor;
     pub mod sqmat;
 }
+mod cast;
 
 pub mod builtin;
 pub mod ext;
