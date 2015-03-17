@@ -22,7 +22,7 @@
 // THE SOFTWARE.
 
 use std::cmp;
-use std::num::{ Int, Float, SignedInt, NumCast, cast };
+use std::num::{ Int, Float, SignedInt };
 use std::{ f32, f64 };
 use std::ops::{ Sub, Div, Rem, Neg };
 use rand::Rand;
@@ -38,8 +38,6 @@ use num::{ One, Zero };
 pub trait Primitive
 : Send + Copy + Sized + Clone + PartialOrd + PartialEq + Rand {}
 
-// TODO: must have our own `NumCast` to convert between numbers and `bool`.
-
 impl Primitive for bool {}
 
 /// Trait for primitive number type.
@@ -49,7 +47,6 @@ pub trait BaseNum
 + One
 + Div<Self, Output = Self>
 + Rem<Self, Output = Self>
-+ NumCast
 {
     /// Returns the smaller one of two numbers.
     ///
@@ -274,19 +271,3 @@ macro_rules! impl_flt(
 
 impl_flt! { f32 }
 impl_flt! { f64 }
-
-macro_rules! impl_cast_fun {
-    ($({$fun: ident, $t: ty}),+) => {
-        $(
-            pub fn $fun<T: BaseNum>(n: T) -> $t {
-                let p: $t = cast(n).unwrap();
-                p
-            }
-        )+
-    }
-}
-
-impl_cast_fun! {
-    { int, i32 }, { uint, u32 },
-    { float, f32 }, { double, f64 }
-}

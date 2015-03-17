@@ -36,6 +36,7 @@
 #![allow(non_snake_case)]
 
 use traits::GenType;
+use cast::to_vec4;
 use vec::vec::{ Vec2, Vec3, Vec4, vec2, vec3, vec4 };
 use super::common::*;
 use super::geom::dot;
@@ -46,10 +47,8 @@ use num::{ One, Zero };
 pub fn grad4(j: f32, ip: Vec4) -> Vec4 {
     let mut pXYZ = floor(fract(vec3(j, j, j) * ip.truncate(3)) * 7.) * ip[2] - 1.;
     let pW = 1.5 - dot(abs(pXYZ), <Vec3 as One>::one());
-    let s = lessThan(vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW), <Vec4 as Zero>::zero());
-    let mut z = <Vec4 as Zero>::zero();
-    for i in 0..4 { z[i] = if s[i] { 1. } else { 0. } }
-    pXYZ = pXYZ + (z.truncate(3) * 2. - 1.) * z.w;
+    let s = to_vec4(lessThan(vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW), <Vec4 as Zero>::zero()));
+    pXYZ = pXYZ + (s.truncate(3) * 2. - 1.) * s.w;
     vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW)
 }
 

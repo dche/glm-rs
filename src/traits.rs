@@ -27,7 +27,7 @@ use std::ops::{ Add, Mul, Sub, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr };
 use rand::Rand;
 use num::{ One, Zero };
 
-// TODO: use associated types instead.
+// TODO: use associated types to reduce redundant type parameters.
 
 /// Generic numeric type.
 pub trait GenNum<E: BaseNum>
