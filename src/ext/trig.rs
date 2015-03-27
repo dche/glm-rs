@@ -33,9 +33,8 @@ use std::num::Float;
 /// ```rust
 /// use glm::*;
 /// use glm::ext::*;
-/// use std::f32::consts::FRAC_PI_2;
 ///
-/// let v = vec2(0., FRAC_PI_2);
+/// let v = vec2(0., half_pi());
 /// let (s, c) = sin_cos(v);
 /// assert!(is_approx_eq(&s, &vec2(0., 1.)));
 /// assert!(is_approx_eq(&c, &vec2(1., 0.)));

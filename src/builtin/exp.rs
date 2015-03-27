@@ -53,9 +53,10 @@ pub fn pow<F: BaseFloat, T: GenFloat<F>>(x: T, y: T) -> T {
 ///
 /// ```
 /// use glm::{ exp, ApproxEq };
-/// use std::f32::consts::E;
+/// use glm::ext::e;
 ///
-/// let e2 = E * E;
+/// let e1: f32 = e();
+/// let e2 = e1 * e1;
 /// assert!(exp(2.).is_close_to(&e2, 0.000001));
 /// ```
 #[inline(always)]
@@ -70,9 +71,10 @@ pub fn exp<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
 ///
 /// ```
 /// use glm::{ log, ApproxEq };
-/// use std::f32::consts::E;
+/// use glm::ext::e;
 ///
-/// let e2 = E * E;
+/// let e1: f64 = e();
+/// let e2 = e1 * e1;
 /// assert!(log(e2).is_approx_eq(&2.));
 /// ```
 #[inline(always)]

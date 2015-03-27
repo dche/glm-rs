@@ -125,12 +125,11 @@ pub fn is_perpendicular<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> bool {
 /// ```
 /// use glm::*;
 /// use glm::ext::*;
-/// use std::f32::consts::FRAC_PI_2;
 ///
 /// let vx = vec2(1., 0.);
 /// let vy = vec2(0., 1.);
-/// assert!(is_approx_eq(&angle(vx, vy), &FRAC_PI_2));
-/// assert!(is_approx_eq(&angle(vy, vx), &FRAC_PI_2));
+/// assert!(is_approx_eq(&angle(vx, vy), &half_pi()));
+/// assert!(is_approx_eq(&angle(vy, vx), &half_pi()));
 /// ```
 #[inline]
 pub fn angle<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> F {

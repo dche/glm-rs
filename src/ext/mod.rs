@@ -37,9 +37,39 @@ pub use self::exp::*;
 pub use self::common::*;
 pub use self::geom::*;
 pub use self::matrix::*;
+pub use self::consts::{
+    epsilon,
+    pi,
+    tau,
+    root_pi,
+    half_pi,
+    one_third_pi,
+    quarter_pi,
+    one_over_pi,
+    one_over_tau,
+    two_over_pi,
+    four_over_pi,
+    two_over_root_pi,
+    one_over_root_two,
+    root_half_pi,
+    root_tau,
+    root_ln_four,
+    e,
+    euler,
+    root_two,
+    root_three,
+    root_five,
+    ln_two,
+    ln_ten,
+    ln_ln_two,
+    one_third,
+    two_thirds,
+    golden_ratio
+};
 
 mod trig;
 mod exp;
 mod common;
 mod geom;
 mod matrix;
+pub mod consts;
