@@ -1,7 +1,7 @@
 [package]
 
 name = "glm"
-version = "0.1.4"
+version = "0.1.5"
 authors = [
     "Che Kenan <chekenan@gmail.com>",
     "Nerijus Arlauskas <nercury@gmail.com>"
