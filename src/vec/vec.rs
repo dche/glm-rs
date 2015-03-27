@@ -92,13 +92,13 @@ macro_rules! def_genvec(
         impl<T: Primitive> Index<usize> for $t<T> {
             type Output = T;
             #[inline(always)]
-            fn index<'a>(&'a self, i: &usize) -> &'a T {
+            fn index<'a>(&'a self, i: usize) -> &'a T {
                 self.as_array().index(i)
             }
         }
         impl<T: Primitive> IndexMut<usize> for $t<T> {
             #[inline(always)]
-            fn index_mut<'a>(&'a mut self, i: &usize) -> &'a mut T {
+            fn index_mut<'a>(&'a mut self, i: usize) -> &'a mut T {
                 self.as_array_mut().index_mut(i)
             }
         }

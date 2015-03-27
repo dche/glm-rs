@@ -305,13 +305,13 @@ macro_rules! impl_matrix {
             impl<T: BaseFloat> Index<usize> for $t<T> {
                 type Output = $ct<T>;
                 #[inline(always)]
-                fn index<'a>(&'a self, i: &usize) -> &'a $ct<T> {
+                fn index<'a>(&'a self, i: usize) -> &'a $ct<T> {
                     self.as_array().index(i)
                 }
             }
             impl<T: BaseFloat> IndexMut<usize> for $t<T> {
                 #[inline(always)]
-                fn index_mut<'a>(&'a mut self, i: &usize) -> &'a mut $ct<T> {
+                fn index_mut<'a>(&'a mut self, i: usize) -> &'a mut $ct<T> {
                     self.as_array_mut().index_mut(i)
                 }
             }

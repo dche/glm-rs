@@ -75,13 +75,6 @@ pub trait Signed
 + Sub<Self, Output = Self>
 {
     /// Returns the absolute value of the receiver.
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// use glm::Signed;
-    /// assert_eq!((-1_i32).abs(), 1);
-    /// ```
     fn abs(&self) -> Self;
 
     /// Returns the sign number of the receiver.

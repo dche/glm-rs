@@ -698,10 +698,11 @@ T: GenFloatVec<F>
 /// # Example
 ///
 /// ```
+/// # #![feature(std_misc)]
 /// use glm::{ bvec3, dvec3, isnan };
 /// use std::num::Float;
 ///
-/// let nan = <f64 as Float>::nan();
+/// let nan: f64 = Float::nan();
 /// assert!(isnan(nan));
 /// assert_eq!(isnan(dvec3(nan, 1., -0.)), bvec3(true, false, false));
 /// ```
@@ -716,9 +717,10 @@ pub fn isnan<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
 /// # Example
 ///
 /// ```
+/// # #![feature(std_misc)]
 /// use std::num::Float;
 ///
-/// let inf = <f32 as Float>::infinity();
+/// let inf: f32 = Float::infinity();
 /// assert!(glm::isinf(inf));
 /// assert_eq!(glm::isinf(glm::vec2(inf, 0.)), glm::bvec2(true, false));
 /// ```
@@ -735,13 +737,14 @@ pub fn isinf<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
 /// # Example
 ///
 /// ```
-/// use glm::{ floatBitsToInt, vec3, ivec3 };
+/// # #![feature(std_misc)]
+/// use glm::*;
 /// use std::num::Float;
 ///
 /// let f = 1_f32;
 /// let i = floatBitsToInt(f);
 /// assert_eq!(i, 0x3F800000);
-/// let inf = <f32 as Float>::infinity();
+/// let inf: f32 = Float::infinity();
 /// let v = vec3(0.2, 0., inf);
 /// assert_eq!(floatBitsToInt(v), ivec3(0x3E4CCCCD, 0, 0x7f800000));
 /// ```
@@ -762,13 +765,14 @@ pub fn floatBitsToInt<G: GenIType, T: FloatIntRel<f32, i32, G>>(value: T) -> G {
 /// # Example
 ///
 /// ```
+/// # #![feature(std_misc)]
 /// use glm::{ floatBitsToUint, vec3, uvec3 };
 /// use std::num::Float;
 ///
 /// let f = 1_f32;
 /// let u = floatBitsToUint(f);
 /// assert_eq!(u, 0x3F800000);
-/// let inf = <f32 as Float>::infinity();
+/// let inf: f32 = Float::infinity();
 /// let v = vec3(0.2, 0., inf);
 /// assert_eq!(floatBitsToUint(v), uvec3(0x3E4CCCCD, 0, 0x7f800000));
 /// ```
@@ -787,13 +791,14 @@ pub fn floatBitsToUint<G: GenUType, T: FloatIntRel<f32, u32, G>>(value: T) -> G 
 /// # Example
 ///
 /// ```
+/// # #![feature(std_misc)]
 /// use glm::{ intBitsToFloat, vec3, ivec3 };
 /// use std::num::Float;
 ///
 /// let i: i32 = 0x3F800000;
 /// let f = intBitsToFloat(i);
 /// assert_eq!(f, 1.);
-/// let inf = <f32 as Float>::infinity();
+/// let inf: f32 = Float::infinity();
 /// let vi = ivec3(0x3E4CCCCD, 0, 0x7f800000);
 /// let vf = vec3(0.2, 0., inf);
 /// assert_eq!(intBitsToFloat(vi), vf);
@@ -813,13 +818,14 @@ pub fn intBitsToFloat<G: GenType, T: IntFloatRel<i32, f32, G>>(value: T) -> G {
 /// # Example
 ///
 /// ```
+/// # #![feature(std_misc)]
 /// use glm::{ uintBitsToFloat, vec3, uvec3 };
 /// use std::num::Float;
 ///
 /// let i: u32 = 0x3F800000;
 /// let f = uintBitsToFloat(i);
 /// assert_eq!(f, 1.);
-/// let inf = <f32 as Float>::infinity();
+/// let inf: f32 = Float::infinity();
 /// let vu = uvec3(0x3E4CCCCD, 0, 0x7f800000);
 /// let vf = vec3(0.2, 0., inf);
 /// assert_eq!(uintBitsToFloat(vu), vf);
