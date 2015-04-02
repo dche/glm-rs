@@ -65,12 +65,12 @@ M: GenMat<T, C>
 /// # Example
 ///
 /// ```
-/// use glm::{ outerProduct, vec2, vec3, mat2x3 };
-///
+/// # use glm::*;
 /// let v2 = vec2(1., 2.);
 /// let v3 = vec3(4., 0., -1.);
 /// let e = mat2x3(4., 8., 0., 0., -1., -2.);
-/// assert_eq!(outerProduct(v2, v3), e);
+/// let op: Mat2x3 = outerProduct(v2, v3);
+/// assert_eq!(op, e);
 /// ```
 #[inline]
 #[allow(non_snake_case)]
