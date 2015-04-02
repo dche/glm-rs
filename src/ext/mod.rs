@@ -38,6 +38,7 @@ pub use self::common::*;
 pub use self::geom::*;
 pub use self::matrix::*;
 pub use self::consts::{
+    Consts,
     epsilon,
     pi,
     tau,
