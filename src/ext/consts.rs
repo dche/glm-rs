@@ -187,10 +187,9 @@ pub fn epsilon<F: BaseFloat, T: GenFloat<F>>() -> T {
 ///
 /// ```rust
 /// use glm::*;
-/// use glm::ext::pi;
+/// use glm::ext::*;
 ///
-/// let v4: DVec4 = pi();
-/// assert_eq!(v4, dvec4(pi(), pi(), pi(), pi()));
+/// assert_eq!(DVec4::pi(), dvec4(pi(), pi(), pi(), pi()));
 #[inline(always)]
 pub fn pi<F: BaseFloat, T: Consts<F>>() -> T {
     Consts::pi()
