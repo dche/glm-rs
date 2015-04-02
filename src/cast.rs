@@ -36,8 +36,6 @@ trait ToPrim: Primitive {
 
     fn to_u32(&self) -> Option<u32>;
 
-    fn to_i64(&self) -> Option<i64>;
-
     fn to_f32(&self) -> Option<f32>;
 
     fn to_f64(&self) -> Option<f64>;
@@ -45,33 +43,37 @@ trait ToPrim: Primitive {
     fn to_bool(&self) -> Option<bool>;
 }
 
-impl<T> ToPrim for T where T: ToPrimitive + Primitive + Zero {
-    #[inline]
-    fn to_i32(&self) -> Option<i32> {
-        ToPrimitive::to_i32(self)
-    }
-    #[inline]
-    fn to_u32(&self) -> Option<u32> {
-        ToPrimitive::to_u32(self)
-    }
-    #[inline]
-    fn to_i64(&self) -> Option<i64> {
-        ToPrimitive::to_i64(self)
-    }
-    #[inline]
-    fn to_f32(&self) -> Option<f32> {
-        ToPrimitive::to_f32(self)
-    }
-    #[inline]
-    fn to_f64(&self) -> Option<f64> {
-        ToPrimitive::to_f64(self)
-    }
-    #[inline]
-    fn to_bool(&self) -> Option<bool> {
-        let b = if self.is_zero() { false } else { true };
-        Some(b)
-    }
+macro_rules! impl_ToPrim_for {
+    ($($t: ident),+) => {
+        $(
+            impl ToPrim for $t {
+                #[inline]
+                fn to_i32(&self) -> Option<i32> {
+                    ToPrimitive::to_i32(self)
+                }
+                #[inline]
+                fn to_u32(&self) -> Option<u32> {
+                    ToPrimitive::to_u32(self)
+                }
+                #[inline]
+                fn to_f32(&self) -> Option<f32> {
+                    ToPrimitive::to_f32(self)
+                }
+                #[inline]
+                fn to_f64(&self) -> Option<f64> {
+                    ToPrimitive::to_f64(self)
+                }
+                #[inline]
+                fn to_bool(&self) -> Option<bool> {
+                    let b = if self.is_zero() { false } else { true };
+                    Some(b)
+                }
+            }
+        )+
+    };
 }
+
+impl_ToPrim_for! { i32, u32, f32, f64 }
 
 impl ToPrim for bool {
     #[inline]
@@ -81,11 +83,6 @@ impl ToPrim for bool {
     }
     #[inline]
     fn to_u32(&self) -> Option<u32> {
-        let i = if *self { 1 } else { 0 };
-        Some(i)
-    }
-    #[inline]
-    fn to_i64(&self) -> Option<i64> {
         let i = if *self { 1 } else { 0 };
         Some(i)
     }
