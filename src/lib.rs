@@ -21,7 +21,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#![allow(unused_variables)]
+#![allow(unused_variables, deprecated)]
 #![feature(std_misc, core)]
 
 //! GLSL mathematics for Rust programming language.
