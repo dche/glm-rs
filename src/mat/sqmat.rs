@@ -25,14 +25,13 @@ use basenum::BaseFloat;
 use vec::vec::{ Vector2, Vector3, Vector4 };
 use super::traits::{ GenMat, GenSquareMat };
 use super::mat::*;
-use std::num::Float;
-use num::{ One, Zero };
+use num::{ Float, One, Zero };
 
 impl<T: BaseFloat> One for Matrix2<T> {
     #[inline]
     fn one() -> Matrix2<T> {
-        let y = <T as One>::one();
-        let l = <T as Zero>::zero();
+        let y = T::one();
+        let l = T::zero();
         Matrix2::new(
             Vector2::new(y, l),
             Vector2::new(l, y)
@@ -48,7 +47,7 @@ impl<T: BaseFloat> GenSquareMat<T, Vector2<T>> for Matrix2<T> {
     #[inline]
     fn inverse(&self) -> Option<Matrix2<T>> {
         let det = self.determinant();
-        let ling = <T as Zero>::zero();
+        let ling = T::zero();
         if det.is_approx_eq(&ling) {
             None
         } else {
@@ -65,8 +64,8 @@ impl<T: BaseFloat> GenSquareMat<T, Vector2<T>> for Matrix2<T> {
 impl<T: BaseFloat> One for Matrix3<T> {
     #[inline]
     fn one() -> Matrix3<T> {
-        let y = <T as One>::one();
-        let l = <T as Zero>::zero();
+        let y = T::one();
+        let l = T::zero();
         Matrix3::new(
             Vector3::new(y, l, l),
             Vector3::new(l, y, l),
@@ -85,7 +84,7 @@ impl<T: BaseFloat> GenSquareMat<T, Vector3<T>> for Matrix3<T> {
     #[inline]
     fn inverse(&self) -> Option<Matrix3<T>> {
         let det = self.determinant();
-        let ling = <T as Zero>::zero();
+        let ling = T::zero();
         if det.is_approx_eq(&ling) {
             None
         } else {
@@ -112,8 +111,8 @@ impl<T: BaseFloat> GenSquareMat<T, Vector3<T>> for Matrix3<T> {
 impl<T: BaseFloat> One for Matrix4<T> {
     #[inline]
     fn one() -> Matrix4<T> {
-        let y = <T as One>::one();
-        let l = <T as Zero>::zero();
+        let y = T::one();
+        let l = T::zero();
         Matrix4::new(
             Vector4::new(y, l, l, l),
             Vector4::new(l, y, l, l),
@@ -162,7 +161,7 @@ impl<T: BaseFloat> GenSquareMat<T, Vector4<T>> for Matrix4<T> {
     #[inline]
     fn inverse(&self) -> Option<Matrix4<T>> {
         let det = self.determinant();
-        let ling = <T as Zero>::zero();
+        let ling = T::zero();
         if det.is_approx_eq(&ling) {
             None
         } else {
@@ -223,7 +222,7 @@ mod test {
     fn test_determinant() {
         let m2 = mat2(4., 5., 6., 7.);
         assert_eq!(m2.determinant(), -2.);
-        assert_eq!(<Mat3 as One>::one().determinant(), 1.);
+        assert_eq!(Mat3::one().determinant(), 1.);
         let m4 = mat4(
             1., 0., 4., 0.,
             2., 1., 2., 1.,
@@ -232,14 +231,14 @@ mod test {
         );
         assert_eq!(m4.determinant(), -7.);
         assert_eq!((m4 * m4).determinant(), 49.);
-        assert_eq!(<Mat4 as One>::one().determinant(), 1.);
+        assert_eq!(Mat4::one().determinant(), 1.);
     }
 
     #[test]
     fn test_inverse_mat2() {
-        let yi = <Mat2 as One>::one();
+        let yi = Mat2::one();
         assert!(yi.inverse().is_some());
-        assert!(<DMat2 as Zero>::zero().inverse().is_none());
+        assert!(DMat2::zero().inverse().is_none());
         let mat = mat2(1., 3., 2., 4.);
         let inv = mat.inverse().unwrap();
         assert_close_to!(mat * inv, yi, 0.000001);
@@ -250,10 +249,10 @@ mod test {
 
     #[test]
     fn test_inverse_mat3() {
-        let yi = <Mat3 as One>::one();
+        let yi = Mat3::one();
         assert!(yi.inverse().is_some());
         assert_eq!(yi.inverse().unwrap(), yi);
-        assert!(<DMat3 as Zero>::zero().inverse().is_none());
+        assert!(DMat3::zero().inverse().is_none());
         let mat = mat3(5., 7., 11., -6., 9., 2., 1., 13., 0.);
         let inv = mat.inverse().unwrap();
         assert_close_to!(mat * inv, yi, 0.000001);
@@ -276,6 +275,6 @@ mod test {
         );
         assert_approx_eq!(mat.inverse().unwrap(), invm);
         assert_close_to!(mat.inverse().unwrap().inverse().unwrap(), mat, 0.000001);
-        assert!(<Mat4 as One>::one().inverse().is_some());
+        assert!(Mat4::one().inverse().is_some());
     }
 }

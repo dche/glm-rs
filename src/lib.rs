@@ -21,8 +21,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#![allow(unused_variables, deprecated)]
-#![feature(std_misc, core)]
+#![allow(unused_variables)]
+#![feature(std_misc)]
 
 //! GLSL mathematics for Rust programming language.
 //!
@@ -131,7 +131,7 @@ extern crate quickcheck;
 pub use builtin::*;
 
 pub use basenum::{
-    Primitive, BaseNum, Signed,
+    Primitive, BaseNum, SignedNum,
     ApproxEq, is_approx_eq, is_close_to
 };
 
@@ -173,6 +173,7 @@ pub use mat::ctor::{
 };
 
 pub use cast::{
+    PrimCast,
     int, uint, float, double, boolean,
     to_ivec2, to_ivec3, to_ivec4,
     to_uvec2, to_uvec3, to_uvec4,

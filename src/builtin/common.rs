@@ -27,10 +27,10 @@ use basenum::*;
 use traits::*;
 use vec::traits::{ GenVec, GenFloatVec, GenNumVec };
 use vec::vec::{ Vector2, Vector3, Vector4 };
+use cast::PrimCast;
 use std::mem;
-use std::num::{ cast, Float};
 use std::ops::Rem;
-use num::{ One, Zero };
+use num::{ Float, One, Zero };
 
 pub trait FloatIntRel<E: BaseFloat, I: BaseInt, GI: GenInt<I>>: GenFloat<E> {
     // float -> int
@@ -82,9 +82,9 @@ macro_rules! impl_vec_FloatIntRel {
                 }
                 #[inline]
                 fn split_int<F: Fn(E) -> (E, I)>(&self, fun: F) -> ($t<E>, $t<I>) {
-                    let mut f = <$t<E> as Zero>::zero();
-                    let mut i = <$t<I> as Zero>::zero();
-                    let dim = <$t<E> as GenVec<E>>::dim();
+                    let mut f = $t::<E>::zero();
+                    let mut i = $t::<I>::zero();
+                    let dim = $t::<E>::dim();
                     for j in 0..dim {
                         let (a, b) = fun(self[j]);
                         f[j] = a;
@@ -192,7 +192,7 @@ impl_vec_NumBoolRel! {
 /// # Example
 ///
 /// ```
-/// use glm::{ abs, dvec4, Signed };
+/// use glm::{ abs, dvec4, SignedNum };
 ///
 /// assert_eq!(abs(-1_f32), 1.);
 /// let v4 = dvec4(0., 100., -2., -3.);
@@ -200,9 +200,9 @@ impl_vec_NumBoolRel! {
 /// assert_eq!(abs(v4), dvec4(0., 100., 2., 3.));
 /// ```
 #[inline(always)]
-pub fn abs<S: Signed + BaseNum, T: GenNum<S>>(x: T) -> T {
+pub fn abs<S: SignedNum + BaseNum, T: GenNum<S>>(x: T) -> T {
     x.map(|s: S| {
-        Signed::abs(&s)
+        SignedNum::abs(&s)
     })
 }
 
@@ -217,9 +217,9 @@ pub fn abs<S: Signed + BaseNum, T: GenNum<S>>(x: T) -> T {
 /// assert_eq!(sign(vec3(-100., 2., 0.)), vec3(-1., 1., 0.));
 /// ```
 #[inline(always)]
-pub fn sign<S: Signed + BaseNum, T: GenNum<S>>(x: T) -> T {
+pub fn sign<S: SignedNum + BaseNum, T: GenNum<S>>(x: T) -> T {
     x.map(|s: S| {
-        Signed::sign(&s)
+        SignedNum::sign(&s)
     })
 }
 
@@ -289,12 +289,12 @@ pub fn round<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
 #[allow(non_snake_case)]
 pub fn roundEven<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
     x.map(|f| -> F {
-        let ling = <F as Zero>::zero();
-        let yi = <F as One>::one();
+        let ling = F::zero();
+        let yi = F::one();
         let er = yi + yi;
 
         let int = f.trunc();
-        if f.fract().abs() != cast(0.5).unwrap() {
+        if f.fract().abs() != F::from(0.5).unwrap() {
             f.round()
         } else if int % er == ling {
             int
@@ -520,7 +520,7 @@ pub fn clamp_s<S: BaseNum, T: GenNumVec<S>>(x: T, min_val: S, max_val: S) -> T {
 /// ```
 #[inline(always)]
 pub fn mix<F: BaseFloat, T: GenFloat<F>>(x: T, y: T, a: T) -> T {
-    let yi = <T as One>::one();
+    let yi = T::one();
     x * (yi - a) + y * a
 }
 
@@ -542,7 +542,7 @@ pub fn mix<F: BaseFloat, T: GenFloat<F>>(x: T, y: T, a: T) -> T {
 /// ```
 #[inline(always)]
 pub fn mix_s<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T, a: F) -> T {
-    let yi = <F as One>::one();
+    let yi = F::one();
     x * (yi - a) + y * a
 }
 
@@ -580,7 +580,7 @@ F: BaseFloat,
 B: GenBType,
 T: NumBoolRel<F, B>
 >(x: T, y: T, a: B) -> T {
-    let ling = <F as Zero>::zero();
+    let ling = F::zero();
     x.zip_bool(&a, |f, b| -> F {
         if b {
             ling
@@ -610,9 +610,9 @@ T: NumBoolRel<F, B>
 pub fn step<F: BaseFloat, T: GenFloat<F>>(edge: T, x: T) -> T {
     x.zip(edge, |f, e| -> F {
         if f < e {
-            <F as Zero>::zero()
+            F::zero()
         } else {
-            <F as One>::one()
+            F::one()
         }
     })
 }
@@ -634,9 +634,9 @@ pub fn step<F: BaseFloat, T: GenFloat<F>>(edge: T, x: T) -> T {
 pub fn step_s<F: BaseFloat, T: GenFloatVec<F>>(edge: F, x: T) -> T {
     x.map(|f| -> F {
         if f < edge {
-            <F as Zero>::zero()
+            F::zero()
         } else {
-            <F as One>::one()
+            F::one()
         }
     })
 }
@@ -662,8 +662,8 @@ pub fn step_s<F: BaseFloat, T: GenFloatVec<F>>(edge: F, x: T) -> T {
 /// ```
 #[inline]
 pub fn smoothstep<F: BaseFloat, T: GenFloat<F>>(edge0: T, edge1: T, x: T) -> T {
-    let ling = <T as Zero>::zero();
-    let yi = <T as One>::one();
+    let ling = T::zero();
+    let yi = T::one();
     let er = yi + yi;
     let san = er + yi;
 
@@ -682,8 +682,8 @@ pub fn smoothstep_s
 F: BaseFloat + GenNum<F>,
 T: GenFloatVec<F>
 >(edge0: F, edge1: F, x: T) -> T {
-    let ling = <F as Zero>::zero();
-    let yi = <F as One>::one();
+    let ling = F::zero();
+    let yi = F::one();
     let er = yi + yi;
     let san = er + yi;
 
@@ -698,13 +698,16 @@ T: GenFloatVec<F>
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
 /// use glm::{ bvec3, dvec3, isnan };
-/// use std::num::Float;
+/// use num::Float;
 ///
 /// let nan: f64 = Float::nan();
 /// assert!(isnan(nan));
 /// assert_eq!(isnan(dvec3(nan, 1., -0.)), bvec3(true, false, false));
+/// # }
 /// ```
 #[inline(always)]
 pub fn isnan<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
@@ -717,12 +720,15 @@ pub fn isnan<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
-/// use std::num::Float;
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
+/// use num::Float;
 ///
 /// let inf: f32 = Float::infinity();
 /// assert!(glm::isinf(inf));
 /// assert_eq!(glm::isinf(glm::vec2(inf, 0.)), glm::bvec2(true, false));
+/// # }
 /// ```
 #[inline(always)]
 pub fn isinf<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
@@ -737,9 +743,11 @@ pub fn isinf<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
 /// use glm::*;
-/// use std::num::Float;
+/// use num::Float;
 ///
 /// let f = 1_f32;
 /// let i = floatBitsToInt(f);
@@ -747,6 +755,7 @@ pub fn isinf<F: BaseFloat, B: GenBType, T: NumBoolRel<F, B>>(x: T) -> B {
 /// let inf: f32 = Float::infinity();
 /// let v = vec3(0.2, 0., inf);
 /// assert_eq!(floatBitsToInt(v), ivec3(0x3E4CCCCD, 0, 0x7f800000));
+/// # }
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
@@ -765,9 +774,11 @@ pub fn floatBitsToInt<G: GenIType, T: FloatIntRel<f32, i32, G>>(value: T) -> G {
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
 /// use glm::{ floatBitsToUint, vec3, uvec3 };
-/// use std::num::Float;
+/// use num::Float;
 ///
 /// let f = 1_f32;
 /// let u = floatBitsToUint(f);
@@ -775,6 +786,7 @@ pub fn floatBitsToInt<G: GenIType, T: FloatIntRel<f32, i32, G>>(value: T) -> G {
 /// let inf: f32 = Float::infinity();
 /// let v = vec3(0.2, 0., inf);
 /// assert_eq!(floatBitsToUint(v), uvec3(0x3E4CCCCD, 0, 0x7f800000));
+/// # }
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
@@ -791,9 +803,11 @@ pub fn floatBitsToUint<G: GenUType, T: FloatIntRel<f32, u32, G>>(value: T) -> G 
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
 /// use glm::{ intBitsToFloat, vec3, ivec3 };
-/// use std::num::Float;
+/// use num::Float;
 ///
 /// let i: i32 = 0x3F800000;
 /// let f = intBitsToFloat(i);
@@ -802,6 +816,7 @@ pub fn floatBitsToUint<G: GenUType, T: FloatIntRel<f32, u32, G>>(value: T) -> G 
 /// let vi = ivec3(0x3E4CCCCD, 0, 0x7f800000);
 /// let vf = vec3(0.2, 0., inf);
 /// assert_eq!(intBitsToFloat(vi), vf);
+/// # }
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
@@ -818,9 +833,11 @@ pub fn intBitsToFloat<G: GenType, T: IntFloatRel<i32, f32, G>>(value: T) -> G {
 /// # Example
 ///
 /// ```
-/// # #![feature(std_misc)]
+/// # extern crate glm;
+/// # extern crate num;
+/// # fn main() {
 /// use glm::{ uintBitsToFloat, vec3, uvec3 };
-/// use std::num::Float;
+/// use num::Float;
 ///
 /// let i: u32 = 0x3F800000;
 /// let f = uintBitsToFloat(i);
@@ -829,6 +846,7 @@ pub fn intBitsToFloat<G: GenType, T: IntFloatRel<i32, f32, G>>(value: T) -> G {
 /// let vu = uvec3(0x3E4CCCCD, 0, 0x7f800000);
 /// let vf = vec3(0.2, 0., inf);
 /// assert_eq!(uintBitsToFloat(vu), vf);
+/// # }
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
@@ -891,7 +909,7 @@ I: GenIType,
 T: FloatIntRel<F, i32, I>
 >(x: T) -> (T, I) {
     x.split_int(|f| -> (F, i32) {
-        let (s, e) = Float::frexp(f);
+        let (s, e) = BaseFloat::frexp(f);
         (s, e as i32)
     })
 }
@@ -921,6 +939,6 @@ G: GenFloat<F>,
 T: IntFloatRel<i32, F, G>
 >(x: G, exp: T) -> G {
     exp.zip_flt(&x, |i, f| -> F {
-        Float::ldexp(f, i as isize)
+        BaseFloat::ldexp(f, i as isize)
     })
 }

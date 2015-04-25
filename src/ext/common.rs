@@ -23,7 +23,7 @@
 
 use basenum::BaseFloat;
 use traits::GenFloat;
-use std::num::Float;
+use num::Float;
 
 /// Returns the reciprocal (inverse) of float number `x`.
 ///

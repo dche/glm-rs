@@ -1,14 +1,15 @@
 
-#![feature(core, test)]
+#![feature(test)]
 
 extern crate test;
+extern crate num;
 extern crate rand;
 extern crate glm;
 
 use glm::*;
 use glm::ext::*;
 use test::Bencher;
-use std::num::Float;
+use num::Float;
 use rand::{ IsaacRng, Rng };
 
 #[path="common/macros.rs"]

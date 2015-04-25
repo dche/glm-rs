@@ -46,8 +46,8 @@ use num::{ One, Zero };
 #[allow(non_snake_case)]
 pub fn grad4(j: f32, ip: Vec4) -> Vec4 {
     let mut pXYZ = floor(fract(vec3(j, j, j) * ip.truncate(3)) * 7.) * ip[2] - 1.;
-    let pW = 1.5 - dot(abs(pXYZ), <Vec3 as One>::one());
-    let s = to_vec4(lessThan(vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW), <Vec4 as Zero>::zero()));
+    let pW = 1.5 - dot(abs(pXYZ), Vec3::one());
+    let s = to_vec4(lessThan(vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW), Vec4::zero()));
     pXYZ = pXYZ + (s.truncate(3) * 2. - 1.) * s.w;
     vec4(pXYZ.x, pXYZ.y, pXYZ.z, pW)
 }
@@ -80,7 +80,7 @@ impl NoiseImpl for f32 {
 
 impl NoiseImpl for Vec2 {
     fn noise1(self) -> f32 {
-        let yi = <Vec2 as One>::one();
+        let yi = Vec2::one();
         let C = vec4(
              0.211324865405187,     //  (3.0 -  sqrt(3.0)) / 6.0
              0.366025403784439,     //  0.5 * (sqrt(3.0)  - 1.0)
@@ -143,7 +143,7 @@ impl NoiseImpl for Vec2 {
 
 impl NoiseImpl for Vec3 {
     fn noise1(self) -> f32 {
-        let yi = <Vec3 as One>::one();
+        let yi = Vec3::one();
         let C = vec2(1./6., 1./3.);
         let D = vec4(0., 0.5, 1., 2.);
 
@@ -184,7 +184,7 @@ impl NoiseImpl for Vec3 {
 
         let x = x_ * ns.x + ns.y;
         let y = y_ * ns.x + ns.y;
-        let h = <Vec4 as One>::one() - abs(x) - abs(y);
+        let h = Vec4::one() - abs(x) - abs(y);
 
         let b0 = vec4(x.x, x.y, y.x, y.y);
         let b1 = vec4(x.z, x.w, y.z, y.w);
@@ -193,7 +193,7 @@ impl NoiseImpl for Vec3 {
         // vec4 s1 = vec4(lessThan(b1,0.0))*2.0 - 1.0;
         let s0 = floor(b0) * 2. + 1.;
         let s1 = floor(b1) * 2. + 1.;
-        let sh = -step(h, <Vec4 as Zero>::zero());
+        let sh = -step(h, Vec4::zero());
 
         let a0 = vec4(b0.x, b0.z, b0.y, b0.w) + vec4(s0.x, s0.z, s0.y, s0.w) * vec4(sh.x, sh.x, sh.y, sh.y);
         let a1 = vec4(b1.x, b1.z, b1.y, b1.w) + vec4(s1.x, s1.z, s1.y, s1.w) * vec4(sh.z, sh.z, sh.w, sh.w);
@@ -221,7 +221,7 @@ impl NoiseImpl for Vec3 {
 
 impl NoiseImpl for Vec4 {
     fn noise1(self) -> f32 {
-        let yi = <Vec4 as One>::one();
+        let yi = Vec4::one();
         let C = vec4(
              0.138196601125011,     // (5 - sqrt(5))/20  G4
              0.276393202250021,     // 2 * G4
@@ -322,14 +322,14 @@ pub fn noise2<T: GenType + NoiseImpl>(x: T) -> Vec2 {
 /// Returns a 3D noise value based on the input value `x`.
 #[inline]
 pub fn noise3<T: GenType + NoiseImpl>(x: T) -> Vec3 {
-    let yi = <T as One>::one();
+    let yi = T::one();
     vec3((x - yi).noise1(), x.noise1(), (x + yi).noise1())
 }
 
 /// Returns a 4D noise value based on the input value `x`.
 #[inline]
 pub fn noise4<T: GenType + NoiseImpl>(x: T) -> Vec4 {
-    let yi = <T as One>::one();
+    let yi = T::one();
     vec4(
         (x - yi).noise1(),
         x.noise1(),

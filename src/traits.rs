@@ -21,11 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseNum, BaseInt, BaseFloat, ApproxEq, Signed };
-use std::num::Float;
+use basenum::{ BaseNum, BaseInt, BaseFloat, SignedNum, ApproxEq };
 use std::ops::{ Add, Mul, Sub, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr };
 use rand::Rand;
-use num::{ One, Zero };
+use num::{ Float, One, Zero };
 
 // TODO: use associated types to reduce redundant type parameters.
 
@@ -45,8 +44,7 @@ pub trait GenNum<E: BaseNum>
     /// Constructs from a scalar number.
     fn from_s(x: E) -> Self;
 
-    fn map<F>(self, f: F) -> Self
-        where F: Fn(E) -> E;
+    fn map<F>(self, f: F) -> Self where F: Fn(E) -> E;
 
     fn zip<F>(self, y: Self, f: F) -> Self where F: Fn(E, E) -> E;
 
@@ -99,7 +97,7 @@ pub trait GenInt<I: BaseInt>
 /// # Note
 ///
 /// Only 32-bit integer is used in GLSL.
-pub trait GenIType: GenInt<i32> + Signed + Sub<i32, Output = Self> {}
+pub trait GenIType: GenInt<i32> + SignedNum + Sub<i32, Output = Self> {}
 
 impl_GenNum_for_scalar! { i32 }
 impl GenInt<i32> for i32 {}
@@ -120,7 +118,7 @@ impl GenUType for u32 {}
 pub trait GenFloat<F: BaseFloat>
 : GenNum<F>
 + ApproxEq<BaseType = F>
-+ Signed
++ SignedNum
 + Sub<F, Output = Self>
 {
     /// Computes and returns `a * b + c`.

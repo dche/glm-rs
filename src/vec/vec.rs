@@ -26,13 +26,12 @@ use traits::*;
 use super::traits::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
 use std::cmp::Eq;
 use std::mem;
-use std::num::Float;
 use std::ops::{
     Add, Mul, Sub, Neg, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr,
     Index, IndexMut,
 };
 use rand::{ Rand, Rng };
-use num::{ One, Zero };
+use num::{ Float, One, Zero };
 use quickcheck::{ Arbitrary, Gen };
 
 // copied from `cgmath-rs/src/vector.rs`.
@@ -189,19 +188,19 @@ macro_rules! def_genvec(
         impl<T: BaseNum> One for $t<T> {
             #[inline(always)]
             fn one() -> $t<T> {
-                let y = <T as One>::one();
+                let y = T::one();
                 $t { $($field: y),+ }
             }
         }
         impl<T: BaseNum> Zero for $t<T> {
             #[inline(always)]
             fn zero() -> $t<T> {
-                let l = <T as Zero>::zero();
+                let l = T::zero();
                 $t { $($field: l),+ }
             }
             #[inline]
             fn is_zero(&self) -> bool {
-                let l = <T as Zero>::zero();
+                let l = T::zero();
                 $(self.$field == l) && +
             }
         }
@@ -220,9 +219,10 @@ macro_rules! def_genvec(
             }
             #[inline]
             fn split<F: Fn(T) -> (T, T)>(self, f: F) -> ($t<T>, $t<T>) {
-                let mut a = <$t<T> as Zero>::zero();
-                let mut b = <$t<T> as Zero>::zero();
-                let dim = <$t<T> as GenVec<T>>::dim();
+                let ling = $t::<T>::zero();
+                let mut a = ling;
+                let mut b = ling;
+                let dim = $t::<T>::dim();
                 for i in 0..dim {
                     let (c, d) = f(self[i]);
                     a[i] = c;
@@ -232,9 +232,10 @@ macro_rules! def_genvec(
             }
             #[inline]
             fn map2<F: Fn(T, T) -> (T, T)>(self, y: Self, f: F) -> (Self, Self) {
-                let mut a = <Self as Zero>::zero();
-                let mut b = <Self as Zero>::zero();
-                let dim = <Self as GenVec<T>>::dim();
+                let ling = Self::zero();
+                let mut a = ling;
+                let mut b = ling;
+                let dim = Self::dim();
                 for i in 0..dim {
                     let (c, d) = f(self[i], y[i]);
                     a[i] = c;
@@ -261,28 +262,28 @@ macro_rules! def_genvec(
                 fold!(max, { $(self.$field),+ })
             }
         }
-        impl<T: Signed + BaseNum> Neg for $t<T> {
+        impl<T: SignedNum + BaseNum> Neg for $t<T> {
             type Output = $t<T>;
             #[inline]
             fn neg(self) -> $t<T> {
                 $t::new($(-(self.$field)),+)
             }
         }
-        impl<T: Signed + BaseNum> Sub<$t<T>> for $t<T> {
+        impl<T: SignedNum + BaseNum> Sub<$t<T>> for $t<T> {
             type Output = $t<T>;
             #[inline(always)]
             fn sub(self, rhs: $t<T>) -> $t<T> {
                 $t::new($(self.$field - rhs.$field),+)
             }
         }
-        impl<T: Signed + BaseNum> Sub<T> for $t<T> {
+        impl<T: SignedNum + BaseNum> Sub<T> for $t<T> {
             type Output = $t<T>;
             #[inline(always)]
             fn sub(self, rhs: T) -> $t<T> {
                 $t::new($(self.$field - rhs),+)
             }
         }
-        impl<T: Signed + BaseNum> Signed for $t<T> {
+        impl<T: SignedNum + BaseNum> SignedNum for $t<T> {
             #[inline]
             fn abs(&self) -> $t<T> {
                 $t::new($(self.$field.abs()),+)
@@ -555,7 +556,7 @@ mod test {
             miv[0] = iv.x + 1;
             miv[1] = iv.y + 1;
             miv[2] = iv.z + 1;
-            miv == iv + <IVec3 as One>::one()
+            miv == iv + IVec3::one()
         }
         quickcheck(prop as fn(IVec3) -> bool);
     }

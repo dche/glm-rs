@@ -25,18 +25,18 @@
 
 use basenum::BaseFloat;
 use traits::GenFloat;
-use std::num::Float;
+use num::Float;
 
 /// Converts `degrees` to radians, i.e., `π/180 * degrees`.
 #[inline(always)]
 pub fn radians<F: BaseFloat, T: GenFloat<F>>(degrees: T) -> T {
-    degrees.map(Float::to_radians)
+    degrees.map(BaseFloat::to_radians)
 }
 
 /// Converts `radians` to degrees, i.e., `180/π * radians`.
 #[inline(always)]
 pub fn degrees<F: BaseFloat, T: GenFloat<F>>(radians: T) -> T {
-    radians.map(Float::to_degrees)
+    radians.map(BaseFloat::to_degrees)
 }
 
 /// The standard trigonometric sine function.

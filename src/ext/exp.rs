@@ -23,7 +23,7 @@
 
 use basenum::{ BaseNum, BaseFloat };
 use traits::{ GenNum, GenFloat };
-use std::num::Float;
+use num::Float;
 
 /// Returns the cubic root.
 #[inline(always)]
