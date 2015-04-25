@@ -22,11 +22,10 @@
 // THE SOFTWARE.
 
 use std::cmp;
-use std::num::{ Int, Float, SignedInt };
 use std::{ f32, f64 };
 use std::ops::{ Sub, Div, Rem, Neg };
 use rand::Rand;
-use num::{ One, Zero };
+use num::{ PrimInt, Float, One, Signed, Zero };
 
 /// Marker trait for primitive types.
 ///
@@ -70,7 +69,7 @@ pub trait BaseNum
 }
 
 /// Trait for numerical types that have negative values.
-pub trait Signed
+pub trait SignedNum
 : Neg<Output = Self>
 + Sub<Self, Output = Self>
 {
@@ -82,14 +81,14 @@ pub trait Signed
     /// # Example
     ///
     /// ```
-    /// use glm::{ Signed, dvec3 };
+    /// use glm::{ SignedNum, dvec3 };
     /// assert_eq!(dvec3(2.718, 0., -0.).sign(), dvec3(1., 0., 0.));
     /// ```
     fn sign(&self) -> Self;
 }
 
 /// Marker trait for primitive integer number type.
-pub trait BaseInt: Int + BaseNum {}
+pub trait BaseInt: PrimInt + BaseNum {}
 
 /// Trait for comparing types that are derived from float numbers.
 ///
@@ -137,13 +136,13 @@ pub trait ApproxEq {
     /// assert_eq!(1f32.is_approx_eq(&sum), true);
     /// ```
     fn is_approx_eq(&self, rhs: &Self) -> bool {
-        self.is_close_to(rhs, <Self::BaseType as BaseFloat>::epsilon())
+        self.is_close_to(rhs, Self::BaseType::epsilon())
     }
 }
 
 /// Returns the result of `x.is_close_to(y, max_diff)`.
 #[inline(always)]
-pub fn is_close_to<T: ApproxEq>(x: &T, y: &T, max_diff: <T as ApproxEq>::BaseType) -> bool {
+pub fn is_close_to<T: ApproxEq>(x: &T, y: &T, max_diff: T::BaseType) -> bool {
     x.is_close_to(y, max_diff)
 }
 
@@ -184,14 +183,20 @@ macro_rules! assert_close_to(
 
 
 /// Trait for primitive float number type.
-pub trait BaseFloat: Float + BaseNum + Signed + ApproxEq<BaseType = Self> {
+pub trait BaseFloat: Float + BaseNum + SignedNum + ApproxEq<BaseType = Self> {
     fn epsilon() -> Self;
+    // XXX: methods not defined in num::Float. unstable.
+    fn to_degrees(self) -> Self;
+    fn to_radians(self) -> Self;
+    fn rsqrt(self) -> Self;
+    fn frexp(self) -> (Self, isize);
+    fn ldexp(self, exp: isize) -> Self;
 }
 
-impl Signed for i32 {
+impl SignedNum for i32 {
     #[inline(always)]
     fn abs(&self) -> i32 {
-        SignedInt::abs(*self)
+        Signed::abs(self)
     }
     #[inline(always)]
     fn sign(&self) -> i32 {
@@ -222,14 +227,14 @@ impl_int! { i32, u32 }
 macro_rules! impl_flt(
     ($t: ident) => {
         impl Primitive for $t {}
-        impl Signed for $t {
+        impl SignedNum for $t {
             #[inline(always)]
             fn abs(&self) -> $t {
                 Float::abs(*self)
             }
             #[inline(always)]
             fn sign(&self) -> $t {
-                let l = <$t as Zero>::zero();
+                let l = $t::zero();
                 if self.is_zero() {
                     l
                 } else {
@@ -255,8 +260,29 @@ macro_rules! impl_flt(
             }
         }
         impl BaseFloat for $t {
+            #[inline(always)]
             fn epsilon() -> $t {
                 $t::EPSILON
+            }
+            #[inline(always)]
+            fn to_degrees(self) -> $t {
+                $t::to_degrees(self)
+            }
+            #[inline(always)]
+            fn to_radians(self) -> $t {
+                $t::to_radians(self)
+            }
+            #[inline(always)]
+            fn rsqrt(self) -> $t {
+                self.sqrt().recip()
+            }
+            #[inline(always)]
+            fn frexp(self) -> ($t, isize) {
+                $t::frexp(self)
+            }
+            #[inline(always)]
+            fn ldexp(self, exp: isize) -> $t {
+                $t::ldexp(self, exp)
             }
         }
     }

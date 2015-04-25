@@ -80,8 +80,8 @@ C: GenFloatVec<T>,
 R: GenFloatVec<T>,
 M: GenMat<T, C, R = R>
 >(c: C, r: R) -> M {
-    let mut z = <M as Zero>::zero();
-    let dim = <R as GenVec<T>>::dim();
+    let mut z = M::zero();
+    let dim = R::dim();
     for i in 0..dim {
         z[i] = c * r[i];
     };

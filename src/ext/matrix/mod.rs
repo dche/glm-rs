@@ -43,8 +43,8 @@ mod transform;
 /// ```
 #[inline]
 pub fn trace<F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>>(m: &M) -> F {
-    let s = <C as GenVec<F>>::dim();
-    let mut tr = <F as Zero>::zero();
+    let s = C::dim();
+    let mut tr = F::zero();
     for i in 0..s {
         tr = tr + m[i][i];
     };
@@ -70,6 +70,6 @@ pub fn is_invertible
 <
 F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>
 >(m: &M) -> bool {
-    let y = <F as Zero>::zero();
+    let y = F::zero();
     !m.determinant().is_approx_eq(&y)
 }

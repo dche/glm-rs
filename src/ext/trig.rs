@@ -23,7 +23,7 @@
 
 use basenum::BaseFloat;
 use traits::GenFloat;
-use std::num::Float;
+use num::Float;
 
 /// Simultaneously computes the sine and cosine of `x`, returns
 /// `(sin(x), cos(x))`.

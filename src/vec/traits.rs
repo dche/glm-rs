@@ -37,7 +37,7 @@ pub trait GenVec<T: Primitive>
     ///
     /// ```
     /// use glm::GenVec;    // bring the method into scope.
-    /// assert_eq!(<glm::IVec4 as GenVec<i32>>::dim(), 4);
+    /// assert_eq!(glm::IVec4::dim(), 4);
     /// ```
     fn dim() -> usize;
 

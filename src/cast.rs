@@ -25,8 +25,7 @@ use basenum::Primitive;
 use vec::traits::GenVec;
 use vec::vec::*;
 use std::default::Default;
-use std::num::ToPrimitive;
-use num::Zero;
+use num::{ ToPrimitive, Zero };
 
 /// This trait is like the `std::num::ToPrimitive`, but function `to_bool()`
 /// is added.
@@ -188,7 +187,7 @@ macro_rules! impl_ToScalar_for_scalar {
             impl<T: PrimCast> ToScalar<$t, T> for $t {
                 #[inline(always)]
                 fn to(self) -> Option<T> {
-                    <T as PrimCast>::from(self)
+                    T::from(self)
                 }
             }
         )+
@@ -203,7 +202,7 @@ macro_rules! impl_ToScalar_for_vector {
             impl<F: PrimCast, T: PrimCast> ToScalar<F, T> for $t<F> {
                 #[inline(always)]
                 fn to(self) -> Option<T> {
-                    <T as PrimCast>::from(self[0])
+                    T::from(self[0])
                 }
             }
         )+
@@ -285,7 +284,7 @@ macro_rules! impl_ToVector_for_vector {
             impl<F: PrimCast, T: PrimCast + Default> ToVector<F, T, $v<T>> for $v<F> {
                 #[inline]
                 fn to(self) -> Option<$v<T>> {
-                    let os = [$(<T as PrimCast>::from(self.$field)),+];
+                    let os = [$(T::from(self.$field)),+];
                     if os.iter().any(|&o| -> bool { o.is_none() }) {
                         None
                     } else {

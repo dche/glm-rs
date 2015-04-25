@@ -60,110 +60,110 @@ macro_rules! impl_Consts_for {
             impl<T> Consts<$bt> for T where T: GenFloat<$bt> {
                 #[inline(always)]
                 fn epsilon() -> T {
-                    GenNum::<$bt>::from_s(BaseFloat::epsilon())
+                    T::from_s(BaseFloat::epsilon())
                 }
                 #[inline(always)]
                 fn pi() -> T {
-                    GenNum::<$bt>::from_s(3.14159265358979323846264338327950288)
+                    T::from_s(3.14159265358979323846264338327950288)
                 }
                 #[inline(always)]
                 fn tau() -> T {
-                    GenNum::<$bt>::from_s(6.28318530717958647692528676655900576)
+                    T::from_s(6.28318530717958647692528676655900576)
                 }
                 #[inline(always)]
                 fn root_pi() -> T {
-                    GenNum::<$bt>::from_s(1.772453850905516027)
+                    T::from_s(1.772453850905516027)
                 }
                 #[inline(always)]
                 fn half_pi() -> T {
-                    GenNum::<$bt>::from_s(1.57079632679489661923132169163975144)
+                    T::from_s(1.57079632679489661923132169163975144)
                 }
                 #[inline(always)]
                 fn one_third_pi() -> T {
-                    GenNum::<$bt>::from_s(1.04719755119659774615421446109316763)
+                    T::from_s(1.04719755119659774615421446109316763)
                 }
                 #[inline(always)]
                 fn quarter_pi() -> T {
-                    GenNum::<$bt>::from_s(0.785398163397448309615660845819875721)
+                    T::from_s(0.785398163397448309615660845819875721)
                 }
                 #[inline(always)]
                 fn one_over_pi() -> T {
-                    GenNum::<$bt>::from_s(0.318309886183790671537767526745028724)
+                    T::from_s(0.318309886183790671537767526745028724)
                 }
                 #[inline(always)]
                 fn one_over_tau() -> T {
-                    GenNum::<$bt>::from_s(0.159154943091895335768883763372514362)
+                    T::from_s(0.159154943091895335768883763372514362)
                 }
                 #[inline(always)]
                 fn two_over_pi() -> T {
-                    GenNum::<$bt>::from_s(0.636619772367581343075535053490057448)
+                    T::from_s(0.636619772367581343075535053490057448)
                 }
                 #[inline(always)]
                 fn four_over_pi() -> T {
-                    GenNum::<$bt>::from_s(1.273239544735162686151070106980114898)
+                    T::from_s(1.273239544735162686151070106980114898)
                 }
                 #[inline(always)]
                 fn two_over_root_pi() -> T {
-                    GenNum::<$bt>::from_s(1.12837916709551257389615890312154517)
+                    T::from_s(1.12837916709551257389615890312154517)
                 }
                 #[inline(always)]
                 fn one_over_root_two() -> T {
-                    GenNum::<$bt>::from_s(0.707106781186547524400844362104849039)
+                    T::from_s(0.707106781186547524400844362104849039)
                 }
                 #[inline(always)]
                 fn root_half_pi() -> T {
-                    GenNum::<$bt>::from_s(1.253314137315500251)
+                    T::from_s(1.253314137315500251)
                 }
                 #[inline(always)]
                 fn root_tau() -> T {
-                    GenNum::<$bt>::from_s(2.506628274631000502)
+                    T::from_s(2.506628274631000502)
                 }
                 #[inline(always)]
                 fn root_ln_four() -> T {
-                    GenNum::<$bt>::from_s(1.17741002251547469)
+                    T::from_s(1.17741002251547469)
                 }
                 #[inline(always)]
                 fn e() -> T {
-                    GenNum::<$bt>::from_s(2.71828182845904523536028747135266250)
+                    T::from_s(2.71828182845904523536028747135266250)
                 }
                 #[inline(always)]
                 fn euler() -> T {
-                    GenNum::<$bt>::from_s(0.577215664901532860606)
+                    T::from_s(0.577215664901532860606)
                 }
                 #[inline(always)]
                 fn root_two() -> T {
-                    GenNum::<$bt>::from_s(1.41421356237309504880168872420969808)
+                    T::from_s(1.41421356237309504880168872420969808)
                 }
                 #[inline(always)]
                 fn root_three() -> T {
-                    GenNum::<$bt>::from_s(1.73205080756887729352744634150587236)
+                    T::from_s(1.73205080756887729352744634150587236)
                 }
                 #[inline(always)]
                 fn root_five() -> T {
-                    GenNum::<$bt>::from_s(2.23606797749978969640917366873127623)
+                    T::from_s(2.23606797749978969640917366873127623)
                 }
                 #[inline(always)]
                 fn ln_two() -> T {
-                    GenNum::<$bt>::from_s(0.693147180559945309417232121458176568)
+                    T::from_s(0.693147180559945309417232121458176568)
                 }
                 #[inline(always)]
                 fn ln_ten() -> T {
-                    GenNum::<$bt>::from_s(2.30258509299404568401799145468436421)
+                    T::from_s(2.30258509299404568401799145468436421)
                 }
                 #[inline(always)]
                 fn ln_ln_two() -> T {
-                    GenNum::<$bt>::from_s(-0.3665129205816643)
+                    T::from_s(-0.3665129205816643)
                 }
                 #[inline(always)]
                 fn one_third() -> T {
-                    GenNum::<$bt>::from_s(0.3333333333333333333333333333333333333333)
+                    T::from_s(0.3333333333333333333333333333333333333333)
                 }
                 #[inline(always)]
                 fn two_thirds() -> T {
-                    GenNum::<$bt>::from_s(0.666666666666666666666666666666666666667)
+                    T::from_s(0.666666666666666666666666666666666666667)
                 }
                 fn golden_ratio() -> T {
-                    GenNum::<$bt>::from_s(1.61803398874989484820458683436563811)
+                    T::from_s(1.61803398874989484820458683436563811)
                 }
             }
         )+
@@ -178,7 +178,7 @@ impl_Consts_for! { f32, f64 }
 /// Returns the epsilon constant for floating point types.
 #[inline(always)]
 pub fn epsilon<F: BaseFloat, T: GenFloat<F>>() -> T {
-    GenNum::<F>::from_s(BaseFloat::epsilon())
+    T::from_s(BaseFloat::epsilon())
 }
 
 /// Returns the Archimedes' constant π.

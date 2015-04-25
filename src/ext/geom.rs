@@ -85,10 +85,10 @@ pub fn normalize_to<F: BaseFloat, T: GenFloatVec<F>>(x: T, len: F) -> T {
 /// ```
 #[inline]
 pub fn projection<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> T {
-    let ling = <F as Zero>::zero();
+    let ling = F::zero();
     let sqlen = sqlength(y);
     if sqlen.is_approx_eq(&ling) {
-        <T as Zero>::zero()
+        T::zero()
     } else {
         y * bif::dot(x, y) * sqlen.recip()
     }
@@ -108,7 +108,7 @@ pub fn projection<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> T {
 /// ```
 #[inline(always)]
 pub fn is_perpendicular<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> bool {
-    bif::dot(x, y).is_approx_eq(&<F as Zero>::zero())
+    bif::dot(x, y).is_approx_eq(&F::zero())
 }
 
 /// Returns angle between vectors `x` and `y`.
@@ -133,7 +133,7 @@ pub fn is_perpendicular<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> bool {
 /// ```
 #[inline]
 pub fn angle<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> F {
-    let ling = <F as Zero>::zero();
+    let ling = F::zero();
     let sqmag = bif::dot(x, x) * bif::dot(y, y);
     if sqmag.is_approx_eq(&ling) {
         ling

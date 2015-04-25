@@ -29,8 +29,7 @@
 use basenum::BaseFloat;
 use vec::traits::GenFloatVec;
 use vec::vec::Vector3;
-use std::num::Float;
-use num::{ One, Zero };
+use num::{ Float, One, Zero };
 
 /// Returns the dot product of `x` and `y`, i.e.,
 /// `x[0] * y[0] + x[1] * y[1] + ...`.
@@ -95,7 +94,7 @@ pub fn distance<S: BaseFloat, T: GenFloatVec<S>>(p0: T, p1: T) -> S {
 #[inline]
 #[allow(non_snake_case)]
 pub fn faceforward<S: BaseFloat, T: GenFloatVec<S>>(N: T, I: T, Nref: T) -> T {
-    let ling = <S as Zero>::zero();
+    let ling = S::zero();
     if dot(Nref, I) < ling {
         N
     } else {
@@ -135,12 +134,12 @@ pub fn reflect<S: BaseFloat, T: GenFloatVec<S>>(I: T, N: T) -> T {
 #[allow(non_snake_case)]
 pub fn refract<S: BaseFloat, T: GenFloatVec<S>>(I: T, N: T, eta: S) -> T {
     let dot_ni = dot(I, N);
-    let yi = <S as One>::one();
-    let ling = <S as Zero>::zero();
+    let yi = S::one();
+    let ling = S::zero();
 
     let k = yi - eta * eta * (yi - dot_ni) * dot_ni;
     if k < ling {
-        <T as Zero>::zero()
+        T::zero()
     } else {
         I * eta - N * (eta * dot_ni + k.sqrt())
     }

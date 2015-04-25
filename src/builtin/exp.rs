@@ -24,7 +24,7 @@
 
 use basenum::BaseFloat;
 use traits::GenFloat;
-use std::num::Float;
+use num::Float;
 
 /// Returns `x` raised to the `y` power, i.e., *x<sup>y</sup>*.
 ///
@@ -141,5 +141,5 @@ pub fn sqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
 /// ```
 #[inline(always)]
 pub fn inversesqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
-    x.map(Float::rsqrt)
+    x.map(BaseFloat::rsqrt)
 }

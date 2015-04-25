@@ -322,10 +322,11 @@ macro_rules! impl_matrix {
                 }
             }
             #[cfg(test)]
-            impl<T: BaseFloat + Arbitrary> Arbitrary for $t<T> {
+            impl<T: BaseFloat + Arbitrary> Arbitrary for $t<T>
+            where T::FromStrRadixErr: 'static {
                 #[inline]
                 fn arbitrary<G: Gen>(g: &mut G) -> $t<T> {
-                    $t { $($field: <$ct<T> as Arbitrary>::arbitrary(g)),+ }
+                    $t { $($field: $ct::<T>::arbitrary(g)),+ }
                 }
             }
             impl<T: BaseFloat> Add<T> for $t<T> {
@@ -422,7 +423,7 @@ macro_rules! impl_matrix {
             impl<T: BaseFloat> Zero for $t<T> {
                 #[inline(always)]
                 fn zero() -> $t<T> {
-                    $t { $($field: <$ct<T> as Zero>::zero()), + }
+                    $t { $($field: $ct::<T>::zero()), + }
                 }
                 #[inline(always)]
                 fn is_zero(&self) -> bool {

@@ -26,8 +26,8 @@
 use basenum::BaseInt;
 use traits::{ GenNum, GenInt, GenIType, GenUType };
 use vec::vec::{ UVec2, UVec3, UVec4, IVec2, IVec3, IVec4 };
+use cast::PrimCast;
 use std::mem;
-use std::num::{ Int, cast };
 use num::Zero;
 
 // used by `findLSB` and `findMSB`.
@@ -190,11 +190,11 @@ pub fn bitfieldExtract
 I: BaseInt,
 T: GenInt<I>
 >(value: T, offset: usize, bits: usize) -> T {
-    let ling = <T as Zero>::zero();
+    let ling = T::zero();
     if value.is_zero() || bits == 0 || offset + bits > 32 {
         ling
     } else {
-        let mask: I = cast((1_u32 << bits) - 1).unwrap();
+        let mask = I::from((1_u32 << bits) - 1).unwrap();
         value.map(|i| -> I {
             (i >> offset) & mask
         })
@@ -229,7 +229,7 @@ T: GenInt<I>
     if bits == 0 {
         base
     } else {
-        let mask: I = cast(((1_u32 << bits) - 1) << offset).unwrap();
+        let mask = I::from(((1_u32 << bits) - 1) << offset).unwrap();
         base.zip(insert, |i, j| -> I {
             (i & !mask) | (j & mask)
         })
@@ -283,7 +283,7 @@ pub fn bitfieldReverse<I: BaseInt, T: GenInt<I>>(value: T) -> T {
 #[allow(non_snake_case)]
 pub fn bitCount<I: BaseInt, T: GenInt<I>>(value: T) -> T {
     value.map(|i| -> I {
-        let c: I = cast(i.count_ones()).unwrap();
+        let c = I::from(i.count_ones()).unwrap();
         c
     })
 }
@@ -342,7 +342,7 @@ I: GenIType,
 T: IntIntRel<B, I>
 >(value: T) -> I {
     value.map_int(|i| -> i32 {
-        let ling = <B as Zero>::zero();
+        let ling = B::zero();
         if i.is_zero() {
             -1
         } else if i < ling {
