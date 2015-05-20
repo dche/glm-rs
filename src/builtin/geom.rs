@@ -27,9 +27,11 @@
 // - `ftransform` is not implemented.
 
 use basenum::BaseFloat;
+use traits::GenFloat;
 use vec::traits::GenFloatVec;
 use vec::vec::Vector3;
 use num::{ Float, One, Zero };
+use super::exp::inversesqrt;
 
 /// Returns the dot product of `x` and `y`, i.e.,
 /// `x[0] * y[0] + x[1] * y[1] + ...`.
@@ -70,8 +72,8 @@ pub fn length<S: BaseFloat, T: GenFloatVec<S>>(x: T) -> S {
 /// assert!(normalize(dvec2(3., 4.)).is_approx_eq(&dvec2(0.6, 0.8)));
 /// ```
 #[inline(always)]
-pub fn normalize<S: BaseFloat, T: GenFloatVec<S>>(x: T) -> T {
-    x * dot(x, x).rsqrt()
+pub fn normalize<S: BaseFloat + GenFloat<S>, T: GenFloatVec<S>>(x: T) -> T {
+    x * inversesqrt(dot(x, x))
 }
 
 /// Returns the distance between `p0` and `p1`, i.e., `length(p0 – p1)`.
