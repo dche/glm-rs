@@ -141,5 +141,7 @@ pub fn sqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
 /// ```
 #[inline(always)]
 pub fn inversesqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
-    x.map(BaseFloat::rsqrt)
+    x.map(|f| -> F {
+        f.sqrt().recip()
+    })
 }

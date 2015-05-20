@@ -185,10 +185,8 @@ macro_rules! assert_close_to(
 /// Trait for primitive float number type.
 pub trait BaseFloat: Float + BaseNum + SignedNum + ApproxEq<BaseType = Self> {
     fn epsilon() -> Self;
-    // XXX: methods not defined in num::Float. unstable.
     fn to_degrees(self) -> Self;
     fn to_radians(self) -> Self;
-    fn rsqrt(self) -> Self;
     fn frexp(self) -> (Self, isize);
     fn ldexp(self, exp: isize) -> Self;
 }
@@ -266,23 +264,29 @@ macro_rules! impl_flt(
             }
             #[inline(always)]
             fn to_degrees(self) -> $t {
-                $t::to_degrees(self)
+                self * (180. / $t::consts::PI)
             }
             #[inline(always)]
             fn to_radians(self) -> $t {
-                $t::to_radians(self)
-            }
-            #[inline(always)]
-            fn rsqrt(self) -> $t {
-                self.sqrt().recip()
+                self * ($t::consts::PI / 180.)
             }
             #[inline(always)]
             fn frexp(self) -> ($t, isize) {
-                $t::frexp(self)
+                // CHECK: use impl in `libstd` after it's stable.
+                if self.is_zero() || self.is_infinite() || self.is_nan() {
+                    (self, 0)
+                } else {
+                    let lg = self.abs().log2();
+                    let x = (lg.fract() - 1.).exp2();
+                    let exp = lg.floor() + 1.;
+                    (self.signum() * x, exp as isize)
+                }
             }
             #[inline(always)]
             fn ldexp(self, exp: isize) -> $t {
-                $t::ldexp(self, exp)
+                // CHECK: use impl in `libstd` after it's stable.
+                let f = exp as $t;
+                self * f.exp2()
             }
         }
     }

@@ -22,6 +22,7 @@
 // THE SOFTWARE.
 
 use basenum::BaseFloat;
+use traits::GenFloat;
 use vec::traits::GenFloatVec;
 use builtin as bif;
 use num::Zero;
@@ -53,8 +54,8 @@ pub fn sqlength<F: BaseFloat, T: GenFloatVec<F>>(x: T) -> F {
 /// assert_eq!(recip_length(v), 0.2);
 /// ```
 #[inline(always)]
-pub fn recip_length<F: BaseFloat, T: GenFloatVec<F>>(x: T) -> F {
-    sqlength(x).rsqrt()
+pub fn recip_length<F: BaseFloat + GenFloat<F>, T: GenFloatVec<F>>(x: T) -> F {
+    bif::inversesqrt(sqlength(x))
 }
 
 /// Normalizes vector `x` of specific length `len`.
@@ -69,7 +70,7 @@ pub fn recip_length<F: BaseFloat, T: GenFloatVec<F>>(x: T) -> F {
 /// assert_eq!(length(normalize_to(v, 2.)), 2.);
 /// ```
 #[inline(always)]
-pub fn normalize_to<F: BaseFloat, T: GenFloatVec<F>>(x: T, len: F) -> T {
+pub fn normalize_to<F: BaseFloat + GenFloat<F>, T: GenFloatVec<F>>(x: T, len: F) -> T {
     bif::normalize(x) * len
 }
 
@@ -132,12 +133,12 @@ pub fn is_perpendicular<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> bool {
 /// assert!(is_approx_eq(&angle(vy, vx), &half_pi()));
 /// ```
 #[inline]
-pub fn angle<F: BaseFloat, T: GenFloatVec<F>>(x: T, y: T) -> F {
+pub fn angle<F: BaseFloat + GenFloat<F>, T: GenFloatVec<F>>(x: T, y: T) -> F {
     let ling = F::zero();
     let sqmag = bif::dot(x, x) * bif::dot(y, y);
     if sqmag.is_approx_eq(&ling) {
         ling
     } else {
-        (bif::dot(x, y) * sqmag.rsqrt()).acos()
+        (bif::dot(x, y) * bif::inversesqrt(sqmag)).acos()
     }
 }

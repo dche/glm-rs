@@ -22,7 +22,6 @@
 // THE SOFTWARE.
 
 #![allow(unused_variables)]
-#![feature(std_misc)]
 
 //! GLSL mathematics for Rust programming language.
 //!
@@ -131,11 +130,13 @@ extern crate quickcheck;
 pub use builtin::*;
 
 pub use basenum::{
-    Primitive, BaseNum, SignedNum,
+    Primitive, BaseNum, BaseInt, BaseFloat, SignedNum,
     ApproxEq, is_approx_eq, is_close_to
 };
 
-pub use traits::GenNum;
+pub use traits::{
+    GenNum, GenInt, GenFloat
+};
 
 pub use vec::traits::{
     GenVec, GenNumVec, GenFloatVec, GenBVec,
