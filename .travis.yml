@@ -3,12 +3,12 @@ sudo: true
 
 env:
   global:
-    - secure: i7Sl5SstG3Ze4MDTHNrcvR77AVgDAOkgU69HPaVQmSg5MYjk6/hK8Fctx54f47O3fYec1vuxvVUdv8yBmQK7+93vRYloip33gbBdqPwzhqmqzL0V2kH7YY6ymx/lpfQ0Gbj6WxSrfd7BtWkcVHdVWh1SQwp2gVJuD4oPTIX1S7Q=
+    - secure: D0AkPgUQXHGgtgyQL6wgC7qZiodw9OXH5tJw7PerQTPUFe4ZsCDW1nhOzctKRXLDeEYZeDcYTFgTdwMi8jiyhFjgaaXQFI8pw3eZUBrJ9Mo0I3X/WzCSZDnbaPT9lLjv9FQGfZ8LZDkwnmf6gGF6FdlMuOSYIQXzIwEeZJvLD6w=
 
 script:
   - cargo build --release --verbose
   - cargo test --verbose
-  - cargo doc --verbose
+  - cargo doc --no-deps
 
 after_script:
   - mv target/doc doc
