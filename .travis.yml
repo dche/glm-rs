@@ -1,15 +1,15 @@
 language: rust
-sudo: false
+sudo: true
 
 env:
   global:
-    - secure: SHCtDqsoyOQdkfv0Kt+piay/LaYAu+teod6CPt+st1sahehvnJwpu+54pYwi8BrF3ADZ2xay3cwKr9Tl9LOKMCAwLRaGU9CMyMi0t1/ngq2iivUdpbvQMVZvkKPeCQvHf8jHH9u16n6FAm8AL4EXAwIdu/bW58GbS+gsinnN3gg=
+    - secure: gq/9qUZ4jI4lD+8MsqCg1nPdSZsr0Dm8Fyhyd0UbulJecbZtfUZiS6d9ZTYJCpOHHFXgopxMLkFF1LIDGplKmjejOpGyBZQHtnFLtgVYgVp3metNt3T/GKdUwjLNo6/DYoOvauvWp9zdv7QCn6GG0xaZgm2dk7PY3rnCXZBNY+Y=
 
 script:
   - cargo build --release --verbose
   - cargo test --verbose
+  - cargo doc --verbose
 
 after_script:
-  - cargo doc --verbose
   - mv target/doc doc
   - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
