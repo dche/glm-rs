@@ -23,12 +23,12 @@ use vec::vec::{ Vector3, Vector4 };
 /// # }
 /// ```
 #[inline]
-pub fn translate<P>(
-    m: &Matrix4<P>,
-    v: Vector3<P>
-) -> Matrix4<P>
+pub fn translate<T>(
+    m: &Matrix4<T>,
+    v: Vector3<T>
+) -> Matrix4<T>
 where
-    P : BaseFloat
+    T : BaseFloat
 {
     Matrix4::new(
         m.c0, m.c1, m.c2,
@@ -36,17 +36,17 @@ where
 }
 
 #[inline]
-pub fn perspective<P>(
-    fov_y: P,
-    aspect: P,
-    z_near: P,
-    z_far: P
-) -> Matrix4<P>
+pub fn perspective<T>(
+    fov_y: T,
+    aspect: T,
+    z_near: T,
+    z_far: T
+) -> Matrix4<T>
 where
-    P : BaseFloat
+    T : BaseFloat
 {
-    let zero = num::zero::<P>();
-    let one = num::one::<P>();
+    let zero = num::zero::<T>();
+    let one = num::one::<T>();
     let two = one + one;
     let q = one / (fov_y / two).tan();
     let a = q / aspect;
@@ -62,16 +62,16 @@ where
 }
 
 #[inline]
-pub fn rotate<P>(
-    m: Matrix4<P>,
-    angle: P,
-    v: Vector3<P>
-) -> Matrix4<P>
+pub fn rotate<T>(
+    m: &Matrix4<T>,
+    angle: T,
+    v: Vector3<T>
+) -> Matrix4<T>
 where
-    P : BaseFloat + GenFloat<P>
+    T : BaseFloat + GenFloat<T>
 {
-    let zero = num::zero::<P>();
-    let one = num::one::<P>();
+    let zero = num::zero::<T>();
+    let one = num::one::<T>();
 
     let a = angle;
     let (s, c) = a.sin_cos();
@@ -102,16 +102,31 @@ where
 }
 
 #[inline]
-pub fn look_at<P>(
-    eye: Vector3<P>,
-    center: Vector3<P>,
-    up: Vector3<P>
-) -> Matrix4<P>
+pub fn scale<T>(
+    m: &Matrix4<T>,
+    v: Vector3<T>
+) -> Matrix4<T>
 where
-    P : BaseFloat + GenFloat<P>
+    T : BaseFloat + GenFloat<T>
 {
-    let zero = num::zero::<P>();
-    let one = num::one::<P>();
+    Matrix4::new(
+        m.c0 * v.x,
+        m.c1 * v.y,
+        m.c2 * v.z,
+        m.c3)
+}
+
+#[inline]
+pub fn look_at<T>(
+    eye: Vector3<T>,
+    center: Vector3<T>,
+    up: Vector3<T>
+) -> Matrix4<T>
+where
+    T : BaseFloat + GenFloat<T>
+{
+    let zero = num::zero::<T>();
+    let one = num::one::<T>();
     let f = normalize(center - eye);
     let up_n = normalize(up);
     let s = cross(f, up_n);
