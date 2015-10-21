@@ -36,7 +36,33 @@ where
 }
 
 #[inline]
+/// Creates a matrix for a symetric perspective-view frustum based on the default handedness.
+///
+/// `fov_y` is the field of view angle in the y direction in radians.
+/// The `aspect` ratio determines the field of view in the x direction.
+/// `near_z` is the distance from the viewer to the near clipping plane (always positive) and
+/// `far_z` is the distance from the viewer to the far clipping plane (always positive).
 pub fn perspective<T>(
+    fov_y: T,
+    aspect: T,
+    z_near: T,
+    z_far: T
+) -> Matrix4<T>
+where
+    T : BaseFloat
+{
+    // TODO: make this a compile option
+    perspective_rh(fov_y, aspect, z_near, z_far)
+}
+
+#[inline]
+/// Creates a matrix for a right handed, symetric perspective-view frustum.
+///
+/// `fov_y` is the field of view angle in the y direction in radians.
+/// The `aspect` ratio determines the field of view in the x direction.
+/// `near_z` is the distance from the viewer to the near clipping plane (always positive) and
+/// `far_z` is the distance from the viewer to the far clipping plane (always positive).
+pub fn perspective_rh<T>(
     fov_y: T,
     aspect: T,
     z_near: T,
@@ -62,6 +88,11 @@ where
 }
 
 #[inline]
+/// Builds a rotation 4 * 4 matrix created from an axis vector and an angle.
+///
+/// `m` as the input matrix multiplied by this rotation matrix.
+/// `angle` is the rotation angle expressed in radians.
+/// Rotation `axis` is recommended to be normalized.
 pub fn rotate<T>(
     m: &Matrix4<T>,
     angle: T,
@@ -102,6 +133,10 @@ where
 }
 
 #[inline]
+/// Builds a scale 4 * 4 matrix created from 3 scalars.
+///
+/// `m` is the input matrix multiplied by this scale matrix.
+/// `v` is the ratio of scaling for each axis.
 pub fn scale<T>(
     m: &Matrix4<T>,
     v: Vector3<T>
@@ -117,7 +152,28 @@ where
 }
 
 #[inline]
+/// Build a look at view matrix based on the default handedness.
+///
+/// View matrix is based on the `eye` position of the camera, `center` position where the camera is
+/// looking at and a normalized `up` vector, how the camera is oriented. Typically (0, 0, 1)
 pub fn look_at<T>(
+    eye: Vector3<T>,
+    center: Vector3<T>,
+    up: Vector3<T>
+) -> Matrix4<T>
+where
+    T : BaseFloat + GenFloat<T>
+{
+    // TODO: make handedness configurable
+    look_at_rh::<T>(eye, center, up)
+}
+
+#[inline]
+/// Build a right handed look at view matrix.
+///
+/// View matrix is based on the `eye` position of the camera, `center` position where the camera is
+/// looking at and a normalized `up` vector, how the camera is oriented. Typically (0, 0, 1)
+pub fn look_at_rh<T>(
     eye: Vector3<T>,
     center: Vector3<T>,
     up: Vector3<T>
