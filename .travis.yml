@@ -6,7 +6,7 @@ rust:
 - stable
 env:
   global:
-  - TRAVIS_CARGO_NIGHTLY_FEATURE=dev
+  # - TRAVIS_CARGO_NIGHTLY_FEATURE=dev
   - secure: cbKR6Shd18JPkPkglV866GORaziY0G/ncMji6Iz0XwuQjqdu8wQmydefAKJR+HLbE++vYiKiAhbdzwCrPHNmx5xl4ssJIQu3IcSkyhdUI3ja1wNFQ08XoEgonipBj1wLFO0XCVDL2G4tzbDaj62c5ZVXfoTb4AxCZT3ZPal2So4=
 matrix:
   allow_failures:

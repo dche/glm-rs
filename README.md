@@ -12,7 +12,7 @@ do not need to learn more than one math API.
 
 Because of the not so small syntax/semantics difference between Rust and GLSL,
 some parts of GLSL are missing or changed, some functions are added to
-complete the functionalities. See the glm-rs documentation (see https://github.com/dche/glm-rs/issues/9 for info on how to build them) for full list
+complete the functionalities. See the [glm-rs documentation](http://dche.github.io/glm-rs/) for full list
 of differences.
 
 The project is in beta status until the major version reaches to `1`.
