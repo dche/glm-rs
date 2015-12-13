@@ -4,7 +4,8 @@ name = "glm"
 version = "0.1.18"
 authors = [
     "Che Kenan <chekenan@gmail.com>",
-    "Nerijus Arlauskas <nercury@gmail.com>"
+    "Nerijus Arlauskas <nercury@gmail.com>",
+    "Fredrik Norén"
 ]
 
 description = "GLSL mathematics for Rust."
