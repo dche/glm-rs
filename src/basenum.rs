@@ -70,7 +70,8 @@ pub trait BaseNum
 
 /// Trait for numerical types that have negative values.
 pub trait SignedNum
-: Neg<Output = Self>
+: Sized
++ Neg<Output = Self>
 + Sub<Self, Output = Self>
 {
     /// Returns the absolute value of the receiver.

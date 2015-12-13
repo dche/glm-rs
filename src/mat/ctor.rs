@@ -36,12 +36,12 @@ pub fn mat2(
 }
 
 #[inline]
-pub fn mat2x3(
+pub fn mat3x2(
     m11: f32, m21: f32,
     m12: f32, m22: f32,
     m13: f32, m23: f32
-) -> Mat2x3 {
-    Matrix2x3 {
+) -> Mat3x2 {
+    Matrix3x2 {
         c0: vec2(m11, m21),
         c1: vec2(m12, m22),
         c2: vec2(m13, m23)
@@ -49,13 +49,13 @@ pub fn mat2x3(
 }
 
 #[inline]
-pub fn mat2x4(
+pub fn mat4x2(
     m11: f32, m21: f32,
     m12: f32, m22: f32,
     m13: f32, m23: f32,
     m14: f32, m24: f32
-) -> Mat2x4 {
-    Matrix2x4 {
+) -> Mat4x2 {
+    Matrix4x2 {
         c0: vec2(m11, m21),
         c1: vec2(m12, m22),
         c2: vec2(m13, m23),
@@ -77,24 +77,24 @@ pub fn mat3(
 }
 
 #[inline]
-pub fn mat3x2(
+pub fn mat2x3(
     m11: f32, m21: f32, m31: f32,
     m12: f32, m22: f32, m32: f32
-) -> Mat3x2 {
-    Matrix3x2 {
+) -> Mat2x3 {
+    Matrix2x3 {
         c0: vec3(m11, m21, m31),
         c1: vec3(m12, m22, m32)
     }
 }
 
 #[inline]
-pub fn mat3x4(
+pub fn mat4x3(
     m11: f32, m21: f32, m31: f32,
     m12: f32, m22: f32, m32: f32,
     m13: f32, m23: f32, m33: f32,
     m14: f32, m24: f32, m34: f32
-) -> Mat3x4 {
-    Matrix3x4 {
+) -> Mat4x3 {
+    Matrix4x3 {
         c0: vec3(m11, m21, m31),
         c1: vec3(m12, m22, m32),
         c2: vec3(m13, m23, m33),
@@ -118,23 +118,23 @@ pub fn mat4(
 }
 
 #[inline]
-pub fn mat4x2(
+pub fn mat2x4(
     m11: f32, m21: f32, m31: f32, m41: f32,
     m12: f32, m22: f32, m32: f32, m42: f32,
-) -> Mat4x2 {
-    Matrix4x2 {
+) -> Mat2x4 {
+    Matrix2x4 {
         c0: vec4(m11, m21, m31, m41),
         c1: vec4(m12, m22, m32, m42)
     }
 }
 
 #[inline]
-pub fn mat4x3(
+pub fn mat3x4(
     m11: f32, m21: f32, m31: f32, m41: f32,
     m12: f32, m22: f32, m32: f32, m42: f32,
     m13: f32, m23: f32, m33: f32, m43: f32
-) -> Mat4x3 {
-    Matrix4x3 {
+) -> Mat3x4 {
+    Matrix3x4 {
         c0: vec4(m11, m21, m31, m41),
         c1: vec4(m12, m22, m32, m42),
         c2: vec4(m13, m23, m33, m43)
@@ -153,12 +153,12 @@ pub fn dmat2(
 }
 
 #[inline]
-pub fn dmat2x3(
+pub fn dmat3x2(
     m11: f64, m21: f64,
     m12: f64, m22: f64,
     m13: f64, m23: f64
-) -> DMat2x3 {
-    Matrix2x3 {
+) -> DMat3x2 {
+    Matrix3x2 {
         c0: dvec2(m11, m21),
         c1: dvec2(m12, m22),
         c2: dvec2(m13, m23)
@@ -166,13 +166,13 @@ pub fn dmat2x3(
 }
 
 #[inline]
-pub fn dmat2x4(
+pub fn dmat4x2(
     m11: f64, m21: f64,
     m12: f64, m22: f64,
     m13: f64, m23: f64,
     m14: f64, m24: f64
-) -> DMat2x4 {
-    Matrix2x4 {
+) -> DMat4x2 {
+    Matrix4x2 {
         c0: dvec2(m11, m21),
         c1: dvec2(m12, m22),
         c2: dvec2(m13, m23),
@@ -194,24 +194,24 @@ pub fn dmat3(
 }
 
 #[inline]
-pub fn dmat3x2(
+pub fn dmat2x3(
     m11: f64, m21: f64, m31: f64,
     m12: f64, m22: f64, m32: f64
-) -> DMat3x2 {
-    Matrix3x2 {
+) -> DMat2x3 {
+    Matrix2x3 {
         c0: dvec3(m11, m21, m31),
         c1: dvec3(m12, m22, m32)
     }
 }
 
 #[inline]
-pub fn dmat3x4(
+pub fn dmat4x3(
     m11: f64, m21: f64, m31: f64,
     m12: f64, m22: f64, m32: f64,
     m13: f64, m23: f64, m33: f64,
     m14: f64, m24: f64, m34: f64
-) -> DMat3x4 {
-    Matrix3x4 {
+) -> DMat4x3 {
+    Matrix4x3 {
         c0: dvec3(m11, m21, m31),
         c1: dvec3(m12, m22, m32),
         c2: dvec3(m13, m23, m33),
@@ -235,23 +235,23 @@ pub fn dmat4(
 }
 
 #[inline]
-pub fn dmat4x2(
+pub fn dmat2x4(
     m11: f64, m21: f64, m31: f64, m41: f64,
     m12: f64, m22: f64, m32: f64, m42: f64,
-) -> DMat4x2 {
-    Matrix4x2 {
+) -> DMat2x4 {
+    Matrix2x4 {
         c0: dvec4(m11, m21, m31, m41),
         c1: dvec4(m12, m22, m32, m42)
     }
 }
 
 #[inline]
-pub fn dmat4x3(
+pub fn dmat3x4(
     m11: f64, m21: f64, m31: f64, m41: f64,
     m12: f64, m22: f64, m32: f64, m42: f64,
     m13: f64, m23: f64, m33: f64, m43: f64
-) -> DMat4x3 {
-    Matrix4x3 {
+) -> DMat3x4 {
+    Matrix3x4 {
         c0: dvec4(m11, m21, m31, m41),
         c1: dvec4(m12, m22, m32, m42),
         c2: dvec4(m13, m23, m33, m43)
