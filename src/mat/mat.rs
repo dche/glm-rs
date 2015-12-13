@@ -129,19 +129,19 @@ macro_rules! transpose_unrolled {
         )
     };
     ($m: ident, Vector2, Vector3) => {
-        Matrix3x2::new(
+        Matrix2x3::new(
             Vector3::new($m[0][0], $m[1][0], $m[2][0]),
             Vector3::new($m[0][1], $m[1][1], $m[2][1])
         )
     };
     ($m: ident, Vector2, Vector4) => {
-        Matrix4x2::new(
+        Matrix2x4::new(
             Vector4::new($m[0][0], $m[1][0], $m[2][0], $m[3][0]),
             Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1])
         )
     };
     ($m: ident, Vector3, Vector2) => {
-        Matrix2x3::new(
+        Matrix3x2::new(
             Vector2::new($m[0][0], $m[1][0]),
             Vector2::new($m[0][1], $m[1][1]),
             Vector2::new($m[0][2], $m[1][2])
@@ -155,14 +155,14 @@ macro_rules! transpose_unrolled {
         )
     };
     ($m: ident, Vector3, Vector4) => {
-        Matrix4x3::new(
+        Matrix3x4::new(
             Vector4::new($m[0][0], $m[1][0], $m[2][0], $m[3][0]),
             Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1]),
             Vector4::new($m[0][2], $m[1][2], $m[2][2], $m[3][2])
         )
     };
     ($m: ident, Vector4, Vector2) => {
-        Matrix2x4::new(
+        Matrix4x2::new(
             Vector2::new($m[0][0], $m[1][0]),
             Vector2::new($m[0][1], $m[1][1]),
             Vector2::new($m[0][2], $m[1][2]),
@@ -170,7 +170,7 @@ macro_rules! transpose_unrolled {
         )
     };
     ($m: ident, Vector4, Vector3) => {
-        Matrix3x4::new(
+        Matrix4x3::new(
             Vector3::new($m[0][0], $m[1][0], $m[2][0]),
             Vector3::new($m[0][1], $m[1][1], $m[2][1]),
             Vector3::new($m[0][2], $m[1][2], $m[2][2]),
@@ -205,15 +205,15 @@ macro_rules! def_matrix {
 
 def_matrix! {
     { Matrix2,   Vector2, c0, c1 },
-    { Matrix2x3, Vector2, c0, c1, c2 },
-    { Matrix2x4, Vector2, c0, c1, c2, c3 },
+    { Matrix3x2, Vector2, c0, c1, c2 },
+    { Matrix4x2, Vector2, c0, c1, c2, c3 },
 
-    { Matrix3x2, Vector3, c0, c1 },
+    { Matrix2x3, Vector3, c0, c1 },
     { Matrix3,   Vector3, c0, c1, c2 },
-    { Matrix3x4, Vector3, c0, c1, c2, c3 },
+    { Matrix4x3, Vector3, c0, c1, c2, c3 },
 
-    { Matrix4x2, Vector4, c0, c1 },
-    { Matrix4x3, Vector4, c0, c1, c2 },
+    { Matrix2x4, Vector4, c0, c1 },
+    { Matrix3x4, Vector4, c0, c1, c2 },
     { Matrix4,   Vector4, c0, c1, c2, c3 }
 }
 
@@ -448,15 +448,15 @@ macro_rules! impl_matrix {
 
 impl_matrix! {
     { Matrix2,   Vector2, Vector2, Matrix2,   Matrix2, 2, c0, c1 },
-    { Matrix2x3, Vector2, Vector3, Matrix3x2, Matrix2, 3, c0, c1, c2 },
-    { Matrix2x4, Vector2, Vector4, Matrix4x2, Matrix2, 4, c0, c1, c2, c3 },
+    { Matrix3x2, Vector2, Vector3, Matrix2x3, Matrix2, 3, c0, c1, c2 },
+    { Matrix4x2, Vector2, Vector4, Matrix2x4, Matrix2, 4, c0, c1, c2, c3 },
 
-    { Matrix3x2, Vector3, Vector2, Matrix2x3, Matrix3, 2, c0, c1 },
+    { Matrix2x3, Vector3, Vector2, Matrix3x2, Matrix3, 2, c0, c1 },
     { Matrix3,   Vector3, Vector3, Matrix3,   Matrix3, 3, c0, c1, c2 },
-    { Matrix3x4, Vector3, Vector4, Matrix4x3, Matrix3, 4, c0, c1, c2, c3 },
+    { Matrix4x3, Vector3, Vector4, Matrix3x4, Matrix3, 4, c0, c1, c2, c3 },
 
-    { Matrix4x2, Vector4, Vector2, Matrix2x4, Matrix4, 2, c0, c1 },
-    { Matrix4x3, Vector4, Vector3, Matrix3x4, Matrix4, 3, c0, c1, c2 },
+    { Matrix2x4, Vector4, Vector2, Matrix4x2, Matrix4, 2, c0, c1 },
+    { Matrix3x4, Vector4, Vector3, Matrix4x3, Matrix4, 3, c0, c1, c2 },
     { Matrix4,   Vector4, Vector4, Matrix4,   Matrix4, 4, c0, c1, c2, c3 }
 }
 
@@ -479,32 +479,32 @@ macro_rules! impl_mul(
 );
 
 impl_mul! {
-    { Matrix3x2, Matrix2,   Matrix3x2, c0, c1 },
-    { Matrix4x2, Matrix2,   Matrix4x2, c0, c1 },
+    { Matrix2x3, Matrix2,   Matrix2x3, c0, c1 },
+    { Matrix2x4, Matrix2,   Matrix2x4, c0, c1 },
 
-    { Matrix2,   Matrix2x3, Matrix2x3, c0, c1, c2 },
-    { Matrix4x2, Matrix2x3, Matrix4x3, c0, c1, c2 },
+    { Matrix2,   Matrix3x2, Matrix3x2, c0, c1, c2 },
+    { Matrix2x4, Matrix3x2, Matrix3x4, c0, c1, c2 },
 
-    { Matrix2,   Matrix2x4, Matrix2x4, c0, c1, c2, c3 },
-    { Matrix3x2, Matrix2x4, Matrix3x4, c0, c1, c2, c3 },
+    { Matrix2,   Matrix4x2, Matrix4x2, c0, c1, c2, c3 },
+    { Matrix2x3, Matrix4x2, Matrix4x3, c0, c1, c2, c3 },
 
-    { Matrix3,   Matrix3x2, Matrix3x2, c0, c1 },
-    { Matrix4x3, Matrix3x2, Matrix4x2, c0, c1 },
+    { Matrix3,   Matrix2x3, Matrix2x3, c0, c1 },
+    { Matrix3x4, Matrix2x3, Matrix2x4, c0, c1 },
 
-    { Matrix2x3, Matrix3,   Matrix2x3, c0, c1, c2 },
-    { Matrix4x3, Matrix3,   Matrix4x3, c0, c1, c2 },
+    { Matrix3x2, Matrix3,   Matrix3x2, c0, c1, c2 },
+    { Matrix3x4, Matrix3,   Matrix3x4, c0, c1, c2 },
 
-    { Matrix2x3, Matrix3x4, Matrix2x4, c0, c1, c2, c3 },
-    { Matrix3,   Matrix3x4, Matrix3x4, c0, c1, c2, c3 },
+    { Matrix3x2, Matrix4x3, Matrix4x2, c0, c1, c2, c3 },
+    { Matrix3,   Matrix4x3, Matrix4x3, c0, c1, c2, c3 },
 
-    { Matrix3x4, Matrix4x2, Matrix3x2, c0, c1 },
-    { Matrix4,   Matrix4x2, Matrix4x2, c0, c1 },
+    { Matrix4x3, Matrix2x4, Matrix2x3, c0, c1 },
+    { Matrix4,   Matrix2x4, Matrix2x4, c0, c1 },
 
-    { Matrix2x4, Matrix4x3, Matrix2x3, c0, c1, c2 },
-    { Matrix4,   Matrix4x3, Matrix4x3, c0, c1, c2 },
+    { Matrix4x2, Matrix3x4, Matrix3x2, c0, c1, c2 },
+    { Matrix4,   Matrix3x4, Matrix3x4, c0, c1, c2 },
 
-    { Matrix2x4, Matrix4,   Matrix2x4, c0, c1, c2, c3 },
-    { Matrix3x4, Matrix4,   Matrix3x4, c0, c1, c2, c3 }
+    { Matrix4x2, Matrix4,   Matrix4x2, c0, c1, c2, c3 },
+    { Matrix4x3, Matrix4,   Matrix4x3, c0, c1, c2, c3 }
 }
 
 macro_rules! def_alias(
@@ -523,32 +523,32 @@ macro_rules! def_alias(
 
 def_alias! {
     { Mat2,   Matrix2,   f32 },
-    { Mat2x3, Matrix2x3, f32 },
-    { Mat2x4, Matrix2x4, f32 },
-
     { Mat3x2, Matrix3x2, f32 },
-    { Mat3,   Matrix3,   f32 },
-    { Mat3x4, Matrix3x4, f32 },
-
     { Mat4x2, Matrix4x2, f32 },
+
+    { Mat2x3, Matrix2x3, f32 },
+    { Mat3,   Matrix3,   f32 },
     { Mat4x3, Matrix4x3, f32 },
+
+    { Mat2x4, Matrix2x4, f32 },
+    { Mat3x4, Matrix3x4, f32 },
     { Mat4,   Matrix4,   f32 },
 
     { DMat2,   Matrix2,   f64 },
-    { DMat2x3, Matrix2x3, f64 },
-    { DMat2x4, Matrix2x4, f64 },
-
     { DMat3x2, Matrix3x2, f64 },
-    { DMat3,   Matrix3,   f64 },
-    { DMat3x4, Matrix3x4, f64 },
-
     { DMat4x2, Matrix4x2, f64 },
+
+    { DMat2x3, Matrix2x3, f64 },
+    { DMat3,   Matrix3,   f64 },
     { DMat4x3, Matrix4x3, f64 },
+
+    { DMat2x4, Matrix2x4, f64 },
+    { DMat3x4, Matrix3x4, f64 },
     { DMat4,   Matrix4,   f64 }
 }
 
 impl<T: BaseFloat> Matrix2<T> {
-    /// Extends _self_ to a `Matrix2x3` by appending the column vector `z`.
+    /// Extends _self_ to a `Matrix3x2` by appending the column vector `z`.
     ///
     /// # Example
     ///
@@ -556,20 +556,20 @@ impl<T: BaseFloat> Matrix2<T> {
     /// use glm::*;
     ///
     /// let m2 = mat2(1., 2., 3., 4.);
-    /// let m2x3 = mat2x3(1., 2., 3., 4., 0., 0.);
-    /// assert_eq!(m2.extend(vec2(0., 0.)), m2x3);
+    /// let m3x2 = mat3x2(1., 2., 3., 4., 0., 0.);
+    /// assert_eq!(m2.extend(vec2(0., 0.)), m3x2);
     /// ```
     #[inline]
-    pub fn extend(&self, z: Vector2<T>) -> Matrix2x3<T> {
-        Matrix2x3::new(self[0], self[1], z)
+    pub fn extend(&self, z: Vector2<T>) -> Matrix3x2<T> {
+        Matrix3x2::new(self[0], self[1], z)
     }
 }
 
 impl<T: BaseFloat> Matrix3<T> {
-    /// Extends _self_ to a `Matrix3x4` by appending the column vector `w`.
+    /// Extends _self_ to a `Matrix4x3` by appending the column vector `w`.
     #[inline]
-    pub fn extend(&self, w: Vector3<T>) -> Matrix3x4<T> {
-        Matrix3x4::new(self[0], self[1], self[2], w)
+    pub fn extend(&self, w: Vector3<T>) -> Matrix4x3<T> {
+        Matrix4x3::new(self[0], self[1], self[2], w)
     }
 }
 
@@ -581,7 +581,7 @@ mod test {
 
     #[test]
     fn test_index() {
-        let m = mat3x4(1., 2., 3., 2., 4., 6., 3., 6., 9., 4., 8., 12.);
+        let m = mat4x3(1., 2., 3., 2., 4., 6., 3., 6., 9., 4., 8., 12.);
         assert_eq!(m[3], vec3(4., 8., 12.));
         assert_eq!(m[1], m.c1);
         assert_eq!(m[2][0], 3.);
@@ -597,7 +597,7 @@ mod test {
 
     #[test]
     fn test_mul_v() {
-        let m = mat2x3(1., 2., 3., 4., 5., 6.);
+        let m = mat3x2(1., 2., 3., 4., 5., 6.);
         let v = vec3(-2., 0., 2.);
         let p = vec2(8., 8.);
         assert_eq!(m * v, p);

@@ -48,7 +48,7 @@ C: GenFloatVec<T>
     type R: GenFloatVec<T>;
 
     /// Type of transpose matrix.
-    type Transpose: GenMat<T, Self::R, R = C>;
+    type Transpose: GenMat<T, Self::R, R = C, Transpose = Self>;
 
     /// Returns the transpose matrix.
     ///
@@ -57,8 +57,8 @@ C: GenFloatVec<T>
     /// ```
     /// use glm::GenMat;    // bing the method into scope.
     ///
-    /// let m = glm::mat2x3(1., 2., 3., 4., 5., 6.);
-    /// let tm = glm::mat3x2(1., 3., 5., 2., 4., 6.);
+    /// let m = glm::mat3x2(1., 2., 3., 4., 5., 6.);
+    /// let tm = glm::mat2x3(1., 3., 5., 2., 4., 6.);
     /// assert_eq!(tm, m.transpose());
     /// ```
     fn transpose(&self) -> Self::Transpose;
