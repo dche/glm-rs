@@ -21,10 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseFloat, ApproxEq };
-use vec::traits::{ GenVec, GenFloatVec };
+use basenum::BaseFloat;
+use vec::traits::GenFloatVec;
 use mat::traits::GenSquareMat;
-use num::Zero;
 
 pub use self::transform::*;
 

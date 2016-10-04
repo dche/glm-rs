@@ -185,7 +185,6 @@ macro_rules! assert_close_to(
 
 /// Trait for primitive float number type.
 pub trait BaseFloat: Float + BaseNum + SignedNum + ApproxEq<BaseType = Self> {
-    fn epsilon() -> Self;
     fn to_degrees(self) -> Self;
     fn to_radians(self) -> Self;
     fn frexp(self) -> (Self, isize);
@@ -259,10 +258,6 @@ macro_rules! impl_flt(
             }
         }
         impl BaseFloat for $t {
-            #[inline(always)]
-            fn epsilon() -> $t {
-                $t::EPSILON
-            }
             #[inline(always)]
             fn to_degrees(self) -> $t {
                 self * (180. / $t::consts::PI)

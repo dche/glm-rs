@@ -22,10 +22,10 @@
 // THE SOFTWARE.
 
 use basenum::BaseFloat;
-use traits::{ GenNum, GenFloat };
+use traits::GenFloat;
+use vec::traits::GenFloatVec;
 
 pub trait Consts<T: BaseFloat>: GenFloat<T> {
-    fn epsilon() -> Self;
     fn pi() -> Self;
     fn tau() -> Self;
     fn root_pi() -> Self;
@@ -58,10 +58,6 @@ macro_rules! impl_Consts_for {
     ($($bt: ident),+) => {
         $(
             impl<T> Consts<$bt> for T where T: GenFloat<$bt> {
-                #[inline(always)]
-                fn epsilon() -> T {
-                    T::from_s(BaseFloat::epsilon())
-                }
                 #[inline(always)]
                 fn pi() -> T {
                     T::from_s(3.14159265358979323846264338327950288)
@@ -177,8 +173,8 @@ impl_Consts_for! { f32, f64 }
 
 /// Returns the epsilon constant for floating point types.
 #[inline(always)]
-pub fn epsilon<F: BaseFloat, T: GenFloat<F>>() -> T {
-    T::from_s(BaseFloat::epsilon())
+pub fn epsilon<F: BaseFloat, T: GenFloatVec<F>>() -> T {
+    T::from_s(F::epsilon())
 }
 
 /// Returns the Archimedes' constant π.

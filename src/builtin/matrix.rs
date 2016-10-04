@@ -25,8 +25,7 @@
 
 use basenum::BaseFloat;
 use mat::traits::{ GenMat, GenSquareMat };
-use vec::traits::{ GenVec, GenFloatVec };
-use num::Zero;
+use vec::traits::GenFloatVec;
 
 /// Multiply matrix `x` by matrix `y` component-wise, i.e., `result[i][j]` is
 /// the scalar product of `x[i][j]` and `y[i][j]`.
