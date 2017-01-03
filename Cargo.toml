@@ -1,11 +1,12 @@
 [package]
 
 name = "glm"
-version = "0.2.1"
+version = "0.2.2"
 authors = [
     "Che Kenan <chekenan@gmail.com>",
     "Nerijus Arlauskas <nercury@gmail.com>",
-    "Fredrik Norén"
+    "Fredrik Norén",
+    "Cameron Hart <https://github.com/bitshifter>"
 ]
 
 description = "GLSL mathematics for Rust."
