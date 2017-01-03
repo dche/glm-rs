@@ -25,8 +25,7 @@
 
 use basenum::BaseFloat;
 use mat::traits::{ GenMat, GenSquareMat };
-use vec::traits::{ GenVec, GenFloatVec };
-use num::Zero;
+use vec::traits::GenFloatVec;
 
 /// Multiply matrix `x` by matrix `y` component-wise, i.e., `result[i][j]` is
 /// the scalar product of `x[i][j]` and `y[i][j]`.
@@ -39,11 +38,11 @@ use num::Zero;
 /// # Example
 ///
 /// ```
-/// use glm::{ matrixCompMult, mat2x3 };
+/// use glm::{ matrixCompMult, mat3x2 };
 ///
-/// let m1 = mat2x3(1., 4., 2., 5., 3., 6.);
-/// let m2 = mat2x3(2., 3., 2., 3., 2., 3.);
-/// let me = mat2x3(2., 12., 4., 15., 6., 18.);
+/// let m1 = mat3x2(1., 4., 2., 5., 3., 6.);
+/// let m2 = mat3x2(2., 3., 2., 3., 2., 3.);
+/// let me = mat3x2(2., 12., 4., 15., 6., 18.);
 /// assert_eq!(matrixCompMult(&m1, &m2), me);
 /// ```
 #[inline(always)]
@@ -68,8 +67,8 @@ M: GenMat<T, C>
 /// # use glm::*;
 /// let v2 = vec2(1., 2.);
 /// let v3 = vec3(4., 0., -1.);
-/// let e = mat2x3(4., 8., 0., 0., -1., -2.);
-/// let op: Mat2x3 = outerProduct(v2, v3);
+/// let e = mat3x2(4., 8., 0., 0., -1., -2.);
+/// let op: Mat3x2 = outerProduct(v2, v3);
 /// assert_eq!(op, e);
 /// ```
 #[inline]
@@ -78,7 +77,17 @@ pub fn outerProduct<
 T: BaseFloat,
 C: GenFloatVec<T>,
 R: GenFloatVec<T>,
-M: GenMat<T, C, R = R>
+/*
+ * NOTE:
+ * I can't believe Rust allows this! But Rust is wrong at the first place.
+ * Associated types (e.g., `R` and `Transpose` of `GenMat` here) are not type
+ * parameters, and should not be mandatorily required when specifying a type,
+ * and if `Transpose` is ommitted (as we did before), that does not mean
+ * `GenMat` is not implemented for `Tanspose` of `M` (E0277). How could that
+ * be possible?
+ */
+N: GenMat<T, R, R = C, Transpose = M>,
+M: GenMat<T, C, R = R, Transpose = N>
 >(c: C, r: R) -> M {
     let mut z = M::zero();
     let dim = R::dim();

@@ -25,7 +25,6 @@ use basenum::BaseFloat;
 use traits::GenFloat;
 use vec::traits::GenFloatVec;
 use builtin as bif;
-use num::Zero;
 
 /// Returns the squre of the length of vector `x`.
 ///

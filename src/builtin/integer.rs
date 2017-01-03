@@ -26,9 +26,7 @@
 use basenum::BaseInt;
 use traits::{ GenNum, GenInt, GenIType, GenUType };
 use vec::vec::{ UVec2, UVec3, UVec4, IVec2, IVec3, IVec4 };
-use cast::PrimCast;
 use std::mem;
-use num::Zero;
 
 // used by `findLSB` and `findMSB`.
 pub trait IntIntRel<I: BaseInt, T: GenIType>: GenInt<I> {

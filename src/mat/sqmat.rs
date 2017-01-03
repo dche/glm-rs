@@ -25,7 +25,7 @@ use basenum::BaseFloat;
 use vec::vec::{ Vector2, Vector3, Vector4 };
 use super::traits::{ GenMat, GenSquareMat };
 use super::mat::*;
-use num::{ Float, One, Zero };
+use num::One;
 
 impl<T: BaseFloat> One for Matrix2<T> {
     #[inline]

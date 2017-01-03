@@ -76,10 +76,10 @@
 //!   instead a generic type.
 //!
 //!   See documentation of these functions for detail.
-//! - Most explicit conversion functions, like `vec2`, `dmat3x4` etc., do not
+//! - Most explicit conversion functions, like `vec2`, `dmat4x3` etc., do not
 //!   work, for the same reason as above.
 //!   This is rather inconvenient, and the plan is introducing functions like
-//!   `to_vec2`, `to_dmat3x4` in future version.
+//!   `to_vec2`, `to_dmat4x3` in future version.
 //! - No implicit conversion.
 //! - Explicit type conversion function `bool` is renamed to `boolean`.
 //! - Many explicit type conversion functions for vector types are introduced.
@@ -159,18 +159,18 @@ pub use mat::traits::{ GenMat, GenSquareMat };
 
 pub use mat::mat::{
     Matrix2, Matrix3, Matrix4,
-    Matrix2x3, Matrix2x4, Matrix3x2, Matrix3x4, Matrix4x2, Matrix4x3,
+    Matrix3x2, Matrix4x2, Matrix2x3, Matrix4x3, Matrix2x4, Matrix3x4,
     Mat2, Mat3, Mat4,
-    Mat2x3, Mat3x2, Mat2x4, Mat4x2, Mat3x4, Mat4x3,
+    Mat3x2, Mat2x3, Mat4x2, Mat2x4, Mat4x3, Mat3x4,
     DMat2, DMat3, DMat4,
-    DMat2x3, DMat3x2, DMat2x4, DMat4x2, DMat3x4, DMat4x3,
+    DMat3x2, DMat2x3, DMat4x2, DMat2x4, DMat4x3, DMat3x4,
 };
 
 pub use mat::ctor::{
     mat2, mat3, mat4,
-    mat2x3, mat3x2, mat2x4, mat4x2, mat3x4, mat4x3,
+    mat3x2, mat2x3, mat4x2, mat2x4, mat4x3, mat3x4,
     dmat2, dmat3, dmat4,
-    dmat2x3, dmat3x2, dmat2x4, dmat4x2, dmat3x4, dmat4x3,
+    dmat3x2, dmat2x3, dmat4x2, dmat2x4, dmat4x3, dmat3x4,
 };
 
 pub use cast::{

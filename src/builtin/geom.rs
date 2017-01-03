@@ -30,7 +30,6 @@ use basenum::BaseFloat;
 use traits::GenFloat;
 use vec::traits::GenFloatVec;
 use vec::vec::Vector3;
-use num::{ Float, One, Zero };
 use super::exp::inversesqrt;
 
 /// Returns the dot product of `x` and `y`, i.e.,

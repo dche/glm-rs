@@ -29,7 +29,7 @@ use num::{ ToPrimitive, Zero };
 
 /// This trait is like the `std::num::ToPrimitive`, but function `to_bool()`
 /// is added.
-trait ToPrim: Primitive {
+pub trait ToPrim: Primitive {
 
     fn to_i32(&self) -> Option<i32>;
 

@@ -1,15 +1,29 @@
+sudo: false
 language: rust
-sudo: true
-
+rust:
+- nightly
+- beta
+- stable
 env:
   global:
-    - secure: D0AkPgUQXHGgtgyQL6wgC7qZiodw9OXH5tJw7PerQTPUFe4ZsCDW1nhOzctKRXLDeEYZeDcYTFgTdwMi8jiyhFjgaaXQFI8pw3eZUBrJ9Mo0I3X/WzCSZDnbaPT9lLjv9FQGfZ8LZDkwnmf6gGF6FdlMuOSYIQXzIwEeZJvLD6w=
-
+  # - TRAVIS_CARGO_NIGHTLY_FEATURE=dev
+  - secure: cbKR6Shd18JPkPkglV866GORaziY0G/ncMji6Iz0XwuQjqdu8wQmydefAKJR+HLbE++vYiKiAhbdzwCrPHNmx5xl4ssJIQu3IcSkyhdUI3ja1wNFQ08XoEgonipBj1wLFO0XCVDL2G4tzbDaj62c5ZVXfoTb4AxCZT3ZPal2So4=
+matrix:
+  allow_failures:
+  - rust: nightly
+before_script:
+- |
+  pip install 'travis-cargo<0.2' --user &&
+  export PATH=$HOME/.local/bin:$PATH
 script:
-  - cargo build --release --verbose
-  - cargo test --verbose
-  - cargo doc --no-deps
-
-after_script:
-  - mv target/doc doc
-  - curl http://www.rust-ci.org/artifacts/put?t=$RUSTCI_TOKEN | sh
+- |
+  travis-cargo build &&
+  travis-cargo test &&
+  travis-cargo bench &&
+  travis-cargo --only stable doc
+after_success:
+- travis-cargo --only stable doc-upload
+- travis-cargo coveralls --no-sudo
+notifications:
+  email:
+    on_success: never
