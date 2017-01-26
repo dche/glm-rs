@@ -184,8 +184,7 @@ where
     let zero = num::zero::<T>();
     let one = num::one::<T>();
     let f = normalize(center - eye);
-    let up_n = normalize(up);
-    let s = cross(f, up_n);
+    let s = normalize(cross(f, up));
     let u = cross(s, f);
     Matrix4::new(
         Vector4::new(s.x, u.x,-f.x, zero),
