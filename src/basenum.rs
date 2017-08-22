@@ -53,7 +53,7 @@ pub trait BaseNum
     ///
     /// ```
     /// use glm::BaseNum;
-    /// assert_eq!(1i32.min(2i32), 1i32);
+    /// assert_eq!(BaseNum::min(1i32, 2i32), 1i32);
     /// ```
     fn min(self, other: Self) -> Self;
 
@@ -63,7 +63,7 @@ pub trait BaseNum
     ///
     /// ```
     /// use glm::BaseNum;
-    /// assert_eq!(1i32.max(2i32), 2i32);
+    /// assert_eq!(BaseNum::max(1i32, 2i32), 2i32);
     /// ```
     fn max(self, other: Self) -> Self;
 }
