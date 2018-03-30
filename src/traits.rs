@@ -129,7 +129,7 @@ pub trait GenType: GenFloat<f32> {}
 pub trait GenDType: GenFloat<f64> {}
 
 macro_rules! impl_GenFloat_for_scalar(
-    ($t: ty, $gt: ty) => {
+    ($t: ty, $gt: path) => {
         impl_GenNum_for_scalar! { $t }
         impl GenFloat<$t> for $t {
             fn fma(&self, b: &$t, c: &$t) -> $t {
