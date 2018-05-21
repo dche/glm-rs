@@ -104,10 +104,7 @@ pub fn faceforward<S: BaseFloat, T: GenFloatVec<S>>(N: T, I: T, Nref: T) -> T {
 }
 
 /// For the incident vector *I* and surface orientation *N*,
-/// returns the reflection direction:
-/// ```
-/// I – 2 ∗ dot(N, I) ∗ N
-/// ```
+/// returns the reflection direction: `I - 2 ∗ dot(N, I) ∗ N`.
 ///
 /// *N* must already be normalized in order to achieve the desired result.
 #[inline]
@@ -121,7 +118,7 @@ pub fn reflect<S: BaseFloat, T: GenFloatVec<S>>(I: T, N: T) -> T {
 /// indices of refraction `eta`, return the refraction vector.
 ///
 /// The result is computed by,
-/// ```
+/// ```ignore
 /// k = 1.0 - eta * eta * (1.0 - dot(N, I) * dot(N, I))
 /// if (k < 0.0)
 ///     return genType(0.0) // or genDType(0.0)
