@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `builtin` mod in crate `glm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, builtin">
+
+    <title>glm::builtin - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css"
+          id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle">
+    <script src="../../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc mod">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Module builtin</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../index.html'>glm</a></p><script>window.sidebarCurrent = {name: 'builtin', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content"><h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glm</a>::<wbr><a class="mod" href=''>builtin</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/glm/builtin/mod.rs.html#24-87' title='goto source code'>[src]</a></span></h1><div class='docblock'><p>Built-in funcions defined in GLSL specification chapter 8.</p>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.abs.html"
+                                  title='fn glm::builtin::abs'>abs</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>x</code> if <code>x ≥ 0</code>, otherwise it returns <code>–x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.acos.html"
+                                  title='fn glm::builtin::acos'>acos</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns an angle whose cosine is <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.acosh.html"
+                                  title='fn glm::builtin::acosh'>acosh</a></td>
+                           <td class='docblock-short'>
+                                <p>Arc hyperbolic cosine; returns the non-negative inverse of <strong>cosh</strong>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.all.html"
+                                  title='fn glm::builtin::all'>all</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>true</code> only if all components of <code>x</code> are <strong>true</strong>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.any.html"
+                                  title='fn glm::builtin::any'>any</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>true</code> if any component of <code>x</code> is <strong>true</strong>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.asin.html"
+                                  title='fn glm::builtin::asin'>asin</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns an angle whose sine is <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.asinh.html"
+                                  title='fn glm::builtin::asinh'>asinh</a></td>
+                           <td class='docblock-short'>
+                                <p>Arc hyperbolic sine; returns the inverse of <strong>sinh</strong>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.atan.html"
+                                  title='fn glm::builtin::atan'>atan</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns an angle whose tangent is <code>y_over_x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.atan2.html"
+                                  title='fn glm::builtin::atan2'>atan2</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns an angle whose tangent is <code>y / x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.atanh.html"
+                                  title='fn glm::builtin::atanh'>atanh</a></td>
+                           <td class='docblock-short'>
+                                <p>Arc hyperbolic tangent; returns the inverse of <strong>tanh</strong>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.bitCount.html"
+                                  title='fn glm::builtin::bitCount'>bitCount</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the number of bits set to 1 in the binary representation of
+<code>value</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.bitfieldExtract.html"
+                                  title='fn glm::builtin::bitfieldExtract'>bitfieldExtract</a></td>
+                           <td class='docblock-short'>
+                                <p>Extracts bits <code>[offset, offset + bits - 1]</code> from <code>value</code>, returning them in
+the least significant bits of the result.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.bitfieldInsert.html"
+                                  title='fn glm::builtin::bitfieldInsert'>bitfieldInsert</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the insertion the <code>bits</code> least-significant bits of <code>insert</code> into
+<code>base</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.bitfieldReverse.html"
+                                  title='fn glm::builtin::bitfieldReverse'>bitfieldReverse</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the reversal of the bits of <code>value</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.ceil.html"
+                                  title='fn glm::builtin::ceil'>ceil</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a value equal to the nearest integer that is greater than or
+equal to <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.clamp.html"
+                                  title='fn glm::builtin::clamp'>clamp</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>min (max (x, min_val), max_val)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.clamp_s.html"
+                                  title='fn glm::builtin::clamp_s'>clamp_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of function <code>clamp</code> that uses scalar values as thresholds.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cos.html"
+                                  title='fn glm::builtin::cos'>cos</a></td>
+                           <td class='docblock-short'>
+                                <p>The standard trigonometric cosine function.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cosh.html"
+                                  title='fn glm::builtin::cosh'>cosh</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the hyperbolic cosine function (e<sup>x</sup> + e<sup>-x</sup>) / 2.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.cross.html"
+                                  title='fn glm::builtin::cross'>cross</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the cross product of <code>x</code> and <code>y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.degrees.html"
+                                  title='fn glm::builtin::degrees'>degrees</a></td>
+                           <td class='docblock-short'>
+                                <p>Converts <code>radians</code> to degrees, i.e., <code>180/π * radians</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.determinant.html"
+                                  title='fn glm::builtin::determinant'>determinant</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the determinant of <code>m</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.distance.html"
+                                  title='fn glm::builtin::distance'>distance</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the distance between <code>p0</code> and <code>p1</code>, i.e., <code>length(p0 – p1)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.dot.html"
+                                  title='fn glm::builtin::dot'>dot</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the dot product of <code>x</code> and <code>y</code>, i.e.,
+<code>x[0] * y[0] + x[1] * y[1] + ...</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.equal.html"
+                                  title='fn glm::builtin::equal'>equal</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x == y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.exp.html"
+                                  title='fn glm::builtin::exp'>exp</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the natural exponentiation of <code>x</code>. i.e., <em>e<sup>x</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.exp2.html"
+                                  title='fn glm::builtin::exp2'>exp2</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>2</code> raised to the power of <code>x</code>. i.e., <em>2<sup>x</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.faceforward.html"
+                                  title='fn glm::builtin::faceforward'>faceforward</a></td>
+                           <td class='docblock-short'>
+                                <p>If <code>dot(Nref, I) &lt; 0</code> return <em>N</em>, otherwise return <em>-N</em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.findLSB.html"
+                                  title='fn glm::builtin::findLSB'>findLSB</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the bit number of the least significant bit set to 1 in the binary
+representation of <code>value</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.findMSB.html"
+                                  title='fn glm::builtin::findMSB'>findMSB</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the bit number of the most significant bit in the binary
+representation of <code>value</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.floatBitsToInt.html"
+                                  title='fn glm::builtin::floatBitsToInt'>floatBitsToInt</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a signed integer value representing the encoding of
+a floating-point value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.floatBitsToUint.html"
+                                  title='fn glm::builtin::floatBitsToUint'>floatBitsToUint</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a unsigned integer value representing the encoding of
+a floating-point value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.floor.html"
+                                  title='fn glm::builtin::floor'>floor</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a value equal to the nearest integer that is less than or
+equal to <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.fma.html"
+                                  title='fn glm::builtin::fma'>fma</a></td>
+                           <td class='docblock-short'>
+                                <p>Computes and returns <code>a * b + c</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.fmod.html"
+                                  title='fn glm::builtin::fmod'>fmod</a></td>
+                           <td class='docblock-short'>
+                                <p>Modulus. Returns <code>x – y ∗ floor(x/y)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.fract.html"
+                                  title='fn glm::builtin::fract'>fract</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>x – floor(x)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.frexp.html"
+                                  title='fn glm::builtin::frexp'>frexp</a></td>
+                           <td class='docblock-short'>
+                                <p>Splits <code>x</code> into a floating-point significand in the range [0.5, 1.0) and
+an integral exponent of two, such that:
+<em>x = significand⋅2<sup>exponent</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.greaterThan.html"
+                                  title='fn glm::builtin::greaterThan'>greaterThan</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x &gt; y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.greaterThanEqual.html"
+                                  title='fn glm::builtin::greaterThanEqual'>greaterThanEqual</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x ≥ y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.imulExtended.html"
+                                  title='fn glm::builtin::imulExtended'>imulExtended</a></td>
+                           <td class='docblock-short'>
+                                <p>Multiplies 32-bit integers <code>x</code> and <code>y</code>, producing a 64-bit result.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.intBitsToFloat.html"
+                                  title='fn glm::builtin::intBitsToFloat'>intBitsToFloat</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a floating-point value corresponding to a signed integer encoding
+of a floating-point value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.inverse.html"
+                                  title='fn glm::builtin::inverse'>inverse</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a matrix that is the inverse of <code>m</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.inversesqrt.html"
+                                  title='fn glm::builtin::inversesqrt'>inversesqrt</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the inverse of the square root of <code>x</code>. i.e., the value <code>1/sqrt(x)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.isinf.html"
+                                  title='fn glm::builtin::isinf'>isinf</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns true if x holds a positive infinity or negative infinity.
+Returns false otherwise.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.isnan.html"
+                                  title='fn glm::builtin::isnan'>isnan</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>true</code> if <code>x</code> holds a <em>NaN</em>. Returns <code>false</code> otherwise.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.ldexp.html"
+                                  title='fn glm::builtin::ldexp'>ldexp</a></td>
+                           <td class='docblock-short'>
+                                <p>Builds a floating-point number from <code>x</code> and the corresponding integral
+exponent of two in <code>exp</code>, returning:
+<em>significand ⋅ 2<sup>exponent</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.length.html"
+                                  title='fn glm::builtin::length'>length</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the length of vector <code>x</code>, i.e., <code>sqrt(x[0]^2 + x[1]^2 + ...)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.lessThan.html"
+                                  title='fn glm::builtin::lessThan'>lessThan</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x &lt; y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.lessThanEqual.html"
+                                  title='fn glm::builtin::lessThanEqual'>lessThanEqual</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x ≤ y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.log.html"
+                                  title='fn glm::builtin::log'>log</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the natural logarithm of <code>x</code>. i.e., the value <code>y</code> which satisfies
+<em>x = e<sup>y</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.log2.html"
+                                  title='fn glm::builtin::log2'>log2</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the base <code>2</code> logarithm of <code>x</code>. i.e., the value <code>y</code> which satisfies
+<em>x = 2<sup>y</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.matrixCompMult.html"
+                                  title='fn glm::builtin::matrixCompMult'>matrixCompMult</a></td>
+                           <td class='docblock-short'>
+                                <p>Multiply matrix <code>x</code> by matrix <code>y</code> component-wise, i.e., <code>result[i][j]</code> is
+the scalar product of <code>x[i][j]</code> and <code>y[i][j]</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.max.html"
+                                  title='fn glm::builtin::max'>max</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>y</code> if <code>x &lt; y</code>, otherwise it returns <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.max_s.html"
+                                  title='fn glm::builtin::max_s'>max_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of <code>max</code> that always uses a scalar value as the comparator.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.min.html"
+                                  title='fn glm::builtin::min'>min</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>y</code> if <code>y &lt; x</code>, otherwise it returns <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.min_s.html"
+                                  title='fn glm::builtin::min_s'>min_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of function <code>min</code> that uses a scalar value as comparator.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.mix.html"
+                                  title='fn glm::builtin::mix'>mix</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the linear blend of <code>x</code> and <code>y</code>, i.e., <code>x⋅(1−a)+y⋅a</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.mix_bool.html"
+                                  title='fn glm::builtin::mix_bool'>mix_bool</a></td>
+                           <td class='docblock-short'>
+                                <p>Selects which vector each returned component comes from.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.mix_s.html"
+                                  title='fn glm::builtin::mix_s'>mix_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of function <code>mix</code> that parameter <code>a</code> is a scalar.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.mod_s.html"
+                                  title='fn glm::builtin::mod_s'>mod_s</a></td>
+                           <td class='docblock-short'>
+                                <p>Modulus with a scalar number.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.modf.html"
+                                  title='fn glm::builtin::modf'>modf</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the fractional and integer parts of <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.noise1.html"
+                                  title='fn glm::builtin::noise1'>noise1</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a 1D noise value based on the input value <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.noise2.html"
+                                  title='fn glm::builtin::noise2'>noise2</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a 2D noise value based on the input value <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.noise3.html"
+                                  title='fn glm::builtin::noise3'>noise3</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a 3D noise value based on the input value <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.noise4.html"
+                                  title='fn glm::builtin::noise4'>noise4</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a 4D noise value based on the input value <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.normalize.html"
+                                  title='fn glm::builtin::normalize'>normalize</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a vector in the same direction as <code>x</code> but with a length of <code>1</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.not.html"
+                                  title='fn glm::builtin::not'>not</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise logical complement of <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.notEqual.html"
+                                  title='fn glm::builtin::notEqual'>notEqual</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the component-wise compare of <code>x ≠ y</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.outerProduct.html"
+                                  title='fn glm::builtin::outerProduct'>outerProduct</a></td>
+                           <td class='docblock-short'>
+                                <p>Treats the first parameter <code>c</code> as a column vector (matrix with one column)
+and the second parameter <code>r</code> as a row vector (matrix with one row)
+and does a linear algebraic matrix multiply <code>c * r</code>,
+yielding a matrix whose number of rows is the number of components in <code>c</code>
+and whose number of columns is the number of components in <code>r</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.packDouble2x32.html"
+                                  title='fn glm::builtin::packDouble2x32'>packDouble2x32</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a double-precision value obtained by packing the components of <code>v</code>
+into a 64-bit value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.packSnorm2x16.html"
+                                  title='fn glm::builtin::packSnorm2x16'>packSnorm2x16</a></td>
+                           <td class='docblock-short'>
+                                <p>First, converts each component of the normalized floating-point value <code>v</code>
+into 16-bit integer values. Then, the results are packed into the
+returned 32-bit unsigned integer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.packSnorm4x8.html"
+                                  title='fn glm::builtin::packSnorm4x8'>packSnorm4x8</a></td>
+                           <td class='docblock-short'>
+                                <p>First, converts each component of the normalized floating-point value <code>v</code>
+into 8-bit integer values. Then, the results are packed into the
+returned 32-bit unsigned integer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.packUnorm2x16.html"
+                                  title='fn glm::builtin::packUnorm2x16'>packUnorm2x16</a></td>
+                           <td class='docblock-short'>
+                                <p>First, converts each component of the normalized floating-point value <code>v</code>
+into 16-bit integer values. Then, the results are packed into the
+returned 32-bit unsigned integer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.packUnorm4x8.html"
+                                  title='fn glm::builtin::packUnorm4x8'>packUnorm4x8</a></td>
+                           <td class='docblock-short'>
+                                <p>First, converts each component of the normalized floating-point value <code>v</code>
+into 8-bit integer values. Then, the results are packed into the
+returned 32-bit unsigned integer.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.pow.html"
+                                  title='fn glm::builtin::pow'>pow</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>x</code> raised to the <code>y</code> power, i.e., <em>x<sup>y</sup></em>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.radians.html"
+                                  title='fn glm::builtin::radians'>radians</a></td>
+                           <td class='docblock-short'>
+                                <p>Converts <code>degrees</code> to radians, i.e., <code>π/180 * degrees</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.reflect.html"
+                                  title='fn glm::builtin::reflect'>reflect</a></td>
+                           <td class='docblock-short'>
+                                <p>For the incident vector <em>I</em> and surface orientation <em>N</em>,
+returns the reflection direction: <code>I - 2 ∗ dot(N, I) ∗ N</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.refract.html"
+                                  title='fn glm::builtin::refract'>refract</a></td>
+                           <td class='docblock-short'>
+                                <p>For the incident vector <em>I</em> and surface normal <em>N</em>, and the ratio of
+indices of refraction <code>eta</code>, return the refraction vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.round.html"
+                                  title='fn glm::builtin::round'>round</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a value equal to the nearest integer to <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.roundEven.html"
+                                  title='fn glm::builtin::roundEven'>roundEven</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a value equal to the nearest integer to <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.sign.html"
+                                  title='fn glm::builtin::sign'>sign</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>1.0</code> if <code>x &gt; 0</code>, <code>0.0</code> if <code>x = 0</code>, or <code>–1.0</code> if <code>x &lt; 0</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.sin.html"
+                                  title='fn glm::builtin::sin'>sin</a></td>
+                           <td class='docblock-short'>
+                                <p>The standard trigonometric sine function.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.sinh.html"
+                                  title='fn glm::builtin::sinh'>sinh</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the hyperbolic sine function (e<sup>x</sup> - e<sup>-x</sup>) / 2.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.smoothstep.html"
+                                  title='fn glm::builtin::smoothstep'>smoothstep</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>0.0</code> if <code>x ≤ edge0</code> and <code>1.0</code> if <code>x ≥ edge1</code> and performs
+smooth Hermite interpolation between 0 and 1 when <code>edge0 &lt; x &lt; edge1</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.smoothstep_s.html"
+                                  title='fn glm::builtin::smoothstep_s'>smoothstep_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of <code>smoothstep</code> function that use scalar as edges.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.sqrt.html"
+                                  title='fn glm::builtin::sqrt'>sqrt</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the square root of <code>x</code>. i.e., the value <code>sqrt(x)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.step.html"
+                                  title='fn glm::builtin::step'>step</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns <code>0.0</code> if <code>x</code> &lt; <code>edge</code>, otherwise it returns <code>1.0</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.step_s.html"
+                                  title='fn glm::builtin::step_s'>step_s</a></td>
+                           <td class='docblock-short'>
+                                <p>A variant of <code>step</code> function that use scalar as the edge.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.tan.html"
+                                  title='fn glm::builtin::tan'>tan</a></td>
+                           <td class='docblock-short'>
+                                <p>The standard trigonometric tangent.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.tanh.html"
+                                  title='fn glm::builtin::tanh'>tanh</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns the hyperbolic tangent function <code>sinh(x)/cosh(x)</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.transpose.html"
+                                  title='fn glm::builtin::transpose'>transpose</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a matrix that is the transpose of <code>m</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.trunc.html"
+                                  title='fn glm::builtin::trunc'>trunc</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a value equal to the nearest integer to <code>x</code> whose absolute value
+is not larger than the absolute value of <code>x</code>.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.uaddCarry.html"
+                                  title='fn glm::builtin::uaddCarry'>uaddCarry</a></td>
+                           <td class='docblock-short'>
+                                <p>Adds 32-bit unsigned integer <code>x</code> and <code>y</code>, returning the sum modulus
+<em>2<sup>32</sup></em> and the carry bit.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.uintBitsToFloat.html"
+                                  title='fn glm::builtin::uintBitsToFloat'>uintBitsToFloat</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a floating-point value corresponding to a unsigned integer encoding
+of a floating-point value.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.umulExtended.html"
+                                  title='fn glm::builtin::umulExtended'>umulExtended</a></td>
+                           <td class='docblock-short'>
+                                <p>Multiplies 32-bit unsigned integers <code>x</code> and <code>y</code>, producing a 64-bit
+result.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unpackDouble2x32.html"
+                                  title='fn glm::builtin::unpackDouble2x32'>unpackDouble2x32</a></td>
+                           <td class='docblock-short'>
+                                <p>Returns a two-component unsigned integer vector representation of <code>v</code>.
+The bit-level representation of <code>v</code> is preserved.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unpackSnorm2x16.html"
+                                  title='fn glm::builtin::unpackSnorm2x16'>unpackSnorm2x16</a></td>
+                           <td class='docblock-short'>
+                                <p>First, unpacks a single 32-bit unsigned integer <code>p</code> into two 16-bit signed
+integers. Then, each component is converted to a normalized floating-point
+value to generate the returned two-component vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unpackSnorm4x8.html"
+                                  title='fn glm::builtin::unpackSnorm4x8'>unpackSnorm4x8</a></td>
+                           <td class='docblock-short'>
+                                <p>First, unpacks a single 32-bit unsigned integer <code>p</code> into four 8-bit signed
+integers. Then, each component is converted to a normalized floating-point
+value to generate the returned four-component vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unpackUnorm2x16.html"
+                                  title='fn glm::builtin::unpackUnorm2x16'>unpackUnorm2x16</a></td>
+                           <td class='docblock-short'>
+                                <p>First, unpacks a single 32-bit unsigned integer <code>p</code> into a pair of 16-bit
+unsigned integers. Then, each component is converted to a normalized
+floating-point value to generate the returned two-component vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.unpackUnorm4x8.html"
+                                  title='fn glm::builtin::unpackUnorm4x8'>unpackUnorm4x8</a></td>
+                           <td class='docblock-short'>
+                                <p>First, unpacks a single 32-bit unsigned integer <code>p</code> into four 8-bit unsigned
+integers. Then, each component is converted to a normalized floating-point
+value to generate the returned four-component vector.</p>
+
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class="fn" href="fn.usubBorrow.html"
+                                  title='fn glm::builtin::usubBorrow'>usubBorrow</a></td>
+                           <td class='docblock-short'>
+                                <p>Subtracts the 32-bit unsigned integer <code>y</code> from <code>x</code>, returning the
+difference and the borrow bit.</p>
+
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glm";
+    </script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

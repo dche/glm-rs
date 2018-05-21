@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Consts` trait in crate `glm`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Consts">
+
+    <title>glm::ext::consts::Consts - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css"
+          id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle">
+    <script src="../../../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc trait">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Trait Consts</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.pi">pi</a><a href="#tymethod.tau">tau</a><a href="#tymethod.root_pi">root_pi</a><a href="#tymethod.half_pi">half_pi</a><a href="#tymethod.one_third_pi">one_third_pi</a><a href="#tymethod.quarter_pi">quarter_pi</a><a href="#tymethod.one_over_pi">one_over_pi</a><a href="#tymethod.one_over_tau">one_over_tau</a><a href="#tymethod.two_over_pi">two_over_pi</a><a href="#tymethod.four_over_pi">four_over_pi</a><a href="#tymethod.two_over_root_pi">two_over_root_pi</a><a href="#tymethod.one_over_root_two">one_over_root_two</a><a href="#tymethod.root_half_pi">root_half_pi</a><a href="#tymethod.root_tau">root_tau</a><a href="#tymethod.root_ln_four">root_ln_four</a><a href="#tymethod.e">e</a><a href="#tymethod.euler">euler</a><a href="#tymethod.root_two">root_two</a><a href="#tymethod.root_three">root_three</a><a href="#tymethod.root_five">root_five</a><a href="#tymethod.ln_two">ln_two</a><a href="#tymethod.ln_ten">ln_ten</a><a href="#tymethod.ln_ln_two">ln_ln_two</a><a href="#tymethod.one_third">one_third</a><a href="#tymethod.two_thirds">two_thirds</a><a href="#tymethod.golden_ratio">golden_ratio</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glm</a>::<wbr><a href='../index.html'>ext</a>::<wbr><a href='index.html'>consts</a></p><script>window.sidebarCurrent = {name: 'Consts', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content"><h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glm</a>::<wbr><a href='../index.html'>ext</a>::<wbr><a href='index.html'>consts</a>::<wbr><a class="trait" href=''>Consts</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../../src/glm/ext/consts.rs.html#28-55' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust trait'>pub trait Consts&lt;T:&nbsp;<a class="trait" href="../../../glm/trait.BaseFloat.html" title="trait glm::BaseFloat">BaseFloat</a>&gt;: <a class="trait" href="../../../glm/trait.GenFloat.html" title="trait glm::GenFloat">GenFloat</a>&lt;T&gt; {
+    fn <a href='#tymethod.pi' class='fnname'>pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.tau' class='fnname'>tau</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_pi' class='fnname'>root_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.half_pi' class='fnname'>half_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.one_third_pi' class='fnname'>one_third_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.quarter_pi' class='fnname'>quarter_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.one_over_pi' class='fnname'>one_over_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.one_over_tau' class='fnname'>one_over_tau</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.two_over_pi' class='fnname'>two_over_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.four_over_pi' class='fnname'>four_over_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.two_over_root_pi' class='fnname'>two_over_root_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.one_over_root_two' class='fnname'>one_over_root_two</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_half_pi' class='fnname'>root_half_pi</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_tau' class='fnname'>root_tau</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_ln_four' class='fnname'>root_ln_four</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.e' class='fnname'>e</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.euler' class='fnname'>euler</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_two' class='fnname'>root_two</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_three' class='fnname'>root_three</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.root_five' class='fnname'>root_five</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.ln_two' class='fnname'>ln_two</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.ln_ten' class='fnname'>ln_ten</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.ln_ln_two' class='fnname'>ln_ln_two</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.one_third' class='fnname'>one_third</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.two_thirds' class='fnname'>two_thirds</a>() -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.golden_ratio' class='fnname'>golden_ratio</a>() -&gt; Self;
+}</pre></div>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
+            <div class='methods'>
+        <h3 id='tymethod.pi' class='method'><span id='pi.v' class='invisible'><code>fn <a href='#tymethod.pi' class='fnname'>pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.tau' class='method'><span id='tau.v' class='invisible'><code>fn <a href='#tymethod.tau' class='fnname'>tau</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_pi' class='method'><span id='root_pi.v' class='invisible'><code>fn <a href='#tymethod.root_pi' class='fnname'>root_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.half_pi' class='method'><span id='half_pi.v' class='invisible'><code>fn <a href='#tymethod.half_pi' class='fnname'>half_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.one_third_pi' class='method'><span id='one_third_pi.v' class='invisible'><code>fn <a href='#tymethod.one_third_pi' class='fnname'>one_third_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.quarter_pi' class='method'><span id='quarter_pi.v' class='invisible'><code>fn <a href='#tymethod.quarter_pi' class='fnname'>quarter_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.one_over_pi' class='method'><span id='one_over_pi.v' class='invisible'><code>fn <a href='#tymethod.one_over_pi' class='fnname'>one_over_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.one_over_tau' class='method'><span id='one_over_tau.v' class='invisible'><code>fn <a href='#tymethod.one_over_tau' class='fnname'>one_over_tau</a>() -&gt; Self</code></span></h3><h3 id='tymethod.two_over_pi' class='method'><span id='two_over_pi.v' class='invisible'><code>fn <a href='#tymethod.two_over_pi' class='fnname'>two_over_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.four_over_pi' class='method'><span id='four_over_pi.v' class='invisible'><code>fn <a href='#tymethod.four_over_pi' class='fnname'>four_over_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.two_over_root_pi' class='method'><span id='two_over_root_pi.v' class='invisible'><code>fn <a href='#tymethod.two_over_root_pi' class='fnname'>two_over_root_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.one_over_root_two' class='method'><span id='one_over_root_two.v' class='invisible'><code>fn <a href='#tymethod.one_over_root_two' class='fnname'>one_over_root_two</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_half_pi' class='method'><span id='root_half_pi.v' class='invisible'><code>fn <a href='#tymethod.root_half_pi' class='fnname'>root_half_pi</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_tau' class='method'><span id='root_tau.v' class='invisible'><code>fn <a href='#tymethod.root_tau' class='fnname'>root_tau</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_ln_four' class='method'><span id='root_ln_four.v' class='invisible'><code>fn <a href='#tymethod.root_ln_four' class='fnname'>root_ln_four</a>() -&gt; Self</code></span></h3><h3 id='tymethod.e' class='method'><span id='e.v' class='invisible'><code>fn <a href='#tymethod.e' class='fnname'>e</a>() -&gt; Self</code></span></h3><h3 id='tymethod.euler' class='method'><span id='euler.v' class='invisible'><code>fn <a href='#tymethod.euler' class='fnname'>euler</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_two' class='method'><span id='root_two.v' class='invisible'><code>fn <a href='#tymethod.root_two' class='fnname'>root_two</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_three' class='method'><span id='root_three.v' class='invisible'><code>fn <a href='#tymethod.root_three' class='fnname'>root_three</a>() -&gt; Self</code></span></h3><h3 id='tymethod.root_five' class='method'><span id='root_five.v' class='invisible'><code>fn <a href='#tymethod.root_five' class='fnname'>root_five</a>() -&gt; Self</code></span></h3><h3 id='tymethod.ln_two' class='method'><span id='ln_two.v' class='invisible'><code>fn <a href='#tymethod.ln_two' class='fnname'>ln_two</a>() -&gt; Self</code></span></h3><h3 id='tymethod.ln_ten' class='method'><span id='ln_ten.v' class='invisible'><code>fn <a href='#tymethod.ln_ten' class='fnname'>ln_ten</a>() -&gt; Self</code></span></h3><h3 id='tymethod.ln_ln_two' class='method'><span id='ln_ln_two.v' class='invisible'><code>fn <a href='#tymethod.ln_ln_two' class='fnname'>ln_ln_two</a>() -&gt; Self</code></span></h3><h3 id='tymethod.one_third' class='method'><span id='one_third.v' class='invisible'><code>fn <a href='#tymethod.one_third' class='fnname'>one_third</a>() -&gt; Self</code></span></h3><h3 id='tymethod.two_thirds' class='method'><span id='two_thirds.v' class='invisible'><code>fn <a href='#tymethod.two_thirds' class='fnname'>two_thirds</a>() -&gt; Self</code></span></h3><h3 id='tymethod.golden_ratio' class='method'><span id='golden_ratio.v' class='invisible'><code>fn <a href='#tymethod.golden_ratio' class='fnname'>golden_ratio</a>() -&gt; Self</code></span></h3></div>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
+        <ul class='item-list' id='implementors-list'>
+    <li><table class='table-display'><tbody><tr><td><code>impl&lt;T&gt; Consts&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../../glm/trait.GenFloat.html" title="trait glm::GenFloat">GenFloat</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>&gt;,&nbsp;</span></code><td><div class='out-of-band'><a class='srclink' href='../../../src/glm/ext/consts.rs.html#60-164' title='goto source code'>[src]</a></div></td></tr></tbody></table></li>
+<li><table class='table-display'><tbody><tr><td><code>impl&lt;T&gt; Consts&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>&gt; for T <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../../glm/trait.GenFloat.html" title="trait glm::GenFloat">GenFloat</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f64.html">f64</a>&gt;,&nbsp;</span></code><td><div class='out-of-band'><a class='srclink' href='../../../src/glm/ext/consts.rs.html#60-164' title='goto source code'>[src]</a></div></td></tr></tbody></table></li>
+</ul><script type="text/javascript">window.inlined_types=new Set([]);</script><script type="text/javascript" async
+                         src="../../../implementors/glm/ext/consts/trait.Consts.js">
+                 </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glm";
+    </script>
+    <script src="../../../main.js"></script>
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

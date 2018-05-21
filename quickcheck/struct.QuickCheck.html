@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `QuickCheck` struct in crate `quickcheck`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, QuickCheck">
+
+    <title>quickcheck::QuickCheck - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css"
+          id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle">
+    <script src="../storage.js"></script>
+    
+
+    
+    
+</head>
+<body class="rustdoc struct">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
+        
+        <p class='location'>Struct QuickCheck</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.new">new</a><a href="#method.tests">tests</a><a href="#method.max_tests">max_tests</a><a href="#method.gen">gen</a><a href="#method.quicktest">quicktest</a><a href="#method.quickcheck">quickcheck</a></div><a class="sidebar-title" href="#synthetic-implementations">Auto Trait Implementations</a><div class="sidebar-links"><a href="#impl-Send">Send</a><a href="#impl-Sync">Sync</a></div></div><p class='location'><a href='index.html'>quickcheck</a></p><script>window.sidebarCurrent = {name: 'QuickCheck', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
+    </nav>
+
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content"><h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>quickcheck</a>::<wbr><a class="struct" href=''>QuickCheck</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/quickcheck/tester.rs.html#8-12' title='goto source code'>[src]</a></span></h1><div class="docblock type-decl"><pre class='rust struct'>pub struct QuickCheck&lt;G&gt; { /* fields omitted */ }</pre></div><div class='docblock'><p>The main QuickCheck type for setting configuration and running QuickCheck.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;<a class="struct" href="../quickcheck/struct.StdGen.html" title="struct quickcheck::StdGen">StdGen</a>&lt;<a class="struct" href="../rand/struct.ThreadRng.html" title="struct rand::ThreadRng">ThreadRng</a>&gt;&gt;</code><a href='#impl' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#14-31' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;<a class="struct" href="../quickcheck/struct.StdGen.html" title="struct quickcheck::StdGen">StdGen</a>&lt;<a class="struct" href="../rand/struct.ThreadRng.html" title="struct rand::ThreadRng">ThreadRng</a>&gt;&gt;</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#24-30' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Creates a new QuickCheck value.</p>
+<p>This can be used to run QuickCheck on things that implement
+<code>Testable</code>. You may also adjust the configuration, such as
+the number of tests to run.</p>
+<p>By default, the maximum number of passed tests is set to <code>100</code>,
+the max number of overall tests is set to <code>10000</code> and the generator
+is set to a <code>StdGen</code> with a default size of <code>100</code>.</p>
+</div></div><h3 id='impl-1' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;G:&nbsp;<a class="trait" href="../quickcheck/trait.Gen.html" title="trait quickcheck::Gen">Gen</a>&gt; <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt;</code><a href='#impl-1' class='anchor'></a></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#33-119' title='goto source code'>[src]</a></span></td></tr></tbody></table></h3><div class='impl-items'><h4 id='method.tests' class="method"><span id='tests.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.tests' class='fnname'>tests</a>(self, tests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt;</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#40-43' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Set the number of tests to run.</p>
+<p>This actually refers to the maximum number of <em>passed</em> tests that
+can occur. Namely, if a test causes a failure, future testing on that
+property stops. Additionally, if tests are discarded, there may be
+fewer than <code>tests</code> passed.</p>
+</div><h4 id='method.max_tests' class="method"><span id='max_tests.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.max_tests' class='fnname'>max_tests</a>(self, max_tests: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>) -&gt; <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt;</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#50-53' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Set the maximum number of tests to run.</p>
+<p>The number of invocations of a property will never exceed this number.
+This is necessary to cap the number of tests because QuickCheck
+properties can discard tests.</p>
+</div><h4 id='method.gen' class="method"><span id='gen.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.gen' class='fnname'>gen</a>(self, gen: G) -&gt; <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt;</code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#56-59' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Set the random number generator to be used by QuickCheck.</p>
+</div><h4 id='method.quicktest' class="method"><span id='quicktest.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.quicktest' class='fnname'>quicktest</a>&lt;A&gt;(&amp;mut self, f: A) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="struct" href="../quickcheck/struct.TestResult.html" title="struct quickcheck::TestResult">TestResult</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../quickcheck/trait.Testable.html" title="trait quickcheck::Testable">Testable</a>,&nbsp;</span></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#68-82' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Tests a property and returns the result.</p>
+<p>The result returned is either the number of tests passed or a witness
+of failure.</p>
+<p>(If you're using Rust's unit testing infrastructure, then you'll
+want to use the <code>quickcheck</code> method, which will <code>panic!</code> on failure.)</p>
+</div><h4 id='method.quickcheck' class="method"><span id='quickcheck.v' class='invisible'><table class='table-display'><tbody><tr><td><code>pub fn <a href='#method.quickcheck' class='fnname'>quickcheck</a>&lt;A&gt;(&amp;mut self, f: A) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;A: <a class="trait" href="../quickcheck/trait.Testable.html" title="trait quickcheck::Testable">Testable</a>,&nbsp;</span></code></span></td><td><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/quickcheck/tester.rs.html#110-118' title='goto source code'>[src]</a></td></tr></tbody></table></span></h4><div class='docblock'><p>Tests a property and calls <code>panic!</code> on failure.</p>
+<p>The <code>panic!</code> message will include a (hopefully) minimal witness of
+failure.</p>
+<p>It is appropriate to use this method with Rust's unit testing
+infrastructure.</p>
+<p>Note that if the environment variable <code>RUST_LOG</code> is set to enable
+<code>info</code> level log messages for the <code>quickcheck</code> crate, then this will
+include output on how many QuickCheck tests were passed.</p>
+<h1 id="example" class="section-header"><a href="#example">Example</a></h1>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">quickcheck</span>::<span class="ident">QuickCheck</span>;
+
+<span class="kw">fn</span> <span class="ident">prop_reverse_reverse</span>() {
+    <span class="kw">fn</span> <span class="ident">revrev</span>(<span class="ident">xs</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> {
+        <span class="kw">let</span> <span class="ident">rev</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">xs</span>.<span class="ident">clone</span>().<span class="ident">into_iter</span>().<span class="ident">rev</span>().<span class="ident">collect</span>();
+        <span class="kw">let</span> <span class="ident">revrev</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">rev</span>.<span class="ident">into_iter</span>().<span class="ident">rev</span>().<span class="ident">collect</span>();
+        <span class="ident">xs</span> <span class="op">==</span> <span class="ident">revrev</span>
+    }
+    <span class="ident">QuickCheck</span>::<span class="ident">new</span>().<span class="ident">quickcheck</span>(<span class="ident">revrev</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">bool</span>);
+}</pre>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+            <div id='implementations-list'>
+        </div>
+                <h2 id='synthetic-implementations' class='small-section-header'>
+                  Auto Trait Implementations<a href='#synthetic-implementations' class='anchor'></a>
+                </h2>
+                <div id='synthetic-implementations-list'>
+            <h3 id='impl-Send' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;G&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a> for <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;G: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Send.html" title="trait core::marker::Send">Send</a>,&nbsp;</span></code><a href='#impl-Send' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div><h3 id='impl-Sync' class='impl'><span class='in-band'><table class='table-display'><tbody><tr><td><code>impl&lt;G&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a> for <a class="struct" href="../quickcheck/struct.QuickCheck.html" title="struct quickcheck::QuickCheck">QuickCheck</a>&lt;G&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;G: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html" title="trait core::marker::Sync">Sync</a>,&nbsp;</span></code><a href='#impl-Sync' class='anchor'></a></span></td><td><span class='out-of-band'></span></td></tr></tbody></table></h3><div class='impl-items'></div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt><kbd>?</kbd></dt>
+                    <dd>Show this help dialog</dd>
+                    <dt><kbd>S</kbd></dt>
+                    <dd>Focus the search field</dd>
+                    <dt><kbd>↑</kbd></dt>
+                    <dd>Move up in search results</dd>
+                    <dt><kbd>↓</kbd></dt>
+                    <dd>Move down in search results</dd>
+                    <dt><kbd>↹</kbd></dt>
+                    <dd>Switch tab</dd>
+                    <dt><kbd>&#9166;</kbd></dt>
+                    <dd>Go to active search result</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "quickcheck";
+    </script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
