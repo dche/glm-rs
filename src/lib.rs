@@ -27,7 +27,7 @@
 //!
 //! *glm-rs* is yet another Rust math library for graphics applications.
 //! Inspired by the great [GLM](glm.g-truc.net) library for C++, the goal is to
-//! provide familiar math API to porgrammers who knows GLSL as well.
+//! provide a familiar math API to programmers who know GLSL as well.
 //!
 //! ## Differences to GLSL specification
 //!
