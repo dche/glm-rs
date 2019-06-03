@@ -18,4 +18,6 @@ repository = "https://github.com/dche/glm-rs/"
 [dependencies]
 rand = "^0.3.14"
 num = "^0.1.36"
+
+[dev-dependencies]
 quickcheck = "^0.2.27"

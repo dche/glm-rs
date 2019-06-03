@@ -32,6 +32,7 @@ use std::ops::{
 };
 use rand::{ Rand, Rng };
 use num::{ Float, One, Zero };
+#[cfg(test)]
 use quickcheck::{ Arbitrary, Gen };
 
 // copied from `cgmath-rs/src/vector.rs`.
@@ -107,6 +108,7 @@ macro_rules! def_genvec(
                 $t {$($field: rng.gen()),+}
             }
         }
+        #[cfg(test)]
         impl<T: Primitive + Arbitrary> Arbitrary for $t<T> {
             fn arbitrary<G: Gen>(g: &mut G) -> $t<T> {
                 // do not use `g.size()`.
