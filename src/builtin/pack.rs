@@ -256,8 +256,8 @@ pub fn unpackSnorm4x8(p: u32) -> Vec4 {
 /// ```
 #[allow(non_snake_case)]
 #[inline(always)]
-pub fn packDouble2x32(v: UVec2) -> f64 {
-    let f: &f64 = unsafe { mem::transmute(&v) };
+pub unsafe fn packDouble2x32(v: UVec2) -> f64 {
+    let f: &f64 = mem::transmute(&v);
     *f
 }
 
