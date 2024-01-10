@@ -21,18 +21,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+use super::traits::{GenBVec, GenFloatVec, GenNumVec, GenVec};
 use basenum::*;
-use traits::*;
-use super::traits::{ GenVec, GenNumVec, GenFloatVec, GenBVec };
+use num::{Float, One, Zero};
+use quickcheck::{Arbitrary, Gen};
+use rand::{Rand, Rng};
 use std::cmp::Eq;
 use std::mem;
 use std::ops::{
-    Add, Mul, Sub, Neg, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr,
-    Index, IndexMut,
+    Add, BitAnd, BitOr, BitXor, Div, Index, IndexMut, Mul, Neg, Not, Rem, Shl, Shr, Sub,
 };
-use rand::{ Rand, Rng };
-use num::{ Float, One, Zero };
-use quickcheck::{ Arbitrary, Gen };
+use traits::*;
 
 // copied from `cgmath-rs/src/vector.rs`.
 macro_rules! fold(
@@ -396,7 +395,11 @@ impl<T: Primitive> Vector2<T> {
     /// ```
     #[inline]
     pub fn extend(&self, z: T) -> Vector3<T> {
-        Vector3 { x: self.x, y: self.y, z: z }
+        Vector3 {
+            x: self.x,
+            y: self.y,
+            z,
+        }
     }
 }
 
@@ -414,7 +417,12 @@ impl<T: Primitive> Vector3<T> {
     /// ```
     #[inline]
     pub fn extend(&self, w: T) -> Vector4<T> {
-        Vector4 { x: self.x, y: self.y, z: self.z, w: w }
+        Vector4 {
+            x: self.x,
+            y: self.y,
+            z: self.z,
+            w,
+        }
     }
 
     /// Truncates _self_ to a `Vector2` by remove the `i`<sub>th</sub> element.
@@ -440,7 +448,7 @@ impl<T: Primitive> Vector3<T> {
             0 => Vector2::new(self.y, self.z),
             1 => Vector2::new(self.x, self.z),
             2 => Vector2::new(self.x, self.y),
-            _ => panic!("parameter i is out of range [{:?} > 2].", i)
+            _ => panic!("parameter i is out of range [{:?} > 2].", i),
         }
     }
 }
@@ -470,7 +478,7 @@ impl<T: Primitive> Vector4<T> {
             1 => Vector3::new(self.x, self.z, self.w),
             2 => Vector3::new(self.x, self.y, self.w),
             3 => Vector3::new(self.x, self.y, self.z),
-            _ => panic!("parameter i is out of range [{:?} > 3].", i)
+            _ => panic!("parameter i is out of range [{:?} > 3].", i),
         }
     }
 }
@@ -526,11 +534,12 @@ mod test {
 
     #[test]
     fn test_as_array() {
+        #[rustfmt::skip]
         fn prop(v3: Vec3) -> bool {
             let ary: &[f32; 3] = v3.as_array();
-            ary[0] == v3.x &&
-            ary[1] == v3.y &&
-            ary[2] == v3.z
+            ary[0] == v3.x
+            && ary[1] == v3.y 
+            && ary[2] == v3.z
         }
         quickcheck(prop as fn(Vec3) -> bool);
     }
@@ -543,18 +552,18 @@ mod test {
             let ary: &mut [f64; 2] = v.as_array_mut();
             ary[0] = x + 1.;
             ary[1] = y * 2.;
-            (x + 1.) == ary[0] &&
-            (y * 2.) == ary[1]
+            (x + 1.) == ary[0] && (y * 2.) == ary[1]
         }
         quickcheck(prop as fn(DVec2) -> bool)
     }
 
     #[test]
     fn test_index() {
+        #[rustfmt::skip]
         fn prop(v3: Vec3) -> bool {
-            v3[0] == v3.x &&
-            v3[1] == v3.y &&
-            v3[2] == v3.z
+            v3[0] == v3.x
+            && v3[1] == v3.y
+            && v3[2] == v3.z
         }
         quickcheck(prop as fn(Vec3) -> bool);
     }
