@@ -445,6 +445,16 @@ impl<T: Primitive> Vector3<T> {
     }
 }
 
+impl<T: BaseFloat> Vector3<T> {
+    pub fn combine(a: &Self, b: &Self, a_scale: T, b_scale: T) -> Self {
+        *a * a_scale + *b * b_scale
+    }
+
+    pub fn scale(v: &Self, desired_length: T) -> Self {
+        *v * desired_length / crate::length(*v)
+    }
+}
+
 impl<T: Primitive> Vector4<T> {
     /// Truncates _self_ to a `Vector3` by remove the `i`<sub>th</sub> element.
     ///

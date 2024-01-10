@@ -569,14 +569,6 @@ impl<T: BaseFloat> Matrix3<T> {
     }
 }
 
-fn combine_vec<T: BaseFloat>(a: &Vector3<T>, b: &Vector3<T>, a_scale: T, b_scale: T) -> Vector3<T> {
-    *a * a_scale + *b * b_scale
-}
-
-fn scale_vec<T: BaseFloat>(v: &Vector3<T>, desired_length: T) -> Vector3<T> {
-    *v * desired_length / crate::length(*v)
-}
-
 impl<T: BaseFloat> Matrix4<T> {
     /// Extracts scale, orientation, translation, skew and perspective in this order.
     pub fn decompose(
@@ -645,27 +637,27 @@ impl<T: BaseFloat> Matrix4<T> {
 
         // Get X scale and normalize 1st row
         scale.x = crate::length(row[0]);
-        row[0] = scale_vec(&row[0], T::one());
+        row[0] = Vector3::scale(&row[0], T::one());
 
         // Compute XY shear factor
         skew.z = crate::dot(row[0], row[1]);
         // Make 2nd row orthogonal to 1st
-        row[1] = combine_vec(&row[1], &row[0], T::one(), -skew.z);
+        row[1] = Vector3::combine(&row[1], &row[0], T::one(), -skew.z);
 
         // Get Y scale and normalize 2nd row
         scale.y = crate::length(row[1]);
-        row[1] = scale_vec(&row[1], T::one());
+        row[1] = Vector3::scale(&row[1], T::one());
         skew.z = skew.z / scale.y;
 
         // Compute XZ and YZ shears, orthogonalize 3rd row
         skew.y = crate::dot(row[0], row[2]);
-        row[2] = combine_vec(&row[2], &row[0], T::one(), -skew.y);
+        row[2] = Vector3::combine(&row[2], &row[0], T::one(), -skew.y);
         skew.x = crate::dot(row[1], row[2]);
-        row[2] = combine_vec(&row[2], &row[1], T::one(), -skew.x);
+        row[2] = Vector3::combine(&row[2], &row[1], T::one(), -skew.x);
 
         // Get Z scale and normalize 3rd row
         scale.z = crate::length(row[2]);
-        row[2] = scale_vec(&row[2], T::one());
+        row[2] = Vector3::scale(&row[2], T::one());
 
         skew.y = skew.y / scale.z;
         skew.x = skew.x / scale.z;
