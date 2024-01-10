@@ -21,54 +21,57 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseFloat, ApproxEq };
-use vec::vec::{ Vector2, Vector3, Vector4 };
-use super::traits::GenMat;
+use GenMat;
+
+use vec::vec::{Vector2, Vector3, Vector4};
+
 use std::mem;
-use std::ops::{ Add, Mul, Sub, Neg, Div, Rem, Index, IndexMut };
-use rand::{ Rand, Rng };
+use std::ops::{Add, Div, Index, IndexMut, Mul, Neg, Rem, Sub};
+
+use basenum::{ApproxEq, BaseFloat};
 use num::Zero;
 #[cfg(test)]
-use quickcheck::{ Arbitrary, Gen };
+use quickcheck::{Arbitrary, Gen};
+use rand::{Rand, Rng};
 
 macro_rules! mul_v_unrolled {
     ($m: ident, $v: ident, Vector2, Vector2) => {
         Vector2::new(
             $m[0].x * $v.x + $m[1].x * $v.y,
-            $m[0].y * $v.x + $m[1].y * $v.y
+            $m[0].y * $v.x + $m[1].y * $v.y,
         )
     };
     ($m: ident, $v: ident, Vector2, Vector3) => {
         Vector2::new(
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z,
-            $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z
+            $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z,
         )
     };
     ($m: ident, $v: ident, Vector2, Vector4) => {
         Vector2::new(
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z + $m[3].x * $v.w,
-            $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z + $m[3].y * $v.w
+            $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z + $m[3].y * $v.w,
         )
     };
     ($m: ident, $v: ident, Vector3, Vector2) => {
         Vector3::new(
             $m[0].x * $v.x + $m[1].x * $v.y,
             $m[0].y * $v.x + $m[1].y * $v.y,
-            $m[0].z * $v.x + $m[1].z * $v.y
+            $m[0].z * $v.x + $m[1].z * $v.y,
         )
     };
     ($m: ident, $v: ident, Vector3, Vector3) => {
         Vector3::new(
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z,
             $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z,
-            $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z
+            $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z,
         )
     };
     ($m: ident, $v: ident, Vector3, Vector4) => {
         Vector3::new(
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z + $m[3].x * $v.w,
             $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z + $m[3].y * $v.w,
-            $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z + $m[3].z * $v.w
+            $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z + $m[3].z * $v.w,
         )
     };
     ($m: ident, $v: ident, Vector4, Vector2) => {
@@ -76,7 +79,7 @@ macro_rules! mul_v_unrolled {
             $m[0].x * $v.x + $m[1].x * $v.y,
             $m[0].y * $v.x + $m[1].y * $v.y,
             $m[0].z * $v.x + $m[1].z * $v.y,
-            $m[0].w * $v.x + $m[1].w * $v.y
+            $m[0].w * $v.x + $m[1].w * $v.y,
         )
     };
     ($m: ident, $v: ident, Vector4, Vector3) => {
@@ -84,7 +87,7 @@ macro_rules! mul_v_unrolled {
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z,
             $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z,
             $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z,
-            $m[0].w * $v.x + $m[1].w * $v.y + $m[2].w * $v.z
+            $m[0].w * $v.x + $m[1].w * $v.y + $m[2].w * $v.z,
         )
     };
     ($m: ident, $v: ident, Vector4, Vector4) => {
@@ -92,31 +95,24 @@ macro_rules! mul_v_unrolled {
             $m[0].x * $v.x + $m[1].x * $v.y + $m[2].x * $v.z + $m[3].x * $v.w,
             $m[0].y * $v.x + $m[1].y * $v.y + $m[2].y * $v.z + $m[3].y * $v.w,
             $m[0].z * $v.x + $m[1].z * $v.y + $m[2].z * $v.z + $m[3].z * $v.w,
-            $m[0].w * $v.x + $m[1].w * $v.y + $m[2].w * $v.z + $m[3].w * $v.w
+            $m[0].w * $v.x + $m[1].w * $v.y + $m[2].w * $v.z + $m[3].w * $v.w,
         )
     };
 }
 
 macro_rules! mul_m_unrolled {
     ($lm: ident, $rm: ident, Matrix2) => {
-        Matrix2::new(
-            $lm.mul_v(&$rm.c0),
-            $lm.mul_v(&$rm.c1)
-        )
+        Matrix2::new($lm.mul_v(&$rm.c0), $lm.mul_v(&$rm.c1))
     };
     ($lm: ident, $rm: ident, Matrix3) => {
-        Matrix3::new(
-            $lm.mul_v(&$rm.c0),
-            $lm.mul_v(&$rm.c1),
-            $lm.mul_v(&$rm.c2)
-        )
+        Matrix3::new($lm.mul_v(&$rm.c0), $lm.mul_v(&$rm.c1), $lm.mul_v(&$rm.c2))
     };
     ($lm: ident, $rm: ident, Matrix4) => {
         Matrix4::new(
             $lm.mul_v(&$rm.c0),
             $lm.mul_v(&$rm.c1),
             $lm.mul_v(&$rm.c2),
-            $lm.mul_v(&$rm.c3)
+            $lm.mul_v(&$rm.c3),
         )
     };
 }
@@ -125,40 +121,40 @@ macro_rules! transpose_unrolled {
     ($m: ident, Vector2, Vector2) => {
         Matrix2::new(
             Vector2::new($m[0][0], $m[1][0]),
-            Vector2::new($m[0][1], $m[1][1])
+            Vector2::new($m[0][1], $m[1][1]),
         )
     };
     ($m: ident, Vector2, Vector3) => {
         Matrix2x3::new(
             Vector3::new($m[0][0], $m[1][0], $m[2][0]),
-            Vector3::new($m[0][1], $m[1][1], $m[2][1])
+            Vector3::new($m[0][1], $m[1][1], $m[2][1]),
         )
     };
     ($m: ident, Vector2, Vector4) => {
         Matrix2x4::new(
             Vector4::new($m[0][0], $m[1][0], $m[2][0], $m[3][0]),
-            Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1])
+            Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1]),
         )
     };
     ($m: ident, Vector3, Vector2) => {
         Matrix3x2::new(
             Vector2::new($m[0][0], $m[1][0]),
             Vector2::new($m[0][1], $m[1][1]),
-            Vector2::new($m[0][2], $m[1][2])
+            Vector2::new($m[0][2], $m[1][2]),
         )
     };
     ($m: ident, Vector3, Vector3) => {
         Matrix3::new(
             Vector3::new($m[0][0], $m[1][0], $m[2][0]),
             Vector3::new($m[0][1], $m[1][1], $m[2][1]),
-            Vector3::new($m[0][2], $m[1][2], $m[2][2])
+            Vector3::new($m[0][2], $m[1][2], $m[2][2]),
         )
     };
     ($m: ident, Vector3, Vector4) => {
         Matrix3x4::new(
             Vector4::new($m[0][0], $m[1][0], $m[2][0], $m[3][0]),
             Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1]),
-            Vector4::new($m[0][2], $m[1][2], $m[2][2], $m[3][2])
+            Vector4::new($m[0][2], $m[1][2], $m[2][2], $m[3][2]),
         )
     };
     ($m: ident, Vector4, Vector2) => {
@@ -166,7 +162,7 @@ macro_rules! transpose_unrolled {
             Vector2::new($m[0][0], $m[1][0]),
             Vector2::new($m[0][1], $m[1][1]),
             Vector2::new($m[0][2], $m[1][2]),
-            Vector2::new($m[0][3], $m[1][3])
+            Vector2::new($m[0][3], $m[1][3]),
         )
     };
     ($m: ident, Vector4, Vector3) => {
@@ -174,7 +170,7 @@ macro_rules! transpose_unrolled {
             Vector3::new($m[0][0], $m[1][0], $m[2][0]),
             Vector3::new($m[0][1], $m[1][1], $m[2][1]),
             Vector3::new($m[0][2], $m[1][2], $m[2][2]),
-            Vector3::new($m[0][3], $m[1][3], $m[2][3])
+            Vector3::new($m[0][3], $m[1][3], $m[2][3]),
         )
     };
     ($m: ident, Vector4, Vector4) => {
@@ -182,7 +178,7 @@ macro_rules! transpose_unrolled {
             Vector4::new($m[0][0], $m[1][0], $m[2][0], $m[3][0]),
             Vector4::new($m[0][1], $m[1][1], $m[2][1], $m[3][1]),
             Vector4::new($m[0][2], $m[1][2], $m[2][2], $m[3][2]),
-            Vector4::new($m[0][3], $m[1][3], $m[2][3], $m[3][3])
+            Vector4::new($m[0][3], $m[1][3], $m[2][3], $m[3][3]),
         )
     };
 }
@@ -573,11 +569,171 @@ impl<T: BaseFloat> Matrix3<T> {
     }
 }
 
+fn combine_vec<T: BaseFloat>(a: &Vector3<T>, b: &Vector3<T>, a_scale: T, b_scale: T) -> Vector3<T> {
+    *a * a_scale + *b * b_scale
+}
+
+fn scale_vec<T: BaseFloat>(v: &Vector3<T>, desired_length: T) -> Vector3<T> {
+    *v * desired_length / crate::length(*v)
+}
+
+impl<T: BaseFloat> Matrix4<T> {
+    /// Extracts scale, orientation, translation, skew and perspective in this order.
+    pub fn decompose(
+        &self,
+    ) -> Option<(Vector3<T>, Vector4<T>, Vector3<T>, Vector3<T>, Vector4<T>)> {
+        let mut matrix = self.clone();
+
+        if matrix[3][3].is_approx_eq(&T::zero()) {
+            return None;
+        }
+
+        for i in 0..4 {
+            for j in 0..4 {
+                matrix[i][j] = matrix[i][j] / matrix[3][3];
+            }
+        }
+
+        let mut perspective_matrix = matrix;
+        for i in 0..3 {
+            perspective_matrix[i][3] = T::zero();
+        }
+        perspective_matrix[3][3] = T::one();
+
+        // Why is this marked "fixme" in the original..?
+        if crate::determinant(&perspective_matrix).is_approx_eq(&T::zero()) {
+            return None;
+        }
+
+        // Isolate perspective
+        let perspective = if !(matrix[0][3].is_approx_eq(&T::zero())
+            || matrix[1][3].is_approx_eq(&T::zero())
+            || matrix[2][3].is_approx_eq(&T::zero()))
+        {
+            // Rhs of the equation
+            let rhs = Vector4::new(matrix[0][3], matrix[1][3], matrix[2][3], matrix[3][3]);
+
+            // Solve the equation (easiest way but not optimal)
+            let inverse_perspective_matrix = crate::inverse(&perspective_matrix);
+            let transposed_inverse_perspective_matrix = inverse_perspective_matrix.transpose();
+
+            // Clear perspective partition
+            matrix[0][3] = T::zero();
+            matrix[1][3] = T::zero();
+            matrix[2][3] = T::zero();
+            matrix[3][3] = T::one();
+
+            transposed_inverse_perspective_matrix * rhs
+        } else {
+            // No perspective
+            Vector4::new(T::zero(), T::zero(), T::zero(), T::one())
+        };
+
+        let translation = matrix[3].truncate(3);
+        matrix[3] = Vector4::new(T::zero(), T::zero(), T::zero(), matrix[3].w);
+
+        // Get scale and shear
+        let mut row = [Vector3::<T>::zero(); 3];
+        for i in 0..3 {
+            for j in 0..3 {
+                row[i][j] = matrix[i][j];
+            }
+        }
+
+        let mut scale = Vector3::new(T::zero(), T::zero(), T::zero());
+        let mut skew = Vector3::new(T::zero(), T::zero(), T::zero());
+
+        // Get X scale and normalize 1st row
+        scale.x = crate::length(row[0]);
+        row[0] = scale_vec(&row[0], T::one());
+
+        // Compute XY shear factor
+        skew.z = crate::dot(row[0], row[1]);
+        // Make 2nd row orthogonal to 1st
+        row[1] = combine_vec(&row[1], &row[0], T::one(), -skew.z);
+
+        // Get Y scale and normalize 2nd row
+        scale.y = crate::length(row[1]);
+        row[1] = scale_vec(&row[1], T::one());
+        skew.z = skew.z / scale.y;
+
+        // Compute XZ and YZ shears, orthogonalize 3rd row
+        skew.y = crate::dot(row[0], row[2]);
+        row[2] = combine_vec(&row[2], &row[0], T::one(), -skew.y);
+        skew.x = crate::dot(row[1], row[2]);
+        row[2] = combine_vec(&row[2], &row[1], T::one(), -skew.x);
+
+        // Get Z scale and normalize 3rd row
+        scale.z = crate::length(row[2]);
+        row[2] = scale_vec(&row[2], T::one());
+
+        skew.y = skew.y / scale.z;
+        skew.x = skew.x / scale.z;
+
+        // At this point, the matrix (in rows[]) is orthonormal.
+        // Check for a coordinate system flip.  If the determinant is -1, then negate the matrix
+        // and the scaling factors.
+        let pdum3 = crate::cross(row[1], row[2]);
+        if crate::dot(row[1], pdum3) < T::zero() {
+            for i in 0..3 {
+                scale[i] = scale[i] * -T::one();
+                row[i] = row[i] * -T::one();
+            }
+        }
+
+        // Get rotation
+        let mut orientation = Vector4::new(T::zero(), T::zero(), T::zero(), T::zero());
+
+        let mut root = row[0].x + row[1].y + row[2].z;
+        let trace = root;
+
+        if trace > T::zero() {
+            root = (trace + T::one()).sqrt();
+            orientation.w = T::from(0.5).unwrap() * root;
+            root = T::from(0.5).unwrap() / root;
+            orientation.x = root * (row[1].z - row[2].y);
+            orientation.y = root * (row[2].x - row[0].z);
+            orientation.z = root * (row[0].y - row[1].x);
+        }
+        // Enf if > 0
+        else {
+            let next = [1, 2, 0];
+
+            let mut i = 0;
+
+            if row[1].y > row[0].x {
+                i = 1;
+            }
+            if row[2].z > row[i][i] {
+                i = 2;
+            }
+
+            let j = next[i];
+            let k = next[j];
+
+            // TODO: Add GLM_FORCE_QUAT_DATA_WXYZ equivalent (off = 1)
+            let off = 0;
+
+            root = (row[i][i] - row[j][j] - row[k][k] + T::one()).sqrt();
+
+            orientation[i + off] = T::from(0.5).unwrap() * root;
+            root = T::from(0.5).unwrap() / root;
+            orientation[j + off] = root * (row[i][j] + row[j][i]);
+            orientation[k + off] = root * (row[i][k] + row[k][i]);
+            orientation.w = root * (row[j][k] - row[k][j]);
+        } // End if <= 0
+
+        Some((scale, orientation, translation, skew, perspective))
+    }
+}
+
 #[cfg(test)]
 mod test {
 
     use mat::ctor::*;
     use vec::vec::*;
+
+    use crate::is_approx_eq;
 
     #[test]
     fn test_index() {
@@ -601,5 +757,25 @@ mod test {
         let v = vec3(-2., 0., 2.);
         let p = vec2(8., 8.);
         assert_eq!(m * v, p);
+    }
+
+    #[test]
+    fn test_decompose() {
+        // Example model matrix
+        #[rustfmt::skip]
+        let mat = mat4(
+            0.177637, 0., 0.582154, 0.,
+            0., 0.608653, 0., 0.,
+            -0.582154, 0., 0.177637, 0.,
+            146.278, 0., -106.38, 1.
+        );
+
+        let (scale, orientation, translation, skew, perspective) = mat.decompose().unwrap();
+
+        assert_approx_eq!(scale, vec3(0.608653, 0.608653, 0.608653));
+        assert_approx_eq!(orientation, vec4(0., -0.595041, 0., 0.803695));
+        assert_approx_eq!(translation, vec3(146.278, 0., -106.38));
+        assert_approx_eq!(skew, vec3(0., -2.44822e-08, 0.));
+        assert_approx_eq!(perspective, vec4(0., 0., 0., 1.));
     }
 }
