@@ -733,7 +733,7 @@ mod test {
     use mat::ctor::*;
     use vec::vec::*;
 
-    use crate::is_approx_eq;
+    use crate::is_close_to;
 
     #[test]
     fn test_index() {
@@ -772,10 +772,11 @@ mod test {
 
         let (scale, orientation, translation, skew, perspective) = mat.decompose().unwrap();
 
-        assert_approx_eq!(scale, vec3(0.608653, 0.608653, 0.608653));
-        assert_approx_eq!(orientation, vec4(0., -0.595041, 0., 0.803695));
-        assert_approx_eq!(translation, vec3(146.278, 0., -106.38));
-        assert_approx_eq!(skew, vec3(0., -2.44822e-08, 0.));
-        assert_approx_eq!(perspective, vec4(0., 0., 0., 1.));
+        // Results obtained by running the original C++ version on the same input matrix
+        assert_close_to!(scale, vec3(0.608653, 0.608653, 0.608653), 1e-5);
+        assert_close_to!(orientation, vec4(0., -0.595041, 0., 0.803695), 1e-5);
+        assert_close_to!(translation, vec3(146.278, 0., -106.38), 1e-5);
+        assert_close_to!(skew, vec3(0., -2.44822e-08, 0.), 1e-5);
+        assert_close_to!(perspective, vec4(0., 0., 0., 1.), 1e-5);
     }
 }
