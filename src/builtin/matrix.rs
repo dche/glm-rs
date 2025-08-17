@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,9 @@
 
 // The GLSL Specification, ch 8.6, Matrix Functions.
 
-use basenum::BaseFloat;
-use mat::traits::{ GenMat, GenSquareMat };
-use vec::traits::GenFloatVec;
+use crate::basenum::BaseFloat;
+use crate::mat::traits::{GenMat, GenSquareMat};
+use crate::vec::traits::GenFloatVec;
 
 /// Multiply matrix `x` by matrix `y` component-wise, i.e., `result[i][j]` is
 /// the scalar product of `x[i][j]` and `y[i][j]`.
@@ -47,11 +47,7 @@ use vec::traits::GenFloatVec;
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
-pub fn matrixCompMult<
-T: BaseFloat,
-C: GenFloatVec<T>,
-M: GenMat<T, C>
->(x: &M, y: &M) -> M {
+pub fn matrixCompMult<T: BaseFloat, C: GenFloatVec<T>, M: GenMat<T, C>>(x: &M, y: &M) -> M {
     x.mul_c(y)
 }
 
@@ -74,26 +70,29 @@ M: GenMat<T, C>
 #[inline]
 #[allow(non_snake_case)]
 pub fn outerProduct<
-T: BaseFloat,
-C: GenFloatVec<T>,
-R: GenFloatVec<T>,
-/*
- * NOTE:
- * I can't believe Rust allows this! But Rust is wrong at the first place.
- * Associated types (e.g., `R` and `Transpose` of `GenMat` here) are not type
- * parameters, and should not be mandatorily required when specifying a type,
- * and if `Transpose` is ommitted (as we did before), that does not mean
- * `GenMat` is not implemented for `Tanspose` of `M` (E0277). How could that
- * be possible?
- */
-N: GenMat<T, R, R = C, Transpose = M>,
-M: GenMat<T, C, R = R, Transpose = N>
->(c: C, r: R) -> M {
+    T: BaseFloat,
+    C: GenFloatVec<T>,
+    R: GenFloatVec<T>,
+    /*
+     * NOTE:
+     * I can't believe Rust allows this! But Rust is wrong at the first place.
+     * Associated types (e.g., `R` and `Transpose` of `GenMat` here) are not type
+     * parameters, and should not be mandatorily required when specifying a type,
+     * and if `Transpose` is ommitted (as we did before), that does not mean
+     * `GenMat` is not implemented for `Tanspose` of `M` (E0277). How could that
+     * be possible?
+     */
+    N: GenMat<T, R, R = C, Transpose = M>,
+    M: GenMat<T, C, R = R, Transpose = N>,
+>(
+    c: C,
+    r: R,
+) -> M {
     let mut z = M::zero();
     let dim = R::dim();
     for i in 0..dim {
         z[i] = c * r[i];
-    };
+    }
     z
 }
 
@@ -101,21 +100,13 @@ M: GenMat<T, C, R = R, Transpose = N>
 ///
 /// The input matrix `m` is not modified.
 #[inline(always)]
-pub fn transpose<
-T: BaseFloat,
-C: GenFloatVec<T>,
-M: GenMat<T, C>
->(m: &M) -> M::Transpose {
+pub fn transpose<T: BaseFloat, C: GenFloatVec<T>, M: GenMat<T, C>>(m: &M) -> M::Transpose {
     m.transpose()
 }
 
 /// Returns the determinant of `m`.
 #[inline(always)]
-pub fn determinant<
-T: BaseFloat,
-C: GenFloatVec<T>,
-M: GenSquareMat<T, C>
->(m: &M) -> T {
+pub fn determinant<T: BaseFloat, C: GenFloatVec<T>, M: GenSquareMat<T, C>>(m: &M) -> T {
     m.determinant()
 }
 
@@ -127,14 +118,10 @@ M: GenSquareMat<T, C>
 ///
 /// It is a panic if `m` is singular or poorly-conditioned (nearly singular).
 #[inline]
-pub fn inverse<
-T: BaseFloat,
-C: GenFloatVec<T>,
-M: GenSquareMat<T, C>
->(m: &M) -> M {
+pub fn inverse<T: BaseFloat, C: GenFloatVec<T>, M: GenSquareMat<T, C>>(m: &M) -> M {
     let inv = m.inverse();
     match inv {
         Some(im) => im,
-        _ => panic!("inverse a matrix that is not invertible.")
+        _ => panic!("inverse a matrix that is not invertible."),
     }
 }

@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,11 @@
 
 // The GLSL Specification, ch 8.4, Floating-Point Pack and Unpack Functions.
 
-use vec::vec::*;
-use super::common::{ clamp_s, round };
-use std::mem;
+use core::mem;
+
+use crate::vec::vec::*;
+
+use super::common::{clamp_s, round};
 
 /// First, converts each component of the normalized floating-point value `v`
 /// into 16-bit integer values. Then, the results are packed into the
@@ -45,7 +47,7 @@ use std::mem;
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn packUnorm2x16(v: Vec2) -> u32 {
+pub unsafe fn packUnorm2x16(v: Vec2) -> u32 {
     let us = round(clamp_s(v, 0., 1.) * 65535.);
     let pack: [u16; 2] = [us.y as u16, us.x as u16];
     let r: &u32 = unsafe { mem::transmute(&pack) };
@@ -70,7 +72,7 @@ pub fn packUnorm2x16(v: Vec2) -> u32 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn unpackUnorm2x16(p: u32) -> Vec2 {
+pub unsafe fn unpackUnorm2x16(p: u32) -> Vec2 {
     let unpack: &[u16; 2] = unsafe { mem::transmute(&p) };
     let v = vec2(unpack[1] as f32, unpack[0] as f32);
     // v / 65535.
@@ -95,7 +97,7 @@ pub fn unpackUnorm2x16(p: u32) -> Vec2 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn packUnorm4x8(v: Vec4) -> u32 {
+pub unsafe fn packUnorm4x8(v: Vec4) -> u32 {
     let us = round(clamp_s(v, 0., 1.) * 255.);
     let pack: [u8; 4] = [us.w as u8, us.z as u8, us.y as u8, us.x as u8];
     let r: &u32 = unsafe { mem::transmute(&pack) };
@@ -120,15 +122,14 @@ pub fn packUnorm4x8(v: Vec4) -> u32 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn unpackUnorm4x8(p: u32) -> Vec4 {
+pub unsafe fn unpackUnorm4x8(p: u32) -> Vec4 {
     let unpack: &[u8; 4] = unsafe { mem::transmute(&p) };
-    let v =
-        vec4(
-            unpack[3] as f32,
-            unpack[2] as f32,
-            unpack[1] as f32,
-            unpack[0] as f32
-        );
+    let v = vec4(
+        unpack[3] as f32,
+        unpack[2] as f32,
+        unpack[1] as f32,
+        unpack[0] as f32,
+    );
     // v / 255.
     v * 0.0039215686274509803921568627451
 }
@@ -151,7 +152,7 @@ pub fn unpackUnorm4x8(p: u32) -> Vec4 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn packSnorm2x16(v: Vec2) -> u32 {
+pub unsafe fn packSnorm2x16(v: Vec2) -> u32 {
     let is = round(clamp_s(v, -1., 1.) * 32767.);
     let pack: [i16; 2] = [is.y as i16, is.x as i16];
     let r: &u32 = unsafe { mem::transmute(&pack) };
@@ -176,7 +177,7 @@ pub fn packSnorm2x16(v: Vec2) -> u32 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn unpackSnorm2x16(p: u32) -> Vec2 {
+pub unsafe fn unpackSnorm2x16(p: u32) -> Vec2 {
     let unpack: &[i16; 2] = unsafe { mem::transmute(&p) };
     let v = vec2(unpack[1] as f32, unpack[0] as f32);
     // v / 32767.
@@ -201,7 +202,7 @@ pub fn unpackSnorm2x16(p: u32) -> Vec2 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn packSnorm4x8(v: Vec4) -> u32 {
+pub unsafe fn packSnorm4x8(v: Vec4) -> u32 {
     let is = round(clamp_s(v, -1., 1.) * 127.);
     let pack: [i8; 4] = [is.w as i8, is.z as i8, is.y as i8, is.x as i8];
     let r: &u32 = unsafe { mem::transmute(&pack) };
@@ -226,18 +227,16 @@ pub fn packSnorm4x8(v: Vec4) -> u32 {
 /// ```
 #[inline]
 #[allow(non_snake_case)]
-pub fn unpackSnorm4x8(p: u32) -> Vec4 {
+pub unsafe fn unpackSnorm4x8(p: u32) -> Vec4 {
     let unpack: &[i8; 4] = unsafe { mem::transmute(&p) };
-    let v =
-        vec4(
-            unpack[3] as f32,
-            unpack[2] as f32,
-            unpack[1] as f32,
-            unpack[0] as f32
-        );
+    let v = vec4(
+        unpack[3] as f32,
+        unpack[2] as f32,
+        unpack[1] as f32,
+        unpack[0] as f32,
+    );
     // v / 127.
     clamp_s(v * 0.0078740157480315, -1., 1.)
-
 }
 
 /// Returns a double-precision value obtained by packing the components of `v`
@@ -256,7 +255,7 @@ pub fn unpackSnorm4x8(p: u32) -> Vec4 {
 /// ```
 #[allow(non_snake_case)]
 #[inline(always)]
-pub fn packDouble2x32(v: UVec2) -> f64 {
+pub unsafe fn packDouble2x32(v: UVec2) -> f64 {
     let f: &f64 = unsafe { mem::transmute(&v) };
     *f
 }
@@ -274,7 +273,7 @@ pub fn packDouble2x32(v: UVec2) -> f64 {
 /// ```
 #[allow(non_snake_case)]
 #[inline(always)]
-pub fn unpackDouble2x32(v: f64) -> UVec2 {
+pub unsafe fn unpackDouble2x32(v: f64) -> UVec2 {
     let uv: &UVec2 = unsafe { mem::transmute(&v) };
     *uv
 }

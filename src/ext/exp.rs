@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseNum, BaseFloat };
-use traits::{ GenNum, GenFloat };
-use num::Float;
+use num_traits::Float;
+
+use crate::basenum::{BaseFloat, BaseNum};
+use crate::traits::{GenFloat, GenNum};
 
 /// Returns the cubic root.
 #[inline(always)]
@@ -46,7 +47,5 @@ pub fn pow3<N: BaseNum, T: GenNum<N>>(x: T) -> T {
 /// Raise a number to an integer power.
 #[inline(always)]
 pub fn powi<F: BaseFloat, T: GenFloat<F>>(x: T, y: i32) -> T {
-    x.map(|f| -> F {
-        Float::powi(f, y)
-    })
+    x.map(|f| -> F { Float::powi(f, y) })
 }

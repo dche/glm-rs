@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,36 +21,44 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseNum, BaseInt, BaseFloat, SignedNum, ApproxEq };
-use std::ops::{ Add, Mul, Sub, Div, Rem, Not, BitAnd, BitOr, BitXor, Shl, Shr };
-use rand::Rand;
-use num::{ Float, One, Zero };
+use core::ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Shl, Shr, Sub};
+
+use num_traits::{Float, One, Zero};
+
+use crate::basenum::{ApproxEq, BaseFloat, BaseInt, BaseNum, SignedNum};
 
 // TODO: use associated types to reduce redundant type parameters.
 
 /// Generic numeric type.
-pub trait GenNum<E: BaseNum>
-: Copy
-+ Sized
-+ Clone
-+ One
-+ Zero
-+ Div<Self, Output = Self>
-+ Rem<Self, Output = Self>
-+ Add<E, Output = Self>
-+ Mul<E, Output = Self>
-+ Rand
+pub trait GenNum<E: BaseNum>:
+    Copy
+    + Sized
+    + Clone
+    + One
+    + Zero
+    + Div<Self, Output = Self>
+    + Rem<Self, Output = Self>
+    + Add<E, Output = Self>
+    + Mul<E, Output = Self>
 {
     /// Constructs from a scalar number.
     fn from_s(x: E) -> Self;
 
-    fn map<F>(self, f: F) -> Self where F: Fn(E) -> E;
+    fn map<F>(self, f: F) -> Self
+    where
+        F: Fn(E) -> E;
 
-    fn zip<F>(self, y: Self, f: F) -> Self where F: Fn(E, E) -> E;
+    fn zip<F>(self, y: Self, f: F) -> Self
+    where
+        F: Fn(E, E) -> E;
 
-    fn split<F>(self, f: F) -> (Self, Self) where F: Fn(E) -> (E, E);
+    fn split<F>(self, f: F) -> (Self, Self)
+    where
+        F: Fn(E) -> (E, E);
 
-    fn map2<F>(self, y: Self, f: F) -> (Self, Self) where F: Fn(E, E) -> (E, E);
+    fn map2<F>(self, y: Self, f: F) -> (Self, Self)
+    where
+        F: Fn(E, E) -> (E, E);
 }
 
 macro_rules! impl_GenNum_for_scalar(
@@ -81,16 +89,17 @@ macro_rules! impl_GenNum_for_scalar(
 );
 
 /// Generic interger type.
-pub trait GenInt<I: BaseInt>
-: GenNum<I>
-+ Eq
-+ Not<Output = Self>
-+ BitAnd<Output = Self>
-+ BitOr<Output = Self>
-+ BitXor<Output = Self>
-+ Shl<usize, Output = Self>
-+ Shr<usize, Output = Self>
-{}
+pub trait GenInt<I: BaseInt>:
+    GenNum<I>
+    + Eq
+    + Not<Output = Self>
+    + BitAnd<Output = Self>
+    + BitOr<Output = Self>
+    + BitXor<Output = Self>
+    + Shl<usize, Output = Self>
+    + Shr<usize, Output = Self>
+{
+}
 
 /// Generic signed integer type.
 ///
@@ -115,11 +124,8 @@ impl GenInt<u32> for u32 {}
 impl GenUType for u32 {}
 
 /// Generic float number type.
-pub trait GenFloat<F: BaseFloat>
-: GenNum<F>
-+ ApproxEq<BaseType = F>
-+ SignedNum
-+ Sub<F, Output = Self>
+pub trait GenFloat<F: BaseFloat>:
+    GenNum<F> + ApproxEq<BaseType = F> + SignedNum + Sub<F, Output = Self>
 {
     /// Computes and returns `a * b + c`.
     fn fma(&self, b: &Self, c: &Self) -> Self;

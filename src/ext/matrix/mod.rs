@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::BaseFloat;
-use vec::traits::GenFloatVec;
-use mat::traits::GenSquareMat;
+use crate::basenum::BaseFloat;
+use crate::mat::traits::GenSquareMat;
+use crate::vec::traits::GenFloatVec;
 
 pub use self::transform::*;
 
@@ -46,7 +46,7 @@ pub fn trace<F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>>(m: &M) -> F
     let mut tr = F::zero();
     for i in 0..s {
         tr = tr + m[i][i];
-    };
+    }
     tr
 }
 
@@ -65,10 +65,7 @@ pub fn trace<F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>>(m: &M) -> F
 /// assert!(is_invertible(&m2));
 /// ```
 #[inline]
-pub fn is_invertible
-<
-F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>
->(m: &M) -> bool {
+pub fn is_invertible<F: BaseFloat, C: GenFloatVec<F>, M: GenSquareMat<F, C>>(m: &M) -> bool {
     let y = F::zero();
     !m.determinant().is_approx_eq(&y)
 }

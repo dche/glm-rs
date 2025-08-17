@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +21,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseFloat, ApproxEq };
-use vec::traits::GenFloatVec;
-use std::ops::{ Add, Sub, Neg, Mul, Div, Rem, Index, IndexMut };
-use num::{ One, Zero };
+use core::ops::{Add, Div, Index, IndexMut, Mul, Neg, Rem, Sub};
+
+use num_traits::{One, Zero};
+
+use crate::basenum::{ApproxEq, BaseFloat};
+use crate::vec::traits::GenFloatVec;
 
 /// Generic Matrix type.
-pub trait GenMat
-<
-T: BaseFloat,
-C: GenFloatVec<T>
->
-: Sized
-+ Zero
-+ Add<Output = Self>
-+ Sub<Output = Self>
-+ Div<Output = Self>
-+ Rem<Output = Self>
-+ Neg<Output = Self>
-+ Mul<T, Output = Self>
-+ Index<usize, Output = C>
-+ IndexMut<usize>
-+ ApproxEq<BaseType = T>
+pub trait GenMat<T: BaseFloat, C: GenFloatVec<T>>:
+    Sized
+    + Zero
+    + Add<Output = Self>
+    + Sub<Output = Self>
+    + Div<Output = Self>
+    + Rem<Output = Self>
+    + Neg<Output = Self>
+    + Mul<T, Output = Self>
+    + Index<usize, Output = C>
+    + IndexMut<usize>
+    + ApproxEq<BaseType = T>
 {
     /// Type of row vectors.
     type R: GenFloatVec<T>;
@@ -78,13 +76,8 @@ C: GenFloatVec<T>
 }
 
 /// Generic type of square matrix.
-pub trait GenSquareMat
-<
-T: BaseFloat,
-C: GenFloatVec<T>,
->
-: GenMat<T, C, R = C, Transpose = Self>
-+ One
+pub trait GenSquareMat<T: BaseFloat, C: GenFloatVec<T>>:
+    GenMat<T, C, R = C, Transpose = Self> + One
 {
     /// Returns the determinant of a square matrix.
     ///

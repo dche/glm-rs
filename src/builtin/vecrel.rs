@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,13 +23,14 @@
 
 // The GLSL Specification, ch 8.7, Vector Relational Functions
 
-use basenum::Primitive;
-use vec::traits::{ GenVec, GenBVec };
-use vec::vec::{ Vector2, Vector3, Vector4 };
-use std::cmp::{ PartialEq, PartialOrd };
+use core::cmp::{PartialEq, PartialOrd};
+
+use crate::basenum::Primitive;
+use crate::vec::traits::{GenBVec, GenVec};
+use crate::vec::vec::{Vector2, Vector3, Vector4};
 
 pub trait VecRel<T: Primitive, B: GenBVec>: GenVec<T> {
-    fn zip_bool(&self, rhs: &Self, fn(&T, &T) -> bool) -> B;
+    fn zip_bool(&self, rhs: &Self, oper: fn(&T, &T) -> bool) -> B;
 }
 
 macro_rules! impl_vecrel_for(
@@ -79,10 +80,7 @@ pub fn lessThan<T: Primitive, B: GenBVec, V: VecRel<T, B>>(x: V, y: V) -> B {
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
-pub fn lessThanEqual
-<
-T: Primitive, B: GenBVec, V: VecRel<T, B>
->(x: V, y: V) -> B {
+pub fn lessThanEqual<T: Primitive, B: GenBVec, V: VecRel<T, B>>(x: V, y: V) -> B {
     x.zip_bool(&y, PartialOrd::le)
 }
 
@@ -100,10 +98,7 @@ T: Primitive, B: GenBVec, V: VecRel<T, B>
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
-pub fn greaterThan
-<
-T: Primitive, B: GenBVec, V: VecRel<T, B>
->(x: V, y: V) -> B {
+pub fn greaterThan<T: Primitive, B: GenBVec, V: VecRel<T, B>>(x: V, y: V) -> B {
     x.zip_bool(&y, PartialOrd::gt)
 }
 
@@ -122,10 +117,7 @@ T: Primitive, B: GenBVec, V: VecRel<T, B>
 /// ```
 #[inline(always)]
 #[allow(non_snake_case)]
-pub fn greaterThanEqual
-<
-T: Primitive, B: GenBVec, V: VecRel<T, B>
->(x: V, y: V) -> B {
+pub fn greaterThanEqual<T: Primitive, B: GenBVec, V: VecRel<T, B>>(x: V, y: V) -> B {
     x.zip_bool(&y, PartialOrd::ge)
 }
 

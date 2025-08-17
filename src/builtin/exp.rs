@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,9 +22,10 @@
 // THE SOFTWARE.
 // The GLSL Specification, ch 8.2, Exponential Functions.
 
-use basenum::BaseFloat;
-use traits::GenFloat;
-use num::Float;
+use num_traits::Float;
+
+use crate::basenum::BaseFloat;
+use crate::traits::GenFloat;
 
 /// Returns `x` raised to the `y` power, i.e., *x<sup>y</sup>*.
 ///
@@ -141,7 +142,5 @@ pub fn sqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
 /// ```
 #[inline(always)]
 pub fn inversesqrt<F: BaseFloat, T: GenFloat<F>>(x: T) -> T {
-    x.map(|f| -> F {
-        f.sqrt().recip()
-    })
+    x.map(|f| -> F { f.sqrt().recip() })
 }

@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use std::cmp;
-use std::{ f32, f64 };
-use std::ops::{ Sub, Div, Rem, Neg };
-use rand::Rand;
-use num::{ PrimInt, Float, One, Signed, Zero };
+use core::cmp;
+use core::ops::{Div, Neg, Rem, Sub};
+use core::{f32, f64};
+
+use num_traits::{Float, One, PrimInt, Signed, Zero};
 
 /// Marker trait for primitive types.
 ///
@@ -34,18 +34,13 @@ use num::{ PrimInt, Float, One, Signed, Zero };
 /// In `glm`, not all Rust primitive number types are used. Only those types
 /// that used in GLSL, i.e., `f32`, `f64`, `i32`, `u32` and `bool`, implement
 /// this trait.
-pub trait Primitive
-: Send + Copy + Sized + Clone + PartialOrd + PartialEq + Rand {}
+pub trait Primitive: Send + Copy + Sized + Clone + PartialOrd + PartialEq {}
 
 impl Primitive for bool {}
 
 /// Trait for primitive number type.
-pub trait BaseNum
-: Primitive
-+ Zero
-+ One
-+ Div<Self, Output = Self>
-+ Rem<Self, Output = Self>
+pub trait BaseNum:
+    Primitive + Zero + One + Div<Self, Output = Self> + Rem<Self, Output = Self>
 {
     /// Returns the smaller one of two numbers.
     ///
@@ -69,11 +64,7 @@ pub trait BaseNum
 }
 
 /// Trait for numerical types that have negative values.
-pub trait SignedNum
-: Sized
-+ Neg<Output = Self>
-+ Sub<Self, Output = Self>
-{
+pub trait SignedNum: Sized + Neg<Output = Self> + Sub<Self, Output = Self> {
     /// Returns the absolute value of the receiver.
     fn abs(&self) -> Self;
 
@@ -99,7 +90,6 @@ pub trait BaseInt: PrimInt + BaseNum {}
 /// See [this article](https://randomascii.wordpress.com/2012/02/25/comparing-floating-point-numbers-2012-edition/)
 /// for the details of comparing float numbers.
 pub trait ApproxEq {
-
     type BaseType: BaseFloat;
 
     /// Returns `true` if the difference between `x` and `y` is less than
@@ -182,7 +172,6 @@ macro_rules! assert_close_to(
     })
 );
 
-
 /// Trait for primitive float number type.
 pub trait BaseFloat: Float + BaseNum + SignedNum + ApproxEq<BaseType = Self> {
     fn to_degrees(self) -> Self;
@@ -250,11 +239,11 @@ macro_rules! impl_flt(
         impl BaseNum for $t {
             #[inline(always)]
             fn min(self, other: $t) -> $t {
-                Float::min(self, other)
+                self.min(other)
             }
             #[inline(always)]
             fn max(self, other: $t) -> $t {
-                Float::max(self, other)
+                self.max(other)
             }
         }
         impl BaseFloat for $t {

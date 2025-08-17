@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,9 +23,10 @@
 
 // The GLSL Specification, ch 8.1, Angle and Trigonometry Functions.
 
-use basenum::BaseFloat;
-use traits::GenFloat;
-use num::Float;
+use num_traits::Float;
+
+use crate::basenum::BaseFloat;
+use crate::traits::GenFloat;
 
 /// Converts `degrees` to radians, i.e., `π/180 * degrees`.
 #[inline(always)]

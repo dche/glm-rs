@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,11 @@
 
 // The GLSL Specification, ch 8.8, Integer Functions.
 
-use basenum::BaseInt;
-use traits::{ GenNum, GenInt, GenIType, GenUType };
-use vec::vec::{ UVec2, UVec3, UVec4, IVec2, IVec3, IVec4 };
-use std::mem;
+use core::mem;
+
+use crate::basenum::BaseInt;
+use crate::traits::{GenIType, GenInt, GenNum, GenUType};
+use crate::vec::vec::{IVec2, IVec3, IVec4, UVec2, UVec3, UVec4};
 
 // used by `findLSB` and `findMSB`.
 pub trait IntIntRel<I: BaseInt, T: GenIType>: GenInt<I> {
@@ -98,7 +99,7 @@ pub fn uaddCarry<T: GenUType>(x: T, y: T) -> (T, T) {
     x.map2(y, |i, j| -> (u32, u32) {
         match i.checked_add(j) {
             Some(s) => (s, 0),
-            None    => (i - (0xFFFFFFFF - j + 1), 1),
+            None => (i - (0xFFFFFFFF - j + 1), 1),
         }
     })
 }
@@ -179,23 +180,17 @@ pub fn imulExtended<T: GenIType>(x: T, y: T) -> (T, T) {
 /// ```
 /// use glm::bitfieldExtract;
 ///
-/// assert_eq!(bitfieldExtract(0xF000FFFF, 32, 12), 0);
+/// assert_eq!(bitfieldExtract(0xF000FFFF_u32, 32, 12), 0);
 /// assert_eq!(bitfieldExtract(0b11100011_u32, 1, 6), 0b110001);
 /// ```
 #[allow(non_snake_case)]
-pub fn bitfieldExtract
-<
-I: BaseInt,
-T: GenInt<I>
->(value: T, offset: usize, bits: usize) -> T {
+pub fn bitfieldExtract<I: BaseInt, T: GenInt<I>>(value: T, offset: usize, bits: usize) -> T {
     let ling = T::zero();
     if value.is_zero() || bits == 0 || offset + bits > 32 {
         ling
     } else {
         let mask = I::from((1_u32 << bits) - 1).unwrap();
-        value.map(|i| -> I {
-            (i >> offset) & mask
-        })
+        value.map(|i| -> I { (i >> offset) & mask })
     }
 }
 
@@ -216,21 +211,20 @@ T: GenInt<I>
 /// ```
 /// use glm::bitfieldInsert;
 ///
-/// assert_eq!(bitfieldInsert(1_i32, 0xFF00FF00, 8, 20), 0xF00FF01);
+/// assert_eq!(bitfieldInsert(1_u32, 0xFF00FF00, 8, 20), 0xF00FF01);
 /// ```
 #[allow(non_snake_case)]
-pub fn bitfieldInsert
-<
-I: BaseInt,
-T: GenInt<I>
->(base: T, insert: T, offset: usize, bits: usize) -> T {
+pub fn bitfieldInsert<I: BaseInt, T: GenInt<I>>(
+    base: T,
+    insert: T,
+    offset: usize,
+    bits: usize,
+) -> T {
     if bits == 0 {
         base
     } else {
         let mask = I::from(((1_u32 << bits) - 1) << offset).unwrap();
-        base.zip(insert, |i, j| -> I {
-            (i & !mask) | (j & mask)
-        })
+        base.zip(insert, |i, j| -> I { (i & !mask) | (j & mask) })
     }
 }
 
@@ -245,7 +239,7 @@ T: GenInt<I>
 /// ```
 /// use glm::bitfieldReverse;
 ///
-/// assert_eq!(bitfieldReverse(0xF30000F3), 0xCF0000CF);
+/// assert_eq!(bitfieldReverse(0xF30000F3_u32), 0xCF0000CF);
 /// ```
 #[allow(non_snake_case)]
 pub fn bitfieldReverse<I: BaseInt, T: GenInt<I>>(value: T) -> T {
@@ -301,11 +295,7 @@ pub fn bitCount<I: BaseInt, T: GenInt<I>>(value: T) -> T {
 /// assert_eq!(findLSB(v), ivec2(3, 31));
 /// ```
 #[allow(non_snake_case)]
-pub fn findLSB<
-B: BaseInt,
-I: GenIType,
-T: IntIntRel<B, I>
->(value: T) -> I {
+pub fn findLSB<B: BaseInt, I: GenIType, T: IntIntRel<B, I>>(value: T) -> I {
     value.map_int(|i| -> i32 {
         if i.is_zero() {
             -1
@@ -334,11 +324,7 @@ T: IntIntRel<B, I>
 /// assert_eq!(findMSB(ivec3(-1, -2, 0x7FFFFFFF)), ivec3(-1, 0, 30));
 /// ```
 #[allow(non_snake_case)]
-pub fn findMSB<
-B: BaseInt,
-I: GenIType,
-T: IntIntRel<B, I>
->(value: T) -> I {
+pub fn findMSB<B: BaseInt, I: GenIType, T: IntIntRel<B, I>>(value: T) -> I {
     value.map_int(|i| -> i32 {
         let ling = B::zero();
         if i.is_zero() {

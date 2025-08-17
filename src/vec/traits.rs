@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,15 +21,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::{ BaseNum, BaseFloat, Primitive };
-use traits::{ GenBType, GenFloat, GenNum };
-use std::ops::{ Index, IndexMut };
+use core::ops::{Index, IndexMut};
+
+use crate::basenum::{BaseFloat, BaseNum, Primitive};
+use crate::traits::{GenBType, GenFloat, GenNum};
 
 /// Generic vector type.
-pub trait GenVec<T: Primitive>
-: Copy
-+ Index<usize, Output = T>
-+ IndexMut<usize, Output = T>
+pub trait GenVec<T: Primitive>:
+    Copy + Index<usize, Output = T> + IndexMut<usize, Output = T>
 {
     /// Returns the dimension of the vector.
     ///
@@ -46,7 +45,6 @@ pub trait GenVec<T: Primitive>
 
 /// Trait of all vector types that are GenNum.
 pub trait GenNumVec<T: BaseNum>: GenNum<T> + GenVec<T> {
-
     /// Returns the sum of all components.
     //
     /// # Example
@@ -98,7 +96,6 @@ pub trait GenFloatVec<T: BaseFloat>: GenNumVec<T> + GenFloat<T> {}
 
 /// Generic boolean vector type.
 pub trait GenBVec: GenVec<bool> + GenBType {
-
     /// Returns `true` if there is any component of the receiver is `true`.
     ///
     /// # Example

@@ -1,7 +1,7 @@
 //
 // GLSL Mathematics for Rust.
 //
-// Copyright (c) 2015 The glm-rs authors.
+// Copyright (c) 2015, 2025 The glm-rs authors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -21,16 +21,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-use basenum::Primitive;
-use vec::traits::GenVec;
-use vec::vec::*;
-use std::default::Default;
-use num::{ ToPrimitive, Zero };
+use core::default::Default;
+
+use num_traits::{ToPrimitive, Zero};
+
+use crate::basenum::Primitive;
+use crate::vec::traits::GenVec;
+use crate::vec::vec::*;
 
 /// This trait is like the `std::num::ToPrimitive`, but function `to_bool()`
 /// is added.
 pub trait ToPrim: Primitive {
-
     fn to_i32(&self) -> Option<i32>;
 
     fn to_u32(&self) -> Option<u32>;
@@ -103,7 +104,6 @@ impl ToPrim for bool {
 
 /// This trait provides parameterized function `from`.
 pub trait PrimCast: ToPrim {
-
     /// Converts from a value with primitive type `p`.
     fn from<F: ToPrim>(p: F) -> Option<Self>;
 }
@@ -230,13 +230,9 @@ def_cast_scalar_fun! {
 }
 
 /// Traits for converting any scalar/vector values to a vector.
-pub trait ToVector
-<
-F: PrimCast,
-T: PrimCast,
-GT: GenPrimitive<BaseType = T> + GenVec<T>
->: GenPrimitive<BaseType = F> {
-
+pub trait ToVector<F: PrimCast, T: PrimCast, GT: GenPrimitive<BaseType = T> + GenVec<T>>:
+    GenPrimitive<BaseType = F>
+{
     /// Convertes _self_ to a value of Vector type.
     ///
     /// # Example
@@ -342,7 +338,6 @@ def_cast_vector_fun! {
 #[cfg(test)]
 mod test {
 
-    use vec::vec::*;
     use super::*;
 
     #[test]

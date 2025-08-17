@@ -1,13 +1,18 @@
 [package]
 
 name = "glm"
-version = "0.2.3"
+version = "0.3.0"
+edition = "2021"
+
 authors = [
     "Che Kenan <chekenan@gmail.com>",
     "Nerijus Arlauskas <nercury@gmail.com>",
     "Fredrik Norén",
     "Cameron Hart <https://github.com/bitshifter>",
-    "human9 <https://github.com/human9>"
+    "human9 <https://github.com/human9>",
+    "Raphaël Duhen <https://github.com/HoloTheDrunk>",
+    "Joel Nordström <https://github.com/iwikal>",
+    "kitcatier <https://github.com/kitcatier>",
 ]
 
 description = "GLSL mathematics for Rust."
@@ -16,6 +21,7 @@ license = "MIT"
 repository = "https://github.com/dche/glm-rs/"
 
 [dependencies]
-rand = "^0.3.14"
-num = "^0.1.36"
-quickcheck = "^0.2.27"
+num-traits = { version = "0.2" }
+
+[dev-dependencies]
+quickcheck = "^1.0.3"
