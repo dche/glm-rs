@@ -24,10 +24,13 @@
 use core::cmp::Eq;
 use core::mem;
 use core::ops::{
-    Add, BitAnd, BitOr, BitXor, Div, Index, IndexMut, Mul, Neg, Not, Rem, Shl, Shr, Sub,
+    Add, AddAssign, BitAnd, BitOr, BitXor, Div, DivAssign, Index, IndexMut, Mul, MulAssign, Neg,
+    Not, Rem, Shl, Shr, Sub, SubAssign,
 };
 
 use num_traits::{Float, One, Zero};
+#[cfg(feature = "wrapping_ops")]
+use num_traits::{WrappingAdd, WrappingMul, WrappingSub};
 #[cfg(test)]
 use quickcheck::{Arbitrary, Gen};
 
@@ -60,6 +63,7 @@ macro_rules! def_genvec(
         pub struct $t<T: Primitive> {
             $(pub $field: T),+
         }
+
         impl<T: Primitive> $t<T> {
             #[inline(always)]
             pub fn new($($field: T),+) -> $t<T> {
@@ -139,6 +143,56 @@ macro_rules! def_genvec(
                 $t::new($(self.$field + rhs),+)
             }
         }
+        #[cfg(feature="wrapping_ops")]
+        impl AddAssign<$t<f32>> for $t<f32> {
+            fn add_assign(&mut self, rhs: $t<f32>) {
+                $( self.$field = self.$field + rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl AddAssign<f32> for $t<f32> {
+            fn add_assign(&mut self, rhs: f32) {
+                $( self.$field = self.$field + rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl AddAssign<$t<f64>> for $t<f64> {
+            fn add_assign(&mut self, rhs: $t<f64>) {
+                $( self.$field = self.$field + rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl AddAssign<f64> for $t<f64> {
+            fn add_assign(&mut self, rhs: f64) {
+                $( self.$field = self.$field + rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: BaseInt + WrappingAdd<Output = T>> AddAssign<$t<T>> for $t<T> {
+            fn add_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field.wrapping_add(&rhs.$field); )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: BaseInt + WrappingAdd<Output = T>> AddAssign<T> for $t<T> {
+            fn add_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field.wrapping_add(&rhs); )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: BaseNum> AddAssign<$t<T>> for $t<T> {
+            #[inline(always)]
+            fn add_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field + rhs.$field; )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: BaseNum> AddAssign<T> for $t<T> {
+            #[inline(always)]
+            fn add_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field + rhs; )+
+            }
+        }
         impl<T: BaseNum> Mul<$t<T>> for $t<T> {
             type Output = $t<T>;
             #[inline(always)]
@@ -153,6 +207,56 @@ macro_rules! def_genvec(
                 $t::new($(self.$field * rhs),+)
             }
         }
+        #[cfg(feature="wrapping_ops")]
+        impl MulAssign<$t<f32>> for $t<f32> {
+            fn mul_assign(&mut self, rhs: $t<f32>) {
+                $( self.$field = self.$field * rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl MulAssign<f32> for $t<f32> {
+            fn mul_assign(&mut self, rhs: f32) {
+                $( self.$field = self.$field * rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl MulAssign<$t<f64>> for $t<f64> {
+            fn mul_assign(&mut self, rhs: $t<f64>) {
+                $( self.$field = self.$field * rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl MulAssign<f64> for $t<f64> {
+            fn mul_assign(&mut self, rhs: f64) {
+                $( self.$field = self.$field * rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: BaseInt + WrappingMul<Output = T>> MulAssign<$t<T>> for $t<T> {
+            fn mul_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field.wrapping_mul(&rhs.$field); )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: BaseInt + WrappingMul<Output = T>> MulAssign<T> for $t<T> {
+            fn mul_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field.wrapping_mul(&rhs); )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: BaseNum> MulAssign<$t<T>> for $t<T> {
+            #[inline(always)]
+            fn mul_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field * rhs.$field; )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: BaseNum> MulAssign<T> for $t<T> {
+            #[inline(always)]
+            fn mul_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field * rhs; )+
+            }
+        }
         impl<T: BaseNum> Div<$t<T>> for $t<T> {
             type Output = $t<T>;
             #[inline(always)]
@@ -165,6 +269,18 @@ macro_rules! def_genvec(
             #[inline(always)]
             fn div(self, rhs: T) -> $t<T> {
                 $t::new($(self.$field / rhs),+)
+            }
+        }
+        impl<T: SignedNum + BaseNum> DivAssign<$t<T>> for $t<T> {
+            #[inline(always)]
+            fn div_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field / rhs.$field; )+
+            }
+        }
+        impl<T: SignedNum +  BaseNum> DivAssign<T> for $t<T> {
+            #[inline(always)]
+            fn div_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field / rhs; )+
             }
         }
         impl<T: BaseNum> Rem<$t<T>> for $t<T> {
@@ -277,6 +393,56 @@ macro_rules! def_genvec(
             #[inline(always)]
             fn sub(self, rhs: T) -> $t<T> {
                 $t::new($(self.$field - rhs),+)
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl SubAssign<$t<f32>> for $t<f32> {
+            fn sub_assign(&mut self, rhs: $t<f32>) {
+                $( self.$field = self.$field - rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl SubAssign<f32> for $t<f32> {
+            fn sub_assign(&mut self, rhs: f32) {
+                $( self.$field = self.$field - rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl SubAssign<$t<f64>> for $t<f64> {
+            fn sub_assign(&mut self, rhs: $t<f64>) {
+                $( self.$field = self.$field - rhs.$field; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl SubAssign<f64> for $t<f64> {
+            fn sub_assign(&mut self, rhs: f64) {
+                $( self.$field = self.$field - rhs; )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: SignedNum + BaseInt + WrappingSub<Output = T>> SubAssign<$t<T>> for $t<T> {
+            fn sub_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field.wrapping_sub(&rhs.$field); )+
+            }
+        }
+        #[cfg(feature="wrapping_ops")]
+        impl<T: SignedNum + BaseInt + WrappingSub<Output = T>> SubAssign<T> for $t<T> {
+            fn sub_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field.wrapping_sub(&rhs); )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: SignedNum + BaseInt> SubAssign<$t<T>> for $t<T> {
+            #[inline(always)]
+            fn sub_assign(&mut self, rhs: $t<T>) {
+                $( self.$field = self.$field - rhs.$field; )+
+            }
+        }
+        #[cfg(not(feature="wrapping_ops"))]
+        impl<T: BaseInt> SubAssign<T> for $t<T> {
+            #[inline(always)]
+            fn sub_assign(&mut self, rhs: T) {
+                $( self.$field = self.$field * rhs; )+
             }
         }
         impl<T: SignedNum + BaseNum> SignedNum for $t<T> {
@@ -395,7 +561,7 @@ impl<T: Primitive> Vector2<T> {
         Vector3 {
             x: self.x,
             y: self.y,
-            z: z,
+            z,
         }
     }
 }
@@ -524,10 +690,8 @@ def_alias! {
 
 #[cfg(test)]
 mod test {
-
-    use quickcheck::*;
-
     use super::*;
+    use quickcheck::*;
 
     #[test]
     fn test_as_array() {
